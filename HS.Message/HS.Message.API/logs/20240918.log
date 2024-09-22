@@ -1,0 +1,276 @@
+2024-09-18 15:26:15.389 [INF] Url:127.0.0.1/
+RequestId:00000000000000000000000000000000
+RemoteAddress:127.0.0.1
+X-Forwarded-For:
+SourceContext:HS.Message.API
+The application starts in the {"EnvironmentName":"Development","ApplicationName":"HS.Message.API","WebRootPath":null,"WebRootFileProvider":{},"ContentRootPath":"D:\\project\\HaiSheng\\HS.Message\\HS.Message.API","ContentRootFileProvider":{"UsePollingFileWatcher":false,"UseActivePolling":false,"Root":"D:\\project\\HaiSheng\\HS.Message\\HS.Message.API\\"}} environment
+
+2024-09-18 15:26:16.691 [ERR] Url:localhost:9082/
+RequestId:755a2ad0200d4d2f85e62fa66b7b92c9
+RemoteAddress:::1
+X-Forwarded-For:
+SourceContext:Serilog.AspNetCore.RequestLoggingMiddleware
+HTTP GET / responded 500 in 64.3600 ms
+System.IO.FileNotFoundException: Could not find file 'D:\project\HaiSheng\HS.Message\HS.Message.API\bin\Debug\net8.0\HS.Message.Repository.xml'.
+File name: 'D:\project\HaiSheng\HS.Message\HS.Message.API\bin\Debug\net8.0\HS.Message.Repository.xml'
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategyCore(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize)
+   at System.Xml.XmlDownloadManager.GetStream(Uri uri, ICredentials credentials, IWebProxy proxy)
+   at System.Xml.XmlTextReaderImpl.OpenUrl()
+   at System.Xml.XmlTextReaderImpl.Read()
+   at System.Xml.XPath.XPathDocument.LoadFromReader(XmlReader reader, XmlSpace space)
+   at System.Xml.XPath.XPathDocument..ctor(String uri, XmlSpace space)
+   at Microsoft.Extensions.DependencyInjection.SwaggerGenOptionsExtensions.<>c__DisplayClass37_0.<IncludeXmlComments>b__0()
+   at Microsoft.Extensions.DependencyInjection.SwaggerGenOptionsExtensions.IncludeXmlComments(SwaggerGenOptions swaggerGenOptions, Func`1 xmlDocFactory, Boolean includeControllerXmlComments)
+   at Microsoft.Extensions.DependencyInjection.SwaggerGenOptionsExtensions.IncludeXmlComments(SwaggerGenOptions swaggerGenOptions, String filePath, Boolean includeControllerXmlComments)
+   at HS.Message.Extensions.SwaggerExtensions.<>c.<AddSwaggerDoc>b__0_0(SwaggerGenOptions options) in D:\project\HaiSheng\HS.Message\HS.Message.API\Extensions\SwaggerExtensions.cs:line 53
+   at Microsoft.Extensions.Options.OptionsFactory`1.Create(String name)
+   at Microsoft.Extensions.Options.UnnamedOptionsManager`1.get_Value()
+   at Swashbuckle.AspNetCore.SwaggerGen.ConfigureSwaggerGeneratorOptions..ctor(IOptions`1 swaggerGenOptionsAccessor, IServiceProvider serviceProvider, IWebHostEnvironment hostingEnv)
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitDisposeCache(ServiceCallSite transientCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitIEnumerable(IEnumerableCallSite enumerableCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitDisposeCache(ServiceCallSite transientCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitRootCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.CreateServiceAccessor(ServiceIdentifier serviceIdentifier)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+   at Microsoft.Extensions.DependencyInjection.SwaggerGenServiceCollectionExtensions.<>c.<AddSwaggerGen>b__0_1(IServiceProvider s)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitDisposeCache(ServiceCallSite transientCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitDisposeCache(ServiceCallSite transientCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at lambda_method10(Closure, Object, HttpContext, IServiceProvider)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+
+2024-09-18 15:27:45.329 [INF] Url:127.0.0.1/
+RequestId:00000000000000000000000000000000
+RemoteAddress:127.0.0.1
+X-Forwarded-For:
+SourceContext:HS.Message.API
+The application starts in the {"EnvironmentName":"Development","ApplicationName":"HS.Message.API","WebRootPath":null,"WebRootFileProvider":{},"ContentRootPath":"D:\\project\\HaiSheng\\HS.Message\\HS.Message.API","ContentRootFileProvider":{"UsePollingFileWatcher":false,"UseActivePolling":false,"Root":"D:\\project\\HaiSheng\\HS.Message\\HS.Message.API\\"}} environment
+
+2024-09-18 15:27:46.264 [INF] Url:localhost:9082/
+RequestId:d26b43cd0a5d4615b3e45dc8e0e40fce
+RemoteAddress:::1
+X-Forwarded-For:
+SourceContext:Serilog.AspNetCore.RequestLoggingMiddleware
+HTTP GET / responded 301 in 102.9148 ms
+
+2024-09-18 15:27:46.304 [INF] Url:localhost:9082/index.html
+RequestId:518fd0cdae5b4a3998152ee95912301c
+RemoteAddress:::1
+X-Forwarded-For:
+SourceContext:Serilog.AspNetCore.RequestLoggingMiddleware
+HTTP GET /index.html responded 200 in 8.7842 ms
+
+2024-09-18 15:27:46.350 [INF] Url:localhost:9082/knife4j/css/chunk-0b510f4b.a9ffbfcb.css
+RequestId:546ecce5eaa1470c88e70f27f28e8f37
+RemoteAddress:::1
+X-Forwarded-For:
+SourceContext:Serilog.AspNetCore.RequestLoggingMiddleware
+HTTP GET /knife4j/css/chunk-0b510f4b.a9ffbfcb.css responded 200 in 0.3447 ms
+
+2024-09-18 15:27:46.372 [INF] Url:localhost:9082/knife4j/css/chunk-vendors.f24a310a.css
+RequestId:5c972840791841289111340bc88a64f0
+RemoteAddress:::1
+X-Forwarded-For:
+SourceContext:Serilog.AspNetCore.RequestLoggingMiddleware
+HTTP GET /knife4j/css/chunk-vendors.f24a310a.css responded 200 in 58.3838 ms
+
+2024-09-18 15:27:46.403 [INF] Url:localhost:9082/knife4j/css/app.3fe6a448.css
+RequestId:8dc6c778be3749af8d7a7b0b365be192
+RemoteAddress:::1
+X-Forwarded-For:
+SourceContext:Serilog.AspNetCore.RequestLoggingMiddleware
+HTTP GET /knife4j/css/app.3fe6a448.css responded 200 in 89.5686 ms
+
+2024-09-18 15:27:46.404 [INF] Url:localhost:9082/knife4j/css/chunk-48fb4a08.8fb93ba5.css
+RequestId:1fab949ec82d4496a8c39f7719c44c3a
+RemoteAddress:::1
+X-Forwarded-For:
+SourceContext:Serilog.AspNetCore.RequestLoggingMiddleware
+HTTP GET /knife4j/css/chunk-48fb4a08.8fb93ba5.css responded 200 in 0.2833 ms
+
+2024-09-18 15:27:46.367 [INF] Url:localhost:9082/knife4j/js/app.ed0963c2.js
+RequestId:48c60bacc8a74eed8e3b7cfeee2641fb
+RemoteAddress:::1
+X-Forwarded-For:
+SourceContext:Serilog.AspNetCore.RequestLoggingMiddleware
+HTTP GET /knife4j/js/app.ed0963c2.js responded 200 in 52.5726 ms
+
+2024-09-18 15:27:46.452 [INF] Url:localhost:9082/knife4j/js/chunk-0d102d5a.f7be9e9f.js
+RequestId:a9e6f53a6a9a4e1d9580ed7c43a48930
+RemoteAddress:::1
+X-Forwarded-For:
+SourceContext:Serilog.AspNetCore.RequestLoggingMiddleware
+HTTP GET /knife4j/js/chunk-0d102d5a.f7be9e9f.js responded 200 in 1.5264 ms
+
+2024-09-18 15:27:46.483 [INF] Url:localhost:9082/knife4j/js/chunk-0b510f4b.35bde34f.js
+RequestId:bcde475d1d534ad6adfdaf390a0f8d44
+RemoteAddress:::1
+X-Forwarded-For:
+SourceContext:Serilog.AspNetCore.RequestLoggingMiddleware
+HTTP GET /knife4j/js/chunk-0b510f4b.35bde34f.js responded 200 in 1.5975 ms
+
+2024-09-18 15:27:46.512 [INF] Url:localhost:9082/knife4j/js/chunk-214218f0.e57955ea.js
+RequestId:822d9dd9756349789cd3ec62e4e0428e
+RemoteAddress:::1
+X-Forwarded-For:
+SourceContext:Serilog.AspNetCore.RequestLoggingMiddleware
+HTTP GET /knife4j/js/chunk-214218f0.e57955ea.js responded 200 in 15.2227 ms
+
+2024-09-18 15:27:46.512 [INF] Url:localhost:9082/knife4j/js/chunk-2d0bd799.b2940fe8.js
+RequestId:d4c2bfbd126648b799468bff694dcecb
+RemoteAddress:::1
+X-Forwarded-For:
+SourceContext:Serilog.AspNetCore.RequestLoggingMiddleware
+HTTP GET /knife4j/js/chunk-2d0bd799.b2940fe8.js responded 200 in 0.8451 ms
+
+2024-09-18 15:27:46.498 [INF] Url:localhost:9082/knife4j/js/chunk-vendors.47434499.js
+RequestId:b1bcd03a9243472b819592b6cb4d7f17
+RemoteAddress:::1
+X-Forwarded-For:
+SourceContext:Serilog.AspNetCore.RequestLoggingMiddleware
+HTTP GET /knife4j/js/chunk-vendors.47434499.js responded 200 in 183.4851 ms
+
+2024-09-18 15:27:46.529 [INF] Url:localhost:9082/knife4j/js/chunk-0fd67716.7c05a478.js
+RequestId:f69c92f0e4ae411897b043ce1d396d7d
+RemoteAddress:::1
+X-Forwarded-For:
+SourceContext:Serilog.AspNetCore.RequestLoggingMiddleware
+HTTP GET /knife4j/js/chunk-0fd67716.7c05a478.js responded 200 in 62.4069 ms
+
+2024-09-18 15:27:46.533 [INF] Url:localhost:9082/knife4j/js/chunk-2d0af44e.5638fa51.js
+RequestId:660f92d4da0d44ada9e5156ed941b799
+RemoteAddress:::1
+X-Forwarded-For:
+SourceContext:Serilog.AspNetCore.RequestLoggingMiddleware
+HTTP GET /knife4j/js/chunk-2d0af44e.5638fa51.js responded 200 in 0.6123 ms
+
+2024-09-18 15:27:46.587 [INF] Url:localhost:9082/knife4j/js/chunk-20eb9ef8.924b2b96.js
+RequestId:34830a2a9d174832b8c7c0602576bb89
+RemoteAddress:::1
+X-Forwarded-For:
+SourceContext:Serilog.AspNetCore.RequestLoggingMiddleware
+HTTP GET /knife4j/js/chunk-20eb9ef8.924b2b96.js responded 200 in 122.5399 ms
+
+2024-09-18 15:27:46.587 [INF] Url:localhost:9082/knife4j/js/chunk-2d0da532.a71dc1cf.js
+RequestId:4d51dbff2469472b8ade38d6b338f75d
+RemoteAddress:::1
+X-Forwarded-For:
+SourceContext:Serilog.AspNetCore.RequestLoggingMiddleware
+HTTP GET /knife4j/js/chunk-2d0da532.a71dc1cf.js responded 200 in 0.2372 ms
+
+2024-09-18 15:27:46.620 [INF] Url:localhost:9082/knife4j/js/chunk-42d52f4e.10d60c0a.js
+RequestId:f97097ae9b9f4c75bd48b2a0cb34ac58
+RemoteAddress:::1
+X-Forwarded-For:
+SourceContext:Serilog.AspNetCore.RequestLoggingMiddleware
+HTTP GET /knife4j/js/chunk-42d52f4e.10d60c0a.js responded 200 in 67.0881 ms
+
+2024-09-18 15:27:46.580 [INF] Url:localhost:9082/knife4j/js/chunk-3b888a65.4da69ee0.js
+RequestId:972b01b58e9141b3af0bacc567252e29
+RemoteAddress:::1
+X-Forwarded-For:
+SourceContext:Serilog.AspNetCore.RequestLoggingMiddleware
+HTTP GET /knife4j/js/chunk-3b888a65.4da69ee0.js responded 200 in 12.0083 ms
+
+2024-09-18 15:27:46.639 [INF] Url:localhost:9082/knife4j/js/chunk-589faee0.ced2febb.js
+RequestId:9213a3a588514ea18a97de4549ba34ef
+RemoteAddress:::1
+X-Forwarded-For:
+SourceContext:Serilog.AspNetCore.RequestLoggingMiddleware
+HTTP GET /knife4j/js/chunk-589faee0.ced2febb.js responded 200 in 12.7422 ms
+
+2024-09-18 15:27:46.684 [INF] Url:localhost:9082/knife4j/js/chunk-9aa77aca.5b2e54f0.js
+RequestId:c92850ba9a7748898c78cc890ab32d77
+RemoteAddress:::1
+X-Forwarded-For:
+SourceContext:Serilog.AspNetCore.RequestLoggingMiddleware
+HTTP GET /knife4j/js/chunk-9aa77aca.5b2e54f0.js responded 200 in 28.1303 ms
+
+2024-09-18 15:27:46.684 [INF] Url:localhost:9082/knife4j/js/chunk-48fb4a08.595060d3.js
+RequestId:5ac1395366a647268762a12ae667cf26
+RemoteAddress:::1
+X-Forwarded-For:
+SourceContext:Serilog.AspNetCore.RequestLoggingMiddleware
+HTTP GET /knife4j/js/chunk-48fb4a08.595060d3.js responded 200 in 64.7515 ms
+
+2024-09-18 15:27:46.708 [INF] Url:localhost:9082/knife4j/js/chunk-6cbe5a9e.2e52bf2e.js
+RequestId:40c520d1fe26421c97abcbe7875f5b59
+RemoteAddress:::1
+X-Forwarded-For:
+SourceContext:Serilog.AspNetCore.RequestLoggingMiddleware
+HTTP GET /knife4j/js/chunk-6cbe5a9e.2e52bf2e.js responded 200 in 7.6317 ms
+
+2024-09-18 15:27:46.715 [INF] Url:localhost:9082/knife4j/js/chunk-adb9e944.5689d832.js
+RequestId:ab088b60f67f45c9b5b148a586da135f
+RemoteAddress:::1
+X-Forwarded-For:
+SourceContext:Serilog.AspNetCore.RequestLoggingMiddleware
+HTTP GET /knife4j/js/chunk-adb9e944.5689d832.js responded 200 in 0.5820 ms
+
+2024-09-18 15:27:46.718 [INF] Url:localhost:9082/knife4j/js/chunk-735c675c.eb8e4177.js
+RequestId:f698201f46f84d09832e9b4e6b4b0f91
+RemoteAddress:::1
+X-Forwarded-For:
+SourceContext:Serilog.AspNetCore.RequestLoggingMiddleware
+HTTP GET /knife4j/js/chunk-735c675c.eb8e4177.js responded 200 in 56.4110 ms
+
+2024-09-18 15:27:46.730 [INF] Url:localhost:9082/knife4j/js/chunk-a27fb06c.8cd4cd3b.js
+RequestId:afb7fd6461ee4b23b386d814f730d5e9
+RemoteAddress:::1
+X-Forwarded-For:
+SourceContext:Serilog.AspNetCore.RequestLoggingMiddleware
+HTTP GET /knife4j/js/chunk-a27fb06c.8cd4cd3b.js responded 200 in 41.1689 ms
+
+2024-09-18 15:27:46.789 [INF] Url:localhost:9082/favicon.ico
+RequestId:ab063113752d4ace87fa46e236d95117
+RemoteAddress:::1
+X-Forwarded-For:
+SourceContext:Serilog.AspNetCore.RequestLoggingMiddleware
+HTTP GET /favicon.ico responded 200 in 0.2441 ms
+
+2024-09-18 15:27:46.856 [INF] Url:localhost:9082/swagger-resources
+RequestId:635e2ec6efac449fbd0d8eb5f71b9bab
+RemoteAddress:::1
+X-Forwarded-For:
+SourceContext:Serilog.AspNetCore.RequestLoggingMiddleware
+HTTP GET /swagger-resources responded 200 in 61.5524 ms
+
+2024-09-18 15:27:47.315 [INF] Url:localhost:9082/api-docs/All/swagger.json
+RequestId:98864f9997264543b26f50282ee8d253
+RemoteAddress:::1
+X-Forwarded-For:
+SourceContext:Serilog.AspNetCore.RequestLoggingMiddleware
+HTTP GET /api-docs/All/swagger.json responded 200 in 450.7373 ms
+

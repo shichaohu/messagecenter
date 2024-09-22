@@ -1,0 +1,1040 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>HS.Message.Share</name>
+    </assembly>
+    <members>
+        <member name="T:HS.Message.Share.Authentication.AuthenticationExtensions">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:HS.Message.Share.Authentication.AuthenticationExtensions.AddAuthentication(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Register the Authentication Service
+            </summary>
+            <param name="services"></param>
+            <param name="configuration"></param>
+        </member>
+        <member name="T:HS.Message.Share.Authentication.CustomAuthenticationHandler">
+            <summary>
+            自定义认证处理器
+            </summary>
+        </member>
+        <member name="F:HS.Message.Share.Authentication.CustomAuthenticationHandler.CustomerSchemeName">
+            <summary>
+            自定义认证
+            </summary>
+        </member>
+        <member name="M:HS.Message.Share.Authentication.CustomAuthenticationHandler.InitializeHandlerAsync">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HS.Message.Share.Authentication.CustomAuthenticationHandler.BasicAuthenticateAsync">
+            <summary>
+            Basic认证 鉴权方式
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HS.Message.Share.Authentication.CustomAuthenticationHandler.GetAuthTicket(System.String,System.String)">
+            <summary>
+            生成认证票据
+            </summary>
+            <param name="name"></param>
+            <param name="role"></param>
+            <returns></returns>
+        </member>
+        <member name="T:HS.Message.Share.BaseModel.ApiBaseInfo">
+            <summary>
+            接口基础信息
+            </summary>
+        </member>
+        <member name="P:HS.Message.Share.BaseModel.ApiBaseInfo.Namespace">
+            <summary>
+            命名空间
+            </summary>
+        </member>
+        <member name="P:HS.Message.Share.BaseModel.ApiBaseInfo.ControllerSummary">
+            <summary>
+            controller 注释
+            </summary>
+        </member>
+        <member name="P:HS.Message.Share.BaseModel.ApiBaseInfo.ActionRouteTemplate">
+            <summary>
+            action route template
+            </summary>
+        </member>
+        <member name="P:HS.Message.Share.BaseModel.ApiBaseInfo.ActionSummary">
+            <summary>
+            action 注释
+            </summary>
+        </member>
+        <member name="T:HS.Message.Share.BaseModel.AppSettingsConfigurationModel">
+            <summary>
+            appsetting.json配置
+            </summary>
+        </member>
+        <member name="P:HS.Message.Share.BaseModel.BaseResponse.Code">
+            <summary>
+            返回状态的编码
+            </summary>
+        </member>
+        <member name="P:HS.Message.Share.BaseModel.BaseResponse.Message">
+            <summary>
+            详细数据
+            </summary>
+        </member>
+        <member name="M:HS.Message.Share.BaseModel.BaseResponse`1.SuccessResponse``1(``0,System.String)">
+            <summary>
+            默认成功返回消息实体
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="data"></param>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HS.Message.Share.BaseModel.BaseResponse`1.FailResponse(System.String,HS.Message.Share.BaseModel.ResponseCode)">
+            <summary>
+            默认失败返回参数
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="F:HS.Message.Share.BaseModel.ResponseCode.Success">
+            <summary>
+            成功
+            </summary>
+        </member>
+        <member name="F:HS.Message.Share.BaseModel.ResponseCode.ParameterError">
+            <summary>
+            参数错误
+            </summary>
+        </member>
+        <member name="F:HS.Message.Share.BaseModel.ResponseCode.InternalError">
+            <summary>
+            内部错误
+            </summary>
+        </member>
+        <member name="F:HS.Message.Share.BaseModel.ResponseCode.OtherError">
+            <summary>
+            其他错误
+            </summary>
+        </member>
+        <member name="F:HS.Message.Share.BaseModel.ResponseCode.DataError">
+            <summary>
+            数据错误
+            </summary>
+        </member>
+        <member name="T:HS.Message.Share.BaseModel.MPageQueryResponse`1">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:HS.Message.Share.Enums.BillOperation">
+            <summary>
+            单据操作
+            </summary>
+        </member>
+        <member name="F:HS.Message.Share.Enums.BillOperation.commit">
+            <summary>
+            提交
+            </summary>
+        </member>
+        <member name="F:HS.Message.Share.Enums.BillOperation.approved">
+            <summary>
+            审核通过
+            </summary>
+        </member>
+        <member name="F:HS.Message.Share.Enums.BillOperation.rejected">
+            <summary>
+            驳回
+            </summary>
+        </member>
+        <member name="F:HS.Message.Share.Enums.BillOperation.done">
+            <summary>
+            完成
+            </summary>
+        </member>
+        <member name="T:HS.Message.Share.Enums.BillStatus">
+            <summary>
+            单据状态（流转）
+            </summary>
+        </member>
+        <member name="F:HS.Message.Share.Enums.BillStatus.uncommitted">
+            <summary>
+            未提交
+            </summary>
+        </member>
+        <member name="F:HS.Message.Share.Enums.BillStatus.unaudited">
+            <summary>
+            未审核
+            </summary>
+        </member>
+        <member name="F:HS.Message.Share.Enums.BillStatus.approved">
+            <summary>
+            审核通过
+            </summary>
+        </member>
+        <member name="F:HS.Message.Share.Enums.BillStatus.rejected">
+            <summary>
+            驳回
+            </summary>
+        </member>
+        <member name="F:HS.Message.Share.Enums.BillStatus.completed">
+            <summary>
+            完成
+            </summary>
+        </member>
+        <member name="T:HS.Message.Share.Extensions.AspDotNetExtensions">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:HS.Message.Share.Extensions.AspDotNetExtensions.AddAspDotNetBasic(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds Asp.Net base services to the specified IServiceCollection
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:HS.Message.Share.Extensions.AspDotNetExtensions.AddAutoDependency(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String)">
+            <summary>
+            自动注入projectName中实现IDependency的接口
+            </summary>
+            <param name="services"></param>
+            <param name="projectName">项目名称前缀，一般用于依赖注入层，如service</param>
+        </member>
+        <member name="M:HS.Message.Share.Extensions.AspDotNetExtensions.AddModelStateVrify(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds the model state vrify service to the specified IServiceCollection
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:HS.Message.Share.Extensions.AspDotNetExtensions.UseFileUpload(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.AspNetCore.Hosting.IWebHostBuilder)">
+            <summary>
+            设置文件上传大小 4G
+            </summary>
+            <param name="services"></param>
+            <param name="webHostBuilder"></param>
+        </member>
+        <member name="T:HS.Message.Share.Extensions.DateTimeExtensions">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:HS.Message.Share.Extensions.DateTimeExtensions.ToTimeSpanWithMilliseconds(System.DateTime)">
+            <summary>
+            TimeSpan WithMilliseconds
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HS.Message.Share.Extensions.DateTimeExtensions.ToTimestamp(System.DateTime)">
+            <summary>
+            本时区日期时间转Utc时间戳
+            </summary>
+            <param name="datetime"></param>
+            <returns>Utc时间戳(精确到秒)</returns>
+        </member>
+        <member name="M:HS.Message.Share.Extensions.DateTimeExtensions.TimestampToDateTime(System.Int64)">
+            <summary>
+            Utc时间戳转本时区时间
+            </summary>
+            <param name="timeStamp">Utc时间戳(精确到秒)</param>
+            <returns>本地时间</returns>
+        </member>
+        <member name="M:HS.Message.Share.Extensions.EnumExtensions.GetDescription(System.Enum)">
+            <summary>
+            获取枚举描述属性，如枚举没有描述，则返回枚举名称
+            </summary>
+            <param name="enumValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HS.Message.Share.Handlers.GlobalExceptionHandler.OnException(Microsoft.AspNetCore.Mvc.Filters.ExceptionContext)">
+            <summary>
+            发送异常时的处理逻辑
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="T:HS.Message.Share.HttpClients.Clients.DemoHttpClient">
+            <summary>
+            SRDM的HttpClient
+            </summary>
+        </member>
+        <member name="M:HS.Message.Share.HttpClients.Clients.DemoHttpClient.SendAsync``1(System.String,System.Object)">
+            <summary>
+            发送Http请求
+            </summary>
+            <param name="url">请求地址</param>
+            <param name="parameters">请求参数</param>
+            <returns></returns>
+        </member>
+        <member name="T:HS.Message.Share.HttpClients.Handlers.LogHttpMessageHandler`1">
+            <summary>
+            请求的日志处理
+            </summary>
+        </member>
+        <member name="T:HS.Message.Share.Http.HttpContextInfo">
+            <summary>
+            http请求信息
+            </summary>
+        </member>
+        <member name="M:HS.Message.Share.Http.HttpContextInfo.GetTokenValuByKey(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HS.Message.Share.Http.HttpContextInfo.GetTokenNumValuByKey(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HS.Message.Share.Http.HttpContextInfo.GetUserId">
+            <summary>
+            user id
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HS.Message.Share.Http.HttpContextInfo.GetUserName">
+            <summary>
+            user name
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HS.Message.Share.Http.HttpContextInfo.GetRequestIp">
+            <summary>
+            request ip
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HS.Message.Share.Http.HttpContextInfo.GetBelongAirportThree">
+            <summary>
+            机场三字码
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:HS.Message.Share.Log.Serilogs.Attributes.SerilogIgnoreAttribute">
+            <summary>
+            忽略日志
+            </summary>
+        </member>
+        <member name="M:HS.Message.Share.Log.Serilogs.Extentions.SerilogExtentions.WithHttpRequestId(Serilog.Configuration.LoggerEnrichmentConfiguration,Microsoft.AspNetCore.Http.IHttpContextAccessor)">
+            <summary>
+            日志内容包含HttpRequestId
+            </summary>
+            <param name="loggerEnrichmentConfiguration"></param>
+            <param name="httpContextAccessor"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:HS.Message.Share.Log.Serilogs.Extentions.SerilogExtentions.ToMySQL(Serilog.Configuration.LoggerSinkConfiguration,System.String,System.String,Serilog.Events.LogEventLevel,System.Boolean,System.UInt32,Serilog.Core.LoggingLevelSwitch)">
+            <summary>
+            日志写入MysSQL
+            </summary>
+            <param name="loggerConfiguration"></param>
+            <param name="connectionString"></param>
+            <param name="tableName"></param>
+            <param name="restrictedToMinimumLevel"></param>
+            <param name="storeTimestampInUtc"></param>
+            <param name="batchSize"></param>
+            <param name="levelSwitch"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"></exception>
+        </member>
+        <member name="T:HS.Message.Share.Log.Serilogs.LogProviderStrategy">
+            <summary>
+            Register log strategy
+            </summary>
+        </member>
+        <member name="M:HS.Message.Share.Log.Serilogs.LogProviderStrategy.AddLogStrategy(Microsoft.Extensions.Hosting.IHostBuilder,Microsoft.Extensions.Logging.ILoggingBuilder,Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Adds a log strategy service to the specified IHostBuilder.
+            </summary>
+            <param name="hostBuilder"></param>
+            <param name="loggingBuilder"></param>
+            <param name="service"></param>
+            <param name="configuration"></param>
+        </member>
+        <member name="M:HS.Message.Share.Log.Serilogs.LogProviderStrategy.UseLog(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            Adds the log middleware to IApplicationBuilder
+            </summary>
+            <param name="app"></param>
+            <param name="env"></param>
+        </member>
+        <member name="T:HS.Message.Share.Log.Serilogs.Middlewares.HttpContextLoggingMiddleware">
+            <summary>
+            SerilogMiddleware
+            </summary>
+        </member>
+        <member name="T:HS.Message.Share.Log.Serilogs.Models.LoggerDO">
+            <summary>
+            日志数据库模型
+            </summary>
+        </member>
+        <member name="P:HS.Message.Share.Log.Serilogs.Models.LoggerDO.Template">
+            <summary>
+            日志模版
+            </summary>
+        </member>
+        <member name="P:HS.Message.Share.Log.Serilogs.Models.LoggerDO.Exception">
+            <summary>
+            错误内容
+            </summary>
+        </member>
+        <member name="T:HS.Message.Share.Log.Serilogs.Models.LoggerSimpleDO">
+            <summary>
+            日志数据库模型(简洁版-用于查询)
+            </summary>
+        </member>
+        <member name="P:HS.Message.Share.Log.Serilogs.Models.LoggerSimpleDO.HttpHost">
+            <summary>
+            主机地址
+            </summary>
+        </member>
+        <member name="P:HS.Message.Share.Log.Serilogs.Models.LoggerSimpleDO.HttpRemoteAddress">
+            <summary>
+            Http RemoteAddress
+            </summary>
+        </member>
+        <member name="P:HS.Message.Share.Log.Serilogs.Models.LoggerSimpleDO.HttpXForwardedFor">
+            <summary>
+            Http X-Forwarded-For
+            </summary>
+        </member>
+        <member name="P:HS.Message.Share.Log.Serilogs.Models.LoggerSimpleDO.HttpPath">
+            <summary>
+            http path
+            </summary>
+        </member>
+        <member name="P:HS.Message.Share.Log.Serilogs.Models.LoggerSimpleDO.HttpRequestId">
+            <summary>
+            http 请求id
+            </summary>
+        </member>
+        <member name="P:HS.Message.Share.Log.Serilogs.Models.LoggerSimpleDO.SourceContext">
+            <summary>
+            日志触发写入的上下文
+            </summary>
+        </member>
+        <member name="P:HS.Message.Share.Log.Serilogs.Models.LoggerSimpleDO.Timestamp">
+            <summary>
+            日志写入时间
+            </summary>
+        </member>
+        <member name="P:HS.Message.Share.Log.Serilogs.Models.LoggerSimpleDO.Level">
+            <summary>
+            日志级别
+            </summary>
+        </member>
+        <member name="P:HS.Message.Share.Log.Serilogs.Models.LoggerSimpleDO.LevelEnum">
+            <summary>
+            日志级别
+            </summary>
+        </member>
+        <member name="P:HS.Message.Share.Log.Serilogs.Models.LoggerSimpleDO.Message">
+            <summary>
+            日志内容
+            </summary>
+        </member>
+        <member name="P:HS.Message.Share.Log.Serilogs.Models.LoggerSimpleDO.Exception">
+            <summary>
+            错误内容
+            </summary>
+        </member>
+        <member name="M:HS.Message.Share.Log.Serilogs.Utils.SerilogsLogUtils.GetPracticalTableName(System.DateTime,System.String)">
+            <summary>
+            获取分表后的日志表名
+            </summary>
+            <param name="dateTime"></param>
+            <param name="tableNamePrefix">日志表前缀(即名称相同部分)</param>
+            <returns></returns>
+        </member>
+        <member name="M:HS.Message.Share.Log.Serilogs.Utils.SerilogsLogUtils.GetPracticalTableNameList(System.DateTime,System.DateTime,System.String)">
+            <summary>
+            获取分表后的日志表名List
+            </summary>
+            <param name="startTime">开始时间</param>
+            <param name="endTime">结束时间</param>
+            <param name="tableNamePrefix">日志表前缀(即名称相同部分)</param>
+            <returns></returns>
+        </member>
+        <member name="T:HS.Message.Share.Redis.IDistributedCache">
+            <summary>
+            缓存接口
+            </summary>
+        </member>
+        <member name="M:HS.Message.Share.Redis.IDistributedCache.SetCache(System.String,System.Object)">
+            <summary>
+            设置缓存
+            </summary>
+            <param name="key">缓存Key</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:HS.Message.Share.Redis.IDistributedCache.SetCacheAsync(System.String,System.Object)">
+            <summary>
+            设置缓存
+            </summary>
+            <param name="key">缓存Key</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:HS.Message.Share.Redis.IDistributedCache.SetCache(System.String,System.Object,System.TimeSpan)">
+            <summary>
+            设置缓存
+            </summary>
+            <param name="key">缓存Key</param>
+            <param name="value">值</param>
+            <param name="expiry">过期时间</param>
+        </member>
+        <member name="M:HS.Message.Share.Redis.IDistributedCache.SetCacheAsync(System.String,System.Object,System.TimeSpan)">
+            <summary>
+            设置缓存
+            </summary>
+            <param name="key">缓存Key</param>
+            <param name="value">值</param>
+            <param name="expiry">过期时间</param>
+        </member>
+        <member name="M:HS.Message.Share.Redis.IDistributedCache.GetCache(System.String)">
+            <summary>
+            获取缓存
+            </summary>
+            <param name="key">缓存Key</param>
+        </member>
+        <member name="M:HS.Message.Share.Redis.IDistributedCache.GetCacheAsync(System.String)">
+            <summary>
+            获取缓存
+            </summary>
+            <param name="key">缓存Key</param>
+        </member>
+        <member name="M:HS.Message.Share.Redis.IDistributedCache.GetCache``1(System.String)">
+            <summary>
+            获取缓存
+            </summary>
+            <param name="key">缓存Key</param>
+        </member>
+        <member name="M:HS.Message.Share.Redis.IDistributedCache.GetCacheAsync``1(System.String)">
+            <summary>
+            获取缓存
+            </summary>
+            <param name="key">缓存Key</param>
+        </member>
+        <member name="M:HS.Message.Share.Redis.IDistributedCache.GetOrAddAsync(System.String,System.Object,System.Nullable{System.TimeSpan})">
+            <summary>
+            获取缓存,没有则添加
+            </summary>
+            <param name="key"></param>
+            <param name="value">实际值</param>
+            <param name="expiry">过期时间</param>
+            <returns></returns>
+        </member>
+        <member name="M:HS.Message.Share.Redis.IDistributedCache.GetOrAddAsync``1(System.String,System.Func{System.Threading.Tasks.Task{``0}},System.Nullable{System.TimeSpan})">
+            <summary>
+            获取泛型缓存,没有则添加
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="valueFactory">获取实际值的委托</param>
+            <param name="expiry">过期时间</param>
+            <returns></returns>
+        </member>
+        <member name="M:HS.Message.Share.Redis.IDistributedCache.GetOrAddListAsync``1(System.String,System.Func{System.Threading.Tasks.Task{System.Collections.Generic.List{``0}}},System.Nullable{System.TimeSpan})">
+            <summary>
+            获取泛型集合缓存,没有则添加
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="valueFactory">获取实际值的委托</param>
+            <param name="expiry">过期时间</param>
+            <returns></returns>
+        </member>
+        <member name="M:HS.Message.Share.Redis.IDistributedCache.LockAndRelease(System.Action,System.String,System.TimeSpan,System.Int64)">
+            <summary>
+            加分布式锁，并自动释放锁
+            </summary>
+            <param name="action"></param>
+            <param name="lockKey">锁key</param>
+            <param name="lockExpiry">锁自动过期时间[默认10]（s）</param>
+            <param name="waitLockSeconds">等待锁时间（ms）</param>
+            <returns>LockId</returns>
+        </member>
+        <member name="M:HS.Message.Share.Redis.IDistributedCache.TakeLock(System.String,System.TimeSpan,System.Int64)">
+            <summary>
+            加分布式锁
+            必须调用ReleaseLock()手动解锁
+            </summary>
+            <param name="lockKey">锁key</param>
+            <param name="lockExpiry">锁自动过期时间[默认10]（s）</param>
+            <param name="waitLockSeconds">等待锁时间（ms）</param>
+            <returns>LockId</returns>
+        </member>
+        <member name="M:HS.Message.Share.Redis.IDistributedCache.ReleaseLock">
+            <summary>
+            释放锁
+            使用TakeLock方法加锁后，才需调用此方法
+            </summary>
+        </member>
+        <member name="M:HS.Message.Share.Redis.IDistributedCache.RemoveCache(System.String)">
+            <summary>
+            清除缓存
+            </summary>
+            <param name="key">缓存Key</param>
+        </member>
+        <member name="M:HS.Message.Share.Redis.IDistributedCache.RemoveCacheAsync(System.String)">
+            <summary>
+            清除缓存
+            </summary>
+            <param name="key">缓存Key</param>
+        </member>
+        <member name="T:HS.Message.Share.Redis.RedisCache">
+            <summary>
+            redis
+            </summary>
+        </member>
+        <member name="M:HS.Message.Share.Redis.RedisCache.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            redis
+            </summary>
+            <param name="configuration"></param>
+        </member>
+        <member name="M:HS.Message.Share.Redis.RedisCache.BuildKey(System.String)">
+            <summary>
+            创建key
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HS.Message.Share.Redis.RedisCache.SetCache(System.String,System.Object)">
+            <summary>
+            设置值
+            Set key to hold the string value. If key already holds a value, it is overwritten, regardless of its type.
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:HS.Message.Share.Redis.RedisCache.SetCacheAsync(System.String,System.Object)">
+            <summary>
+            设置值
+            Set key to hold the string value. If key already holds a value, it is overwritten, regardless of its type.
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HS.Message.Share.Redis.RedisCache.SetCache(System.String,System.Object,System.TimeSpan)">
+            <summary>
+            设置值
+            Set key to hold the string value. If key already holds a value, it is overwritten, regardless of its type.
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <param name="expiry">过期时间</param>
+        </member>
+        <member name="M:HS.Message.Share.Redis.RedisCache.SetCacheAsync(System.String,System.Object,System.TimeSpan)">
+            <summary>
+            设置值
+            Set key to hold the string value. If key already holds a value, it is overwritten, regardless of its type.
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <param name="expiry">过期时间</param>
+            <returns></returns>
+        </member>
+        <member name="M:HS.Message.Share.Redis.RedisCache.GetCache(System.String)">
+            <summary>
+            获取值
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HS.Message.Share.Redis.RedisCache.GetCacheAsync(System.String)">
+            <summary>
+            获取值
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HS.Message.Share.Redis.RedisCache.GetCache``1(System.String)">
+            <summary>
+            获取值
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HS.Message.Share.Redis.RedisCache.GetCacheAsync``1(System.String)">
+            <summary>
+            获取值
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HS.Message.Share.Redis.RedisCache.GetOrAddAsync(System.String,System.Object,System.Nullable{System.TimeSpan})">
+            <summary>
+            获取值
+            如果值不存在，则新增，如果值已存在，则返回值
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <param name="expiry"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HS.Message.Share.Redis.RedisCache.GetOrAddAsync``1(System.String,System.Func{System.Threading.Tasks.Task{``0}},System.Nullable{System.TimeSpan})">
+            <summary>
+            获取值
+            如果值不存在，则新增，如果值已存在，则返回值
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="valueFactory">缓存不存在时，值的获取方式</param>
+            <param name="expiry"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:HS.Message.Share.Redis.RedisCache.GetOrAddListAsync``1(System.String,System.Func{System.Threading.Tasks.Task{System.Collections.Generic.List{``0}}},System.Nullable{System.TimeSpan})">
+            <summary>
+            获取值
+            如果值不存在，则新增，如果值已存在，则返回值
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="valueFactory">缓存不存在时，值的获取方式</param>
+            <param name="expiry"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:HS.Message.Share.Redis.RedisCache.RemoveCache(System.String)">
+            <summary>
+            删除缓存
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HS.Message.Share.Redis.RedisCache.RemoveCacheAsync(System.String)">
+            <summary>
+            删除缓存
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HS.Message.Share.Redis.RedisCache.LockAndRelease(System.Action,System.String,System.TimeSpan,System.Int64)">
+            <summary>
+            加分布式锁,自动解锁
+            </summary>
+            <param name="action"></param>
+            <param name="lockKey">锁key</param>
+            <param name="lockExpiry">锁自动过期时间[默认10]（s）</param>
+            <param name="waitLockSeconds">等待锁时间（ms）</param>
+            <returns>LockId</returns>
+        </member>
+        <member name="M:HS.Message.Share.Redis.RedisCache.TakeLock(System.String,System.TimeSpan,System.Int64)">
+            <summary>
+            加分布式锁，必须调用ReleaseLock()手动解锁
+            </summary>
+            <param name="lockKey">锁key</param>
+            <param name="lockExpiry">锁自动过期时间[默认10]（s）</param>
+            <param name="waitLockSeconds">等待锁时间（ms）</param>
+            <returns>LockId</returns>
+        </member>
+        <member name="M:HS.Message.Share.Redis.RedisCache.ReleaseLock">
+            <summary>
+            释放锁
+            </summary>
+        </member>
+        <member name="M:HS.Message.Share.Redis.RedisCache.Dispose">
+            <summary>
+            Dispose redis connection
+            </summary>
+        </member>
+        <member name="M:HS.Message.Share.Utils.AspNetWebApiHelper.LoadAllApiInfo(System.String,System.String)">
+            <summary>
+            加载所有的api接口信息
+            </summary>
+            <param name="appName">程序名</param>
+            <param name="appXmlFilePath">程序的xml文件路径</param>
+            <returns></returns>
+        </member>
+        <member name="T:HS.Message.Share.Utils.CompareHelper">
+            <summary>
+            比较帮助类
+            </summary>
+        </member>
+        <member name="M:HS.Message.Share.Utils.CompareHelper.CompareType``1(``0,``0)">
+            <summary>
+            比较--两个类型一样的实体类对象的值
+            </summary>
+            <param name="oneT"></param>
+            <param name="twoT"></param>
+            <returns></returns>
+        </member>
+        <member name="T:HS.Message.Share.Utils.CopyHelper">
+            <summary>
+            拷贝帮助类
+            有异常直接抛出
+            </summary>
+        </member>
+        <member name="M:HS.Message.Share.Utils.CopyHelper.Copy``2(``0)">
+            <summary>
+            复制
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <typeparam name="TDestination"></typeparam>
+            <param name="sourceObj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HS.Message.Share.Utils.CopyHelper.CopyList``2(System.Collections.Generic.List{``0})">
+            <summary>
+            复制list
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <typeparam name="TDestination"></typeparam>
+            <param name="sourceObj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HS.Message.Share.Utils.CopyHelper.CopyAs``1(System.Object)">
+            <summary>
+            CopyAs函数，Copy函数的简化版。可简写源类型，但同时带来入侵风险
+            </summary>
+            <typeparam name="TDestination"></typeparam>
+            <param name="sourceObj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HS.Message.Share.Utils.CopyHelper.CopyAs``1(System.Object,System.Type,HS.Message.Share.Utils.CopyHelper.CopyEvent)">
+            <summary>
+            CopyAs函数，Copy函数的简化版。可简写源类型，但同时带来入侵风险
+            </summary>
+            <typeparam name="TDestination"></typeparam>
+            <param name="sourceObj"></param>
+            <param name="sourceType">目前只为占位用</param>
+            <param name="copyEvent">copy中的事件</param>
+            <returns></returns>
+        </member>
+        <member name="M:HS.Message.Share.Utils.CopyHelper.CopyAs``1(System.Object,System.Collections.Generic.List{System.ValueTuple{System.Type,System.Type}})">
+            <summary>
+            CopyAs函数，Copy函数的简化版。可简写源类型，但同时带来入侵风险
+            </summary>
+            <typeparam name="TDestination"></typeparam>
+            <param name="sourceObj"></param>
+            <param name="mapper"></param>
+            <returns></returns>
+        </member>
+        <member name="T:HS.Message.Share.Utils.CopyHelper.DeepCopyByReflect">
+            <summary>
+            深拷贝帮助类，注意循环引用问题
+            </summary>
+        </member>
+        <member name="M:HS.Message.Share.Utils.CopyHelper.DeepCopyByReflect.DoCopy(System.Object,System.Type,HS.Message.Share.Utils.CopyHelper.CopyEvent)">
+            <summary>
+            
+            </summary>
+            <param name="sourceObj">源值</param>
+            <param name="destinationType">目标值类型</param>
+            <param name="copyEvent">copy事件</param>
+            <returns></returns>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:HS.Message.Share.Utils.CopyHelper.DeepCopyByReflect.GetValueofDestinationType(System.Object,System.Type,System.Type)">
+            <summary>
+            获取到模板属性类型的值（类型不一致时强转类型）
+            </summary>
+            <param name="sourceValue"></param>
+            <param name="sourceType"></param>
+            <param name="destinationType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HS.Message.Share.Utils.CopyHelper.DeepCopyByReflect.GetIEnumerableLength(System.Collections.IEnumerable)">
+            <summary>
+            获取GetIEnumerableLength的长度
+            </summary>
+            <param name="enumerable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HS.Message.Share.Utils.CopyHelper.DeepCopyByReflect.CreateInstance(System.Type)">
+            <summary>
+            创建实例
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="T:HS.Message.Share.Utils.CopyHelper.GetTypeDelegate">
+            <summary>
+            获取目标类型时
+            </summary>
+            <param name="sourceObjType"></param>
+            <param name="destinationObjType"></param>
+            <param name="sourceObj">原对象值</param>
+            <returns></returns>
+        </member>
+        <member name="T:HS.Message.Share.Utils.CopyHelper.GetPropTypeDelegate">
+            <summary>
+            获取目标属性类型
+            </summary>
+            <param name="sourceObjType"></param>
+            <param name="destinationObjType"></param>
+            <param name="sourceObj"></param>
+            <param name="sourceParentObj"></param>
+            <returns></returns>
+        </member>
+        <member name="T:HS.Message.Share.Utils.CopyHelper.CopyEvent">
+            <summary>
+            拷贝时事件
+            </summary>
+        </member>
+        <member name="P:HS.Message.Share.Utils.CopyHelper.CopyEvent.OnGetDestinationType">
+            <summary>
+            当获取目标类型type时
+            </summary>
+        </member>
+        <member name="P:HS.Message.Share.Utils.CopyHelper.CopyEvent.OnGetPropDestinationType">
+            <summary>
+            当获取属性的目标类型时
+            </summary>
+        </member>
+        <member name="T:HS.Message.Share.Utils.LocalCache">
+            <summary>
+            本地缓存帮助类
+            </summary>
+        </member>
+        <member name="M:HS.Message.Share.Utils.LocalCache.SetValue``1(System.String,``0,System.Nullable{System.TimeSpan})">
+            <summary>
+            设置缓存
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="value"></param>
+            <param name="expiry"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HS.Message.Share.Utils.LocalCache.GetValue``1(System.String)">
+            <summary>
+            获取缓存
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="T:HS.Message.Share.Utils.MessageUtil">
+            <summary>
+            消息工具
+            </summary>
+        </member>
+        <member name="M:HS.Message.Share.Utils.MessageUtil.LoadMessageTemplate(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            加载模板
+            </summary>
+            <param name="input">输入的文字内容</param>
+            <param name="template">模板中的内容</param>
+            <param name="dynamicParameter">输入的动态参数</param>
+            <returns></returns>
+        </member>
+        <member name="M:HS.Message.Share.Utils.StringUtils.IsNumber(System.String)">
+            <summary>
+            判断字符串是否为数字
+            </summary>
+            <param name="strNumber"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HS.Message.Share.Utils.StringUtils.IsNumeric(System.String)">
+            <summary>
+            是否为数字
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HS.Message.Share.Utils.StringUtils.IsInt(System.String)">
+            <summary>
+            是否为int类型
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HS.Message.Share.Utils.StringUtils.IsUnsign(System.String)">
+            <summary>
+            是否为无符号数
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HS.Message.Share.Utils.StringUtils.ArrayToString(System.String[])">
+            <summary>
+            数组转换成字符串
+            </summary>
+            <param name="values"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HS.Message.Share.Utils.StringUtils.ObjectToString(System.Object,System.String)">
+            <summary>
+            object转string
+            </summary>
+            <param name="obj"></param>
+            <param name="defaultValue">默认值</param>
+            <returns></returns>
+        </member>
+        <member name="M:HS.Message.Share.Utils.StringUtils.ToInt32(System.String)">
+            <summary>
+            转int
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HS.Message.Share.Utils.StringUtils.ToInt32(System.String,System.Int32)">
+            <summary>
+            转int
+            </summary>
+            <param name="str"></param>
+            <param name="defaultValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HS.Message.Share.Utils.StringUtils.StringToBase64(System.String)">
+            <summary>
+            String 转Base64 string
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HS.Message.Share.Utils.StringUtils.Base64ToString(System.String)">
+            <summary>
+            Base64 string 转 string
+            </summary>
+            <param name="base64String"></param>
+            <returns></returns>
+        </member>
+        <member name="T:HS.Message.Share.Utils.ValueToObjectUtils">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:HS.Message.Share.Utils.ValueToObjectUtils.ToObject``1(System.String)">
+            <summary>
+            将Json字符串反序列化为对象
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+            <param name="jsonStr">Json字符串</param>
+            <returns></returns>
+        </member>
+        <member name="M:HS.Message.Share.Utils.ValueToObjectUtils.ToJson(System.Object)">
+            <summary>
+            将字符串序列化为json
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="T:HS.Message.HttpClients.HttpClientExtensions">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:HS.Message.HttpClients.HttpClientExtensions.AddCustomerHttpClient(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Adds customer HttpClient to the specified IServiceCollection
+            </summary>
+            <param name="services"></param>
+            <param name="configuration"></param>
+        </member>
+    </members>
+</doc>

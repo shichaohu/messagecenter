@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\HS.Message.API.props" />
+</Project>

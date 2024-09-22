@@ -1,0 +1,353 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>HS.Message.API</name>
+    </assembly>
+    <members>
+        <member name="T:HS.Message.Controllers.Base.CommonController`2">
+            <summary>
+            公共方法的Controller
+            </summary>
+            <typeparam name="TModel"></typeparam>
+            <typeparam name="TCondition"></typeparam>
+        </member>
+        <member name="M:HS.Message.Controllers.Base.CommonController`2.#ctor(HS.Message.Service.base.IBaseService{`0,`1})">
+            <summary>
+            通过构造函数依赖注入
+            </summary>
+            <param name="baseService"></param>
+        </member>
+        <member name="M:HS.Message.Controllers.Base.CommonController`2.AddOneAsync(`0)">
+            <summary>
+            新增一条记录
+            </summary>
+            <param name="model">数据模型</param>
+            <returns>处理结果</returns>
+        </member>
+        <member name="M:HS.Message.Controllers.Base.CommonController`2.BactchAddAsync(System.Collections.Generic.List{`0})">
+            <summary>
+            批量新增数据记录
+            </summary>
+            <param name="modelList">数据模型集合</param>
+            <returns>影响的行数</returns>
+        </member>
+        <member name="M:HS.Message.Controllers.Base.CommonController`2.DeleteByIdAsync(System.String)">
+            <summary>
+            根据Id删除数据
+            </summary>
+            <param name="id">id</param>
+            <returns>影响的行数</returns>
+        </member>
+        <member name="M:HS.Message.Controllers.Base.CommonController`2.BactchDeleteByIdListAsync(System.Collections.Generic.List{System.String})">
+            <summary>
+            根据Id集合批量删除数据
+            </summary>
+            <param name="idList">Id集合</param>
+            <returns>处理结果</returns>
+        </member>
+        <member name="M:HS.Message.Controllers.Base.CommonController`2.UpdateByIdAsync(`0)">
+            <summary>
+            根据id更新数据实体
+            </summary>
+            <param name="model">实体模型</param>
+            <returns>更新结果</returns>
+        </member>
+        <member name="M:HS.Message.Controllers.Base.CommonController`2.BactchUpdateByIdAsync(System.Collections.Generic.List{`0})">
+            <summary>
+            根据id更新数据实体(批量更新)
+            </summary>
+            <param name="modelList">实体模型集合</param>
+            <returns>更新结果</returns>
+        </member>
+        <member name="M:HS.Message.Controllers.Base.CommonController`2.UpdateDynamicAsync(System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            动态更新，根据实际需要，传递什么字段就更新什么字段信息
+            </summary>
+            <param name="modelJobj">需要更新的 Dictionary 数据Jobject实例</param>
+            <returns>处理结果</returns>
+        </member>
+        <member name="M:HS.Message.Controllers.Base.CommonController`2.BactchUpdateDynamicAsync(System.Collections.Generic.List{System.Collections.Generic.Dictionary{System.String,System.Object}})">
+            <summary>
+            动态更新，根据实际需要，传递什么字段就更新什么字段信息（批量更新）
+            </summary>
+            <param name="modelJobjList">需要更新的 auth 数据Jobject实例</param>
+            <returns>处理结果</returns>
+        </member>
+        <member name="M:HS.Message.Controllers.Base.CommonController`2.BactchUpdateSpecifyFieldsByIdAsync(HS.Message.Share.BaseModel.MBactchUpdateSpecifyFields{System.String})">
+            <summary>
+            批量更新指定字段的值(根据主键集合)
+            </summary>
+            <param name="bactchUpdateSpecifyFields">id集合</param>
+            <returns>所有数据集合</returns>
+        </member>
+        <member name="M:HS.Message.Controllers.Base.CommonController`2.GetModelByIdAsync(System.String,System.String)">
+            <summary>
+            根据id获取一个模型数据
+            </summary>
+            <param name="id">id</param>
+            <param name="queryFields">需要查询的字段，空代表获取全部，默认为空</param>
+            <returns>模型数据</returns>
+        </member>
+        <member name="M:HS.Message.Controllers.Base.CommonController`2.GetOneModelAsync(`1)">
+            <summary>
+            根据条件获取一个模型数据
+            </summary>
+            <param name="condition">condition</param>
+            <returns>模型数据</returns>
+        </member>
+        <member name="M:HS.Message.Controllers.Base.CommonController`2.GetAllListByIdListAsync(System.Collections.Generic.List{System.String},System.String)">
+            <summary>
+            获取所有数据集合(根据主键集合)
+            </summary>
+            <param name="idList">id集合</param>
+            <param name="queryFields">需要查询的字段，空代表获取全部，默认为空</param>
+            <returns>所有数据集合</returns>
+        </member>
+        <member name="M:HS.Message.Controllers.Base.CommonController`2.GetPageListAsync(HS.Message.Share.BaseModel.MPageQueryCondition{`1})">
+            <summary>
+            分页获取数据
+            </summary>
+            <param name="pageQueryCondition">查询条件</param>
+            <returns>符合要求的分页数据集合</returns>
+        </member>
+        <member name="M:HS.Message.Controllers.Base.CommonController`2.GetAllListAsync(`1)">
+            <summary>
+            获取所有数据集合(根据条件)
+            </summary>
+            <param name="condition">查询条件</param>
+            <returns>符合要求的全部数据集合</returns>
+        </member>
+        <member name="T:HS.Message.Controllers.MailConfigureController">
+            <summary>
+            邮件配置
+            </summary>
+        </member>
+        <member name="F:HS.Message.Controllers.MailConfigureController._mailConfigureService">
+            <summary>
+            操作逻辑
+            </summary>
+        </member>
+        <member name="M:HS.Message.Controllers.MailConfigureController.#ctor(HS.Message.Service.core.IMailConfigureService)">
+            <summary>
+            通过构造函数依赖注入
+            </summary>
+            <param name="mailConfigureService"></param>
+        </member>
+        <member name="T:HS.Message.Controllers.MailMessageController">
+            <summary>
+            邮件
+            </summary>
+        </member>
+        <member name="F:HS.Message.Controllers.MailMessageController._mailMessageService">
+            <summary>
+            操作逻辑
+            </summary>
+        </member>
+        <member name="M:HS.Message.Controllers.MailMessageController.#ctor(HS.Message.Service.core.IMailMessageService)">
+            <summary>
+            通过构造函数依赖注入
+            </summary>
+            <param name="mailMessageService"></param>
+        </member>
+        <member name="T:HS.Message.Controllers.MailSendLogsController">
+            <summary>
+            邮件发送日志
+            </summary>
+        </member>
+        <member name="F:HS.Message.Controllers.MailSendLogsController._mailSendLogsService">
+            <summary>
+            操作逻辑
+            </summary>
+        </member>
+        <member name="M:HS.Message.Controllers.MailSendLogsController.#ctor(HS.Message.Service.core.IMailSendLogsService)">
+            <summary>
+            通过构造函数依赖注入
+            </summary>
+            <param name="mailSendLogsService"></param>
+        </member>
+        <member name="T:HS.Message.Controllers.MailTemplateController">
+            <summary>
+            邮件模板
+            </summary>
+        </member>
+        <member name="F:HS.Message.Controllers.MailTemplateController._mailTemplateService">
+            <summary>
+            操作逻辑
+            </summary>
+        </member>
+        <member name="M:HS.Message.Controllers.MailTemplateController.#ctor(HS.Message.Service.core.IMailTemplateService)">
+            <summary>
+            通过构造函数依赖注入
+            </summary>
+            <param name="mailTemplateService"></param>
+        </member>
+        <member name="T:HS.Message.Controllers.MessageController">
+            <summary>
+            消息
+            </summary>
+        </member>
+        <member name="M:HS.Message.Controllers.MessageController.#ctor(HS.Message.Service.core.IMessageService)">
+            <summary>
+            通过构造函数依赖注入
+            </summary>
+            <param name="messageService"></param>
+        </member>
+        <member name="M:HS.Message.Controllers.MessageController.SendMessageAsync(System.Collections.Generic.List{HS.Message.Model.Requests.MessageRequest})">
+            <summary>
+            发送消息
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="T:HS.Message.Controllers.MessageReceiverController">
+            <summary>
+            消息接收人
+            </summary>
+        </member>
+        <member name="F:HS.Message.Controllers.MessageReceiverController._messageReceiverService">
+            <summary>
+            操作逻辑
+            </summary>
+        </member>
+        <member name="M:HS.Message.Controllers.MessageReceiverController.#ctor(HS.Message.Service.core.IMessageReceiverService)">
+            <summary>
+            通过构造函数依赖注入
+            </summary>
+            <param name="messageReceiverService"></param>
+        </member>
+        <member name="T:HS.Message.Controllers.SmsConfigureController">
+            <summary>
+            短息配置
+            </summary>
+        </member>
+        <member name="F:HS.Message.Controllers.SmsConfigureController._smsConfigureService">
+            <summary>
+            操作逻辑
+            </summary>
+        </member>
+        <member name="M:HS.Message.Controllers.SmsConfigureController.#ctor(HS.Message.Service.core.ISmsConfigureService)">
+            <summary>
+            通过构造函数依赖注入
+            </summary>
+            <param name="smsConfigureService"></param>
+        </member>
+        <member name="T:HS.Message.Controllers.SmsMessageController">
+            <summary>
+            短息消息
+            </summary>
+        </member>
+        <member name="F:HS.Message.Controllers.SmsMessageController._smsMessageService">
+            <summary>
+            操作逻辑
+            </summary>
+        </member>
+        <member name="M:HS.Message.Controllers.SmsMessageController.#ctor(HS.Message.Service.core.ISmsMessageService)">
+            <summary>
+            通过构造函数依赖注入
+            </summary>
+            <param name="smsMessageService"></param>
+        </member>
+        <member name="T:HS.Message.Controllers.SmsMessageDetailsController">
+            <summary>
+            短息消息详情
+            </summary>
+        </member>
+        <member name="F:HS.Message.Controllers.SmsMessageDetailsController._smsMessageDetailsService">
+            <summary>
+            操作逻辑
+            </summary>
+        </member>
+        <member name="M:HS.Message.Controllers.SmsMessageDetailsController.#ctor(HS.Message.Service.core.ISmsMessageDetailsService)">
+            <summary>
+            通过构造函数依赖注入
+            </summary>
+            <param name="smsMessageDetailsService"></param>
+        </member>
+        <member name="T:HS.Message.Controllers.SmsTemplateController">
+            <summary>
+            短息模板
+            </summary>
+        </member>
+        <member name="F:HS.Message.Controllers.SmsTemplateController._smsTemplateService">
+            <summary>
+            操作逻辑
+            </summary>
+        </member>
+        <member name="M:HS.Message.Controllers.SmsTemplateController.#ctor(HS.Message.Service.core.ISmsTemplateService)">
+            <summary>
+            通过构造函数依赖注入
+            </summary>
+            <param name="smsTemplateService"></param>
+        </member>
+        <member name="T:HS.Message.Extensions.SwaggerExtensions">
+            <summary>
+            SwaggerUI集成扩展
+            </summary>
+        </member>
+        <member name="M:HS.Message.Extensions.SwaggerExtensions.AddSwaggerDoc(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+             <summary>
+            Adds the SwaggerDoc service to the specified IServiceCollection
+             </summary>
+             <param name="services"></param>
+             <param name="configuration"></param>
+        </member>
+        <member name="M:HS.Message.Extensions.SwaggerExtensions.UseSwaggerUi(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.Extensions.Configuration.IConfiguration,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            Adds the SwaggerUi middleware to IApplicationBuilder
+            </summary>
+            <param name="app"></param>
+            <param name="configuration"></param>
+            <param name="env"></param>
+        </member>
+        <member name="T:HS.Message.Extensions.Swagger.ApiGroupAttribute">
+            <summary>
+            系统分组特性
+            </summary>
+        </member>
+        <member name="T:HS.Message.Extensions.Swagger.ApiGroupNames">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:HS.Message.Extensions.Swagger.ApiGroupNames.All">
+            <summary>
+            All 所有
+            </summary>
+        </member>
+        <member name="F:HS.Message.Extensions.Swagger.ApiGroupNames.NoGroup">
+            <summary>
+            NoGroup 未分组
+            </summary>
+        </member>
+        <member name="F:HS.Message.Extensions.Swagger.ApiGroupNames.SystemSetting">
+            <summary>
+            系统设置
+            </summary>
+        </member>
+        <member name="F:HS.Message.Extensions.Swagger.ApiGroupNames.Message">
+            <summary>
+            消息中心
+            </summary>
+        </member>
+        <member name="F:HS.Message.Extensions.Swagger.ApiGroupNames.Developing">
+            <summary>
+            Developing 开发中
+            </summary>
+        </member>
+        <member name="T:HS.Message.Extensions.Swagger.GroupInfoAttribute">
+            <summary>
+            分组的描述信息
+            </summary>
+        </member>
+        <member name="P:HS.Message.Extensions.Swagger.GroupInfoAttribute.Title">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:HS.Message.Middlewares.RouteMiddleware">
+            <summary>
+            路由适配
+            </summary>
+        </member>
+    </members>
+</doc>

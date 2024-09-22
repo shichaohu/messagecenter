@@ -1,0 +1,323 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>HS.VIP.Management.Service</name>
+    </assembly>
+    <members>
+        <member name="T:HS.VIP.Management.Service.base.BaseService`2">
+            <summary>
+            业务服务base接口
+            </summary>
+            <typeparam name="TModel"></typeparam>
+            <typeparam name="TCondition"></typeparam>
+        </member>
+        <member name="F:HS.VIP.Management.Service.base.BaseService`2._moduleName">
+            <summary>
+            操作表
+            </summary>
+        </member>
+        <member name="P:HS.VIP.Management.Service.base.BaseService`2._baseRepository">
+            <summary>
+            logical_id仓储操作类
+            </summary>
+        </member>
+        <member name="M:HS.VIP.Management.Service.base.BaseService`2.#ctor(HS.VIP.Management.Repository.repository.base.core.IRepository{`0,`1},HS.VIP.Management.Share.CommonObject.IInjectedObjects,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="repository"></param>
+            <param name="injectedObjects"></param>
+            <param name="moduleName">模块名称</param>
+        </member>
+        <member name="M:HS.VIP.Management.Service.base.BaseService`2.CheckInfoBase(`0,`0)">
+            <summary>
+            检查TModel数据有效性
+            </summary>
+            <param name="model">待检查数据模型</param>
+            <returns>检查结果</returns>
+        </member>
+        <member name="M:HS.VIP.Management.Service.base.BaseService`2.CheckInfo(`0,`0)">
+            <summary>
+            检查TModel数据有效性
+            </summary>
+            <param name="model">待检查数据模型</param>
+            <returns>检查结果</returns>
+        </member>
+        <member name="M:HS.VIP.Management.Service.base.BaseService`2.GetTotalCountAsync(`1)">
+            <summary>
+            根据条件获取总条数
+            </summary>
+            <param name="condition"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HS.VIP.Management.Service.base.BaseService`2.TransformatJobjToMode(System.Collections.Generic.Dictionary{System.String,System.Object},`0@,`0@)">
+            <summary>
+            根据动态模型转换为详细的数据模型
+            </summary>
+            <param name="modelJobj">动态编辑模型</param>
+            <param name="modelOld">历史数据模型</param>
+            <returns>转换后的实体模型</returns>
+        </member>
+        <member name="M:HS.VIP.Management.Service.base.BaseService`2.GetAllFields(System.String[])">
+            <summary>
+            获取表全部字段
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HS.VIP.Management.Service.base.BaseService`2.AddOneAsync(`0)">
+            <summary>
+            新增一条Test记录
+            </summary>
+            <param name="model">Test数据模型</param>
+            <returns>操作结果</returns>
+        </member>
+        <member name="M:HS.VIP.Management.Service.base.BaseService`2.BactchAddAsync(System.Collections.Generic.List{`0})">
+            <summary>
+            批量新增数据记录
+            </summary>
+            <param name="modelList">数据模型集合</param>
+            <returns>操作结果</returns>
+        </member>
+        <member name="M:HS.VIP.Management.Service.base.BaseService`2.DeleteByIdAsync(System.String)">
+            <summary>
+            根据logical_id删除数据
+            </summary>
+            <param name="logical_id">logical_id</param>
+            <returns>影响的行数</returns>
+        </member>
+        <member name="M:HS.VIP.Management.Service.base.BaseService`2.BactchDeleteByIdListAsync(System.Collections.Generic.List{System.String})">
+            <summary>
+            根据logical_id集合批量删除数据
+            </summary>
+            <param name="idList">logical_id集合</param>
+            <returns>处理结果</returns>
+        </member>
+        <member name="M:HS.VIP.Management.Service.base.BaseService`2.UpdateByIdAsync(`0)">
+            <summary>
+            根据logical_id更新数据实体
+            </summary>
+            <param name="model">实体模型</param>
+            <returns>更新结果</returns>
+        </member>
+        <member name="M:HS.VIP.Management.Service.base.BaseService`2.BactchUpdateByIdAsync(System.Collections.Generic.List{`0})">
+            <summary>
+            根据logical_id更新数据实体(批量更新)
+            </summary>
+            <param name="modelList">实体模型集合</param>
+            <returns>更新结果</returns>
+        </member>
+        <member name="M:HS.VIP.Management.Service.base.BaseService`2.UpdateDynamicAsync(System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            动态更新，根据实际需要，传递什么字段就更新什么字段信息
+            </summary>
+            <param name="modelJobj">需要更新的 test 数据Jobject实例</param>
+            <returns>处理结果</returns>
+        </member>
+        <member name="M:HS.VIP.Management.Service.base.BaseService`2.BactchUpdateDynamicAsync(System.Collections.Generic.List{System.Collections.Generic.Dictionary{System.String,System.Object}})">
+            <summary>
+            动态更新，根据实际需要，传递什么字段就更新什么字段信息（批量更新）
+            </summary>
+            <param name="modelJobjList">需要更新的 auth 数据Jobject实例</param>
+            <returns>处理结果</returns>
+        </member>
+        <member name="M:HS.VIP.Management.Service.base.BaseService`2.BactchUpdateSpecifyFieldsByIdAsync(HS.Public.Tools.Model.MBactchUpdateSpecifyFields{System.String})">
+            <summary>
+            批量更新指定字段的值(根据主键集合)
+            </summary>
+            <param name="bactchUpdateSpecifyFields">logical_id集合</param>
+            <returns>所有数据集合</returns>
+        </member>
+        <member name="M:HS.VIP.Management.Service.base.BaseService`2.GetModelByIdAsync(System.String,System.String)">
+            <summary>
+            根据logical_id获取一个模型数据
+            </summary>
+            <param name="logical_id">logical_id</param>
+            <param name="queryFields">需要查询的字段，空代表获取全部，默认为空</param>
+            <returns>模型数据</returns>
+        </member>
+        <member name="M:HS.VIP.Management.Service.base.BaseService`2.GetOneModelAsync(`1)">
+            <summary>
+            根据条件获取一个模型数据
+            </summary>
+            <param name="condition">condition</param>
+            <returns>模型数据</returns>
+        </member>
+        <member name="M:HS.VIP.Management.Service.base.BaseService`2.GetAllListByIdListAsync(System.Collections.Generic.List{System.String},System.String)">
+            <summary>
+            获取所有数据集合(根据主键集合)
+            </summary>
+            <param name="idList">logical_id集合</param>
+            <param name="queryFields">需要查询的字段，空代表获取全部，默认为空</param>
+            <returns>所有数据集合</returns>
+        </member>
+        <member name="M:HS.VIP.Management.Service.base.BaseService`2.GetPageListAsync(HS.Public.Tools.Model.MPageQueryCondition{`1})">
+            <summary>
+            分页获取数据
+            </summary>
+            <param name="mPageQueryCondition">查询条件</param>
+            <param name="islike">是否进行liek查询，默认是false</param>
+            <returns>符合要求的分页数据集合</returns>
+        </member>
+        <member name="M:HS.VIP.Management.Service.base.BaseService`2.GetAllListAsync(`1)">
+            <summary>
+            获取全部数据
+            </summary>
+            <param name="condition">查询条件</param>
+            <returns>符合要求的数据集合</returns>
+        </member>
+        <member name="T:HS.VIP.Management.Service.base.IBaseService`2">
+            <summary>
+            业务服务base接口
+            </summary>
+            <typeparam name="TModel"></typeparam>
+            <typeparam name="TCondition"></typeparam>
+        </member>
+        <member name="M:HS.VIP.Management.Service.base.IBaseService`2.GetTotalCountAsync(`1)">
+            <summary>
+            根据条件获取总条数
+            </summary>
+            <param name="condition"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HS.VIP.Management.Service.base.IBaseService`2.AddOneAsync(`0)">
+            <summary>
+            新增一条Test记录
+            </summary>
+            <param name="model">Test数据模型</param>
+            <returns>操作结果</returns>
+        </member>
+        <member name="M:HS.VIP.Management.Service.base.IBaseService`2.BactchAddAsync(System.Collections.Generic.List{`0})">
+            <summary>
+            批量新增Test数据记录
+            </summary>
+            <param name="modelList">数据模型集合</param>
+            <returns>操作结果</returns>
+        </member>
+        <member name="M:HS.VIP.Management.Service.base.IBaseService`2.DeleteByIdAsync(System.String)">
+            <summary>
+            根据Id删除数据
+            </summary>
+            <param name="id">id</param>
+            <returns>影响的行数</returns>
+        </member>
+        <member name="M:HS.VIP.Management.Service.base.IBaseService`2.BactchDeleteByIdListAsync(System.Collections.Generic.List{System.String})">
+            <summary>
+            根据Id集合批量删除数据
+            </summary>
+            <param name="idList">Id集合</param>
+            <returns>处理结果</returns>
+        </member>
+        <member name="M:HS.VIP.Management.Service.base.IBaseService`2.UpdateByIdAsync(`0)">
+            <summary>
+            根据id更新数据实体
+            </summary>
+            <param name="model">实体模型</param>
+            <returns>更新结果</returns>
+        </member>
+        <member name="M:HS.VIP.Management.Service.base.IBaseService`2.BactchUpdateByIdAsync(System.Collections.Generic.List{`0})">
+            <summary>
+            根据id更新数据实体(批量更新)
+            </summary>
+            <param name="modelList">实体模型集合</param>
+            <returns>更新结果</returns>
+        </member>
+        <member name="M:HS.VIP.Management.Service.base.IBaseService`2.UpdateDynamicAsync(System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            动态更新，根据实际需要，传递什么字段就更新什么字段信息
+            </summary>
+            <param name="modelJobj">需要更新的 test 数据Jobject实例</param>
+            <returns>处理结果</returns>
+        </member>
+        <member name="M:HS.VIP.Management.Service.base.IBaseService`2.BactchUpdateDynamicAsync(System.Collections.Generic.List{System.Collections.Generic.Dictionary{System.String,System.Object}})">
+            <summary>
+            动态更新，根据实际需要，传递什么字段就更新什么字段信息（批量更新）
+            </summary>
+            <param name="modelJobjList">需要更新的 auth 数据Jobject实例</param>
+            <returns>处理结果</returns>
+        </member>
+        <member name="M:HS.VIP.Management.Service.base.IBaseService`2.BactchUpdateSpecifyFieldsByIdAsync(HS.Public.Tools.Model.MBactchUpdateSpecifyFields{System.String})">
+            <summary>
+            批量更新指定字段的值(根据主键集合)
+            </summary>
+            <param name="bactchUpdateSpecifyFields">id集合</param>
+            <returns>所有数据集合</returns>
+        </member>
+        <member name="M:HS.VIP.Management.Service.base.IBaseService`2.GetModelByIdAsync(System.String,System.String)">
+            <summary>
+            根据id获取一个模型数据
+            </summary>
+            <param name="id">id</param>
+            <param name="queryFields">需要查询的字段，空代表获取全部，默认为空</param>
+            <returns>模型数据</returns>
+        </member>
+        <member name="M:HS.VIP.Management.Service.base.IBaseService`2.GetOneModelAsync(`1)">
+            <summary>
+            根据条件获取一个模型数据
+            </summary>
+            <param name="condition">condition</param>
+            <returns>模型数据</returns>
+        </member>
+        <member name="M:HS.VIP.Management.Service.base.IBaseService`2.GetAllListByIdListAsync(System.Collections.Generic.List{System.String},System.String)">
+            <summary>
+            获取所有数据集合(根据主键集合)
+            </summary>
+            <param name="idList">id集合</param>
+            <param name="queryFields">需要查询的字段，空代表获取全部，默认为空</param>
+            <returns>所有数据集合</returns>
+        </member>
+        <member name="M:HS.VIP.Management.Service.base.IBaseService`2.GetPageListAsync(HS.Public.Tools.Model.MPageQueryCondition{`1})">
+            <summary>
+            分页获取数据
+            </summary>
+            <param name="pageQueryCondition"></param>
+            <returns>符合要求的分页数据集合</returns>
+        </member>
+        <member name="M:HS.VIP.Management.Service.base.IBaseService`2.GetAllListAsync(`1)">
+            <summary>
+            获取全部数据
+            </summary>
+            <param name="condition">查询条件</param>
+            <returns>符合要求的数据集合</returns>
+        </member>
+        <member name="T:HS.VIP.Management.Service.core.IDictionaryService">
+            <summary>
+            字典相关服务
+            存放字典服务的自定义方法
+            </summary>
+        </member>
+        <member name="M:HS.VIP.Management.Service.core.IDictionaryService.GetDictItemsByTypeKeyAsync(System.Collections.Generic.List{System.String})">
+            <summary>
+            根据字典类型名获取字典子项
+            </summary>
+            <param name="typeKeys"></param>
+            <returns></returns>
+        </member>
+        <member name="T:HS.VIP.Management.Service.core.imp.DictionaryService">
+            <summary>
+            字典相关服务
+            </summary>
+        </member>
+        <member name="M:HS.VIP.Management.Service.core.imp.DictionaryService.#ctor(HS.VIP.Management.Repository.repository.core.IDictionaryRepository{HS.VIP.Management.Model.MDictionary,HS.VIP.Management.Model.MDictionaryCondtion},HS.VIP.Management.Share.CommonObject.IInjectedObjects,HS.VIP.Management.Share.Redis.IDistributedCache)">
+            <summary>
+            字典相关服务
+            </summary>
+            <param name="dictionaryRepository"></param>
+            <param name="injectedObjects"></param>
+            <param name="cache"></param>
+        </member>
+        <member name="M:HS.VIP.Management.Service.core.imp.DictionaryService.GetDictItemsByTypeKeyAsync(System.Collections.Generic.List{System.String})">
+            <summary>
+            根据字典类型名获取字典子项
+            </summary>
+            <param name="typeKeys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HS.VIP.Management.Service.core.imp.DictionaryService.CheckInfo(HS.VIP.Management.Model.MDictionary,HS.VIP.Management.Model.MDictionary)">
+            <summary>
+            检查Dictionary数据有效性
+            </summary>
+            <param name="model">待检查Dictionary数据模型</param>
+            <returns>检查结果</returns>
+        </member>
+    </members>
+</doc>

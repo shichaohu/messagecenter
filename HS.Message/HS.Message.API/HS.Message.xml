@@ -1,0 +1,330 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>HS.Message</name>
+    </assembly>
+    <members>
+        <member name="T:HS.Message.Controllers.Base.CommonController`2">
+            <summary>
+            公共方法的Controller
+            </summary>
+            <typeparam name="TModel"></typeparam>
+            <typeparam name="TCondition"></typeparam>
+        </member>
+        <member name="M:HS.Message.Controllers.Base.CommonController`2.#ctor(HS.Message.Service.base.IBaseService{`0,`1})">
+            <summary>
+            通过构造函数依赖注入
+            </summary>
+            <param name="baseService"></param>
+        </member>
+        <member name="M:HS.Message.Controllers.Base.CommonController`2.AddOneAsync(`0)">
+            <summary>
+            新增一条记录
+            </summary>
+            <param name="model">数据模型</param>
+            <returns>处理结果</returns>
+        </member>
+        <member name="M:HS.Message.Controllers.Base.CommonController`2.BactchAddAsync(System.Collections.Generic.List{`0})">
+            <summary>
+            批量新增数据记录
+            </summary>
+            <param name="modelList">数据模型集合</param>
+            <returns>影响的行数</returns>
+        </member>
+        <member name="M:HS.Message.Controllers.Base.CommonController`2.DeleteByIdAsync(System.String)">
+            <summary>
+            根据Id删除数据
+            </summary>
+            <param name="id">id</param>
+            <returns>影响的行数</returns>
+        </member>
+        <member name="M:HS.Message.Controllers.Base.CommonController`2.BactchDeleteByIdListAsync(System.Collections.Generic.List{System.String})">
+            <summary>
+            根据Id集合批量删除数据
+            </summary>
+            <param name="idList">Id集合</param>
+            <returns>处理结果</returns>
+        </member>
+        <member name="M:HS.Message.Controllers.Base.CommonController`2.UpdateByIdAsync(`0)">
+            <summary>
+            根据id更新数据实体
+            </summary>
+            <param name="model">实体模型</param>
+            <returns>更新结果</returns>
+        </member>
+        <member name="M:HS.Message.Controllers.Base.CommonController`2.BactchUpdateByIdAsync(System.Collections.Generic.List{`0})">
+            <summary>
+            根据id更新数据实体(批量更新)
+            </summary>
+            <param name="modelList">实体模型集合</param>
+            <returns>更新结果</returns>
+        </member>
+        <member name="M:HS.Message.Controllers.Base.CommonController`2.UpdateDynamicAsync(System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            动态更新，根据实际需要，传递什么字段就更新什么字段信息
+            </summary>
+            <param name="modelJobj">需要更新的 Dictionary 数据Jobject实例</param>
+            <returns>处理结果</returns>
+        </member>
+        <member name="M:HS.Message.Controllers.Base.CommonController`2.BactchUpdateDynamicAsync(System.Collections.Generic.List{System.Collections.Generic.Dictionary{System.String,System.Object}})">
+            <summary>
+            动态更新，根据实际需要，传递什么字段就更新什么字段信息（批量更新）
+            </summary>
+            <param name="modelJobjList">需要更新的 auth 数据Jobject实例</param>
+            <returns>处理结果</returns>
+        </member>
+        <member name="M:HS.Message.Controllers.Base.CommonController`2.BactchUpdateSpecifyFieldsByIdAsync(HS.Public.Tools.Model.MBactchUpdateSpecifyFields{System.String})">
+            <summary>
+            批量更新指定字段的值(根据主键集合)
+            </summary>
+            <param name="bactchUpdateSpecifyFields">id集合</param>
+            <returns>所有数据集合</returns>
+        </member>
+        <member name="M:HS.Message.Controllers.Base.CommonController`2.GetModelByIdAsync(System.String,System.String)">
+            <summary>
+            根据id获取一个模型数据
+            </summary>
+            <param name="id">id</param>
+            <param name="queryFields">需要查询的字段，空代表获取全部，默认为空</param>
+            <returns>模型数据</returns>
+        </member>
+        <member name="M:HS.Message.Controllers.Base.CommonController`2.GetOneModelAsync(`1)">
+            <summary>
+            根据条件获取一个模型数据
+            </summary>
+            <param name="condition">condition</param>
+            <returns>模型数据</returns>
+        </member>
+        <member name="M:HS.Message.Controllers.Base.CommonController`2.GetAllListByIdListAsync(System.Collections.Generic.List{System.String},System.String)">
+            <summary>
+            获取所有数据集合(根据主键集合)
+            </summary>
+            <param name="idList">id集合</param>
+            <param name="queryFields">需要查询的字段，空代表获取全部，默认为空</param>
+            <returns>所有数据集合</returns>
+        </member>
+        <member name="M:HS.Message.Controllers.Base.CommonController`2.GetPageListAsync(HS.Public.Tools.Model.MPageQueryCondition{`1})">
+            <summary>
+            分页获取数据
+            </summary>
+            <param name="pageQueryCondition">查询条件</param>
+            <returns>符合要求的分页数据集合</returns>
+        </member>
+        <member name="M:HS.Message.Controllers.Base.CommonController`2.GetAllListAsync(`1)">
+            <summary>
+            获取所有数据集合(根据条件)
+            </summary>
+            <param name="condition">查询条件</param>
+            <returns>符合要求的全部数据集合</returns>
+        </member>
+        <member name="T:HS.Message.Controllers.DictionaryController">
+            <summary>
+            Dictionary相关接口
+            </summary>
+        </member>
+        <member name="F:HS.Message.Controllers.DictionaryController._dictionaryService">
+            <summary>
+            操作逻辑
+            </summary>
+        </member>
+        <member name="M:HS.Message.Controllers.DictionaryController.#ctor(HS.Message.Service.core.IDictionaryService)">
+            <summary>
+            通过构造函数依赖注入
+            </summary>
+            <param name="dictionaryService"></param>
+        </member>
+        <member name="M:HS.Message.Controllers.DictionaryController.GetDictItemsByTypeKeyAsync(System.Collections.Generic.List{System.String})">
+            <summary>
+            根据字典类型名获取字典子项
+            </summary>
+            <param name="typeKeys"></param>
+            <returns></returns>
+        </member>
+        <member name="T:HS.Message.Extensions.SwaggerExtensions">
+            <summary>
+            SwaggerUI集成扩展
+            </summary>
+        </member>
+        <member name="M:HS.Message.Extensions.SwaggerExtensions.AddSwaggerDoc(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+             <summary>
+            Adds the SwaggerDoc service to the specified IServiceCollection
+             </summary>
+             <param name="services"></param>
+             <param name="configuration"></param>
+        </member>
+        <member name="M:HS.Message.Extensions.SwaggerExtensions.UseSwaggerUi(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.Extensions.Configuration.IConfiguration,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            Adds the SwaggerUi middleware to IApplicationBuilder
+            </summary>
+            <param name="app"></param>
+            <param name="configuration"></param>
+            <param name="env"></param>
+        </member>
+        <member name="T:HS.Message.Extensions.Swagger.ApiGroupAttribute">
+            <summary>
+            系统分组特性
+            </summary>
+        </member>
+        <member name="T:HS.Message.Extensions.Swagger.ApiGroupNames">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:HS.Message.Extensions.Swagger.ApiGroupNames.All">
+            <summary>
+            All 所有
+            </summary>
+        </member>
+        <member name="F:HS.Message.Extensions.Swagger.ApiGroupNames.NoGroup">
+            <summary>
+            NoGroup 未分组
+            </summary>
+        </member>
+        <member name="F:HS.Message.Extensions.Swagger.ApiGroupNames.VIPReservation">
+            <summary>
+            贵宾预约管理
+            </summary>
+        </member>
+        <member name="F:HS.Message.Extensions.Swagger.ApiGroupNames.VIPService">
+            <summary>
+            贵宾服务
+            </summary>
+        </member>
+        <member name="F:HS.Message.Extensions.Swagger.ApiGroupNames.BusinessJetService">
+            <summary>
+            公务机服务
+            </summary>
+        </member>
+        <member name="F:HS.Message.Extensions.Swagger.ApiGroupNames.CustomerRelationship">
+            <summary>
+            客户关系
+            </summary>
+        </member>
+        <member name="F:HS.Message.Extensions.Swagger.ApiGroupNames.VehicleService">
+            <summary>
+            车辆服务
+            </summary>
+        </member>
+        <member name="F:HS.Message.Extensions.Swagger.ApiGroupNames.SchedulingManagement">
+            <summary>
+            调度管理
+            </summary>
+        </member>
+        <member name="F:HS.Message.Extensions.Swagger.ApiGroupNames.OfficeManagement">
+            <summary>
+            厅室管理
+            </summary>
+        </member>
+        <member name="F:HS.Message.Extensions.Swagger.ApiGroupNames.Procure">
+            <summary>
+            procure 进销存管理
+            </summary>
+        </member>
+        <member name="F:HS.Message.Extensions.Swagger.ApiGroupNames.AirportInfo">
+            <summary>
+            机场信息
+            </summary>
+        </member>
+        <member name="F:HS.Message.Extensions.Swagger.ApiGroupNames.StatisticalStatement">
+            <summary>
+            系统报表
+            </summary>
+        </member>
+        <member name="F:HS.Message.Extensions.Swagger.ApiGroupNames.SystemSetting">
+            <summary>
+            系统设置
+            </summary>
+        </member>
+        <member name="F:HS.Message.Extensions.Swagger.ApiGroupNames.UserCenter">
+            <summary>
+            用户中心
+            </summary>
+        </member>
+        <member name="F:HS.Message.Extensions.Swagger.ApiGroupNames.Developing">
+            <summary>
+            Developing 开发中
+            </summary>
+        </member>
+        <member name="F:HS.Message.Extensions.Swagger.ApiGroupNames.Common">
+            <summary>
+            公共接口
+            </summary>
+        </member>
+        <member name="T:HS.Message.Extensions.Swagger.GroupInfoAttribute">
+            <summary>
+            分组的描述信息
+            </summary>
+        </member>
+        <member name="P:HS.Message.Extensions.Swagger.GroupInfoAttribute.Title">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:HS.Message.Middlewares.RouteMiddleware">
+            <summary>
+            路由适配
+            </summary>
+        </member>
+        <member name="T:HS.Message.Program">
+            <summary>
+            Program
+            </summary>
+        </member>
+        <member name="M:HS.Message.Program.Main(System.String[])">
+            <summary>
+            Main
+            </summary>
+            <param name="args">args</param>
+        </member>
+        <member name="M:HS.Message.Program.CreateHostBuilder(System.String[])">
+            <summary>
+            CreateHostBuilder
+            </summary>
+            <param name="args">args</param>
+            <returns></returns>
+        </member>
+        <member name="T:HS.Message.ServiceRegisterExtend">
+            <summary>
+            服务注册扩展
+            </summary>
+        </member>
+        <member name="M:HS.Message.ServiceRegisterExtend.RegisterServies(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            注册自己的服务
+            </summary>
+            <param name="services">services</param>
+            <param name="configuration">configuration</param>
+            <returns>注册结果</returns>
+        </member>
+        <member name="T:HS.Message.Startup">
+            <summary>
+            Startup
+            </summary>
+        </member>
+        <member name="M:HS.Message.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Startup
+            </summary>
+            <param name="configuration">configuration</param>
+        </member>
+        <member name="P:HS.Message.Startup.Configuration">
+            <summary>
+            Configuration
+            </summary>
+        </member>
+        <member name="M:HS.Message.Startup.ConfigureContainer(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            This method gets called by the runtime. Use this method to add services to the container.
+            </summary>
+            <param name="services">services</param>
+        </member>
+        <member name="M:HS.Message.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment,Microsoft.Extensions.Hosting.IHostApplicationLifetime)">
+            <summary>
+            This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+            </summary>
+            <param name="app">app</param>
+            <param name="env">env</param>
+            <param name="lifetime">lifetime</param>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <_PublishTargetUrl>D:\project\HaiSheng\release\tygb_service</_PublishTargetUrl>
+    <History>True|2024-09-12T01:48:51.0913275Z||;True|2024-09-12T09:37:17.8689232+08:00||;True|2024-09-05T16:50:55.0549686+08:00||;True|2024-09-05T16:35:01.6561323+08:00||;True|2024-09-05T16:34:34.4315391+08:00||;True|2024-09-05T16:14:48.8388923+08:00||;True|2024-09-04T14:41:04.5311659+08:00||;True|2024-08-29T17:27:19.1158212+08:00||;True|2024-08-24T14:04:01.9606830+08:00||;True|2024-08-24T11:52:41.3702609+08:00||;True|2024-08-22T14:14:07.5702854+08:00||;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+</Project>

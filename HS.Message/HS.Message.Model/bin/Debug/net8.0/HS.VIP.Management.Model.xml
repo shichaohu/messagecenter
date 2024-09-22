@@ -1,0 +1,145 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>HS.VIP.Management.Model</name>
+    </assembly>
+    <members>
+        <!-- Badly formed XML comment ignored for member "T:HS.VIP.Management.Model.MDictionaryCondtion" -->
+        <!-- Badly formed XML comment ignored for member "F:HS.VIP.Management.Model.MDictionaryCondtion._created_time_start" -->
+        <!-- Badly formed XML comment ignored for member "F:HS.VIP.Management.Model.MDictionaryCondtion._created_time_end" -->
+        <!-- Badly formed XML comment ignored for member "F:HS.VIP.Management.Model.MDictionaryCondtion._updated_time_start" -->
+        <!-- Badly formed XML comment ignored for member "F:HS.VIP.Management.Model.MDictionaryCondtion._updated_time_end" -->
+        <member name="P:HS.VIP.Management.Model.MDictionaryCondtion.created_time_start">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:HS.VIP.Management.Model.MDictionaryCondtion.created_time_end">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:HS.VIP.Management.Model.MDictionaryCondtion.updated_time_start">
+            <summary>
+            更新时间
+            </summary>
+        </member>
+        <member name="P:HS.VIP.Management.Model.MDictionaryCondtion.updated_time_end">
+            <summary>
+            更新时间
+            </summary>
+        </member>
+        <member name="T:HS.VIP.Management.Model.MBaseModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:HS.VIP.Management.Model.MBaseModel.id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:HS.VIP.Management.Model.MBaseModel.logical_id">
+            <summary>
+            逻辑id
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:HS.VIP.Management.Model.MDictionary" -->
+        <!-- Badly formed XML comment ignored for member "F:HS.VIP.Management.Model.MDictionary._belong_airport_three" -->
+        <!-- Badly formed XML comment ignored for member "F:HS.VIP.Management.Model.MDictionary._created_id" -->
+        <!-- Badly formed XML comment ignored for member "F:HS.VIP.Management.Model.MDictionary._created_name" -->
+        <!-- Badly formed XML comment ignored for member "F:HS.VIP.Management.Model.MDictionary._created_time" -->
+        <!-- Badly formed XML comment ignored for member "F:HS.VIP.Management.Model.MDictionary._descption" -->
+        <!-- Badly formed XML comment ignored for member "F:HS.VIP.Management.Model.MDictionary._is_delete" -->
+        <!-- Badly formed XML comment ignored for member "F:HS.VIP.Management.Model.MDictionary._Is_deletion_permitted" -->
+        <!-- Badly formed XML comment ignored for member "F:HS.VIP.Management.Model.MDictionary._is_open" -->
+        <!-- Badly formed XML comment ignored for member "F:HS.VIP.Management.Model.MDictionary._key_name" -->
+        <!-- Badly formed XML comment ignored for member "F:HS.VIP.Management.Model.MDictionary._parentid" -->
+        <!-- Badly formed XML comment ignored for member "F:HS.VIP.Management.Model.MDictionary._REVISION" -->
+        <!-- Badly formed XML comment ignored for member "F:HS.VIP.Management.Model.MDictionary._sort" -->
+        <!-- Badly formed XML comment ignored for member "F:HS.VIP.Management.Model.MDictionary._updated_id" -->
+        <!-- Badly formed XML comment ignored for member "F:HS.VIP.Management.Model.MDictionary._updated_name" -->
+        <!-- Badly formed XML comment ignored for member "F:HS.VIP.Management.Model.MDictionary._updated_time" -->
+        <!-- Badly formed XML comment ignored for member "F:HS.VIP.Management.Model.MDictionary._value_name" -->
+        <member name="P:HS.VIP.Management.Model.MDictionary.belong_airport_three">
+            <summary>
+            三字码
+            </summary>
+        </member>
+        <member name="P:HS.VIP.Management.Model.MDictionary.created_id">
+            <summary>
+            创建人id
+            </summary>
+        </member>
+        <member name="P:HS.VIP.Management.Model.MDictionary.created_name">
+            <summary>
+            创建人姓名
+            </summary>
+        </member>
+        <member name="P:HS.VIP.Management.Model.MDictionary.created_time">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:HS.VIP.Management.Model.MDictionary.descption">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:HS.VIP.Management.Model.MDictionary.is_delete">
+            <summary>
+            逻辑删除
+            </summary>
+        </member>
+        <member name="P:HS.VIP.Management.Model.MDictionary.Is_deletion_permitted">
+            <summary>
+            是否能够被删除 2能被删，1不能删
+            </summary>
+        </member>
+        <member name="P:HS.VIP.Management.Model.MDictionary.is_open">
+            <summary>
+            是否启用 2启用，1未启用
+            </summary>
+        </member>
+        <member name="P:HS.VIP.Management.Model.MDictionary.key_name">
+            <summary>
+            key名称
+            </summary>
+        </member>
+        <member name="P:HS.VIP.Management.Model.MDictionary.parentid">
+            <summary>
+            上级id
+            </summary>
+        </member>
+        <member name="P:HS.VIP.Management.Model.MDictionary.REVISION">
+            <summary>
+            乐观锁
+            </summary>
+        </member>
+        <member name="P:HS.VIP.Management.Model.MDictionary.sort">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:HS.VIP.Management.Model.MDictionary.updated_id">
+            <summary>
+            更新人
+            </summary>
+        </member>
+        <member name="P:HS.VIP.Management.Model.MDictionary.updated_name">
+            <summary>
+            更新人姓名
+            </summary>
+        </member>
+        <member name="P:HS.VIP.Management.Model.MDictionary.updated_time">
+            <summary>
+            更新时间
+            </summary>
+        </member>
+        <member name="P:HS.VIP.Management.Model.MDictionary.value_name">
+            <summary>
+            value名称
+            </summary>
+        </member>
+    </members>
+</doc>

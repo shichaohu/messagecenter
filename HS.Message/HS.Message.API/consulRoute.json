@@ -1,0 +1,36 @@
+{
+  // 自动注册路由配置信息
+  // 可以针对一个API配置多条路由信息，其目的是为了如果多业务集群部署时的路由动态分配
+  // 配置参数说明
+  // Routes节点：只需要配置每一条路由的自有消息
+  // 至于PAI地址、端口健康检查规则等信息都配置在跟节点，供所有路由使用
+
+  "Routes": [
+    {
+      // Cousul的服务地址
+      "ConsulUrl": "http://173.21.16.13:8500/",
+
+      // 该台资源的唯一表示，记住一定要配置为唯一
+      "AgentServiceId": "HS_SL_logService_001_014",
+      // 该路由在consul对应的服务名称（可以理解为对服务的分组标识，Ocelot会根据该名字最对应的路由分发）
+      "AgentServiceName": "HS_SL_logService_001"
+    }
+  ],
+
+  // 服务出错后 多长时间 会自动移除该路由，单位为s,默认为60s
+  "HeathleCheckDeregisterCriticalServiceAfter": 120,
+  // 服务器多久对API做一次健康检查，单位为s,默认为10s
+  "HeathleCheckInterval": 10,
+  // 检查检查请求方式：默认为http
+  "HeathleCheckScheme": "http",
+  // API健康检查相对地址，该处值需要配置健康检查的相对地址，不需要带上IP端口等信息
+  // 最终的API健康检查地址，会通过 API 地址+API 端口+API健康检查相对地址 =最终的检查检查完整RUL
+  // API一定要实现该地址，Consul会根据该地址做心跳检查
+  // 默认值为heathle
+  "HeathleCheckUrl": "api/Consul/heathle",
+
+  // API 地址
+  "APIAddress": "173.21.16.14",
+  // API 端口
+  "APIPort": 8086
+}
