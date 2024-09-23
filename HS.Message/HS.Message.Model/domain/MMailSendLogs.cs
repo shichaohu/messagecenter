@@ -23,17 +23,7 @@ namespace HS.Message.Model
         // 乐观锁
         /// </summary>
         private int? _REVISION;
-        
-        /// <summary>
-        // id
-        /// </summary>
-        private int _id;
-        
-        /// <summary>
-        // 逻辑id
-        /// </summary>
-        private string _logical_id;
-        
+
         /// <summary>
         // 邮件消息Id
         /// </summary>
@@ -124,39 +114,7 @@ namespace HS.Message.Model
                 this._REVISION = value;
             }
         }
-        
-        /// <summary>
-        /// id
-        /// </summary>
-        [FieldAttribute("id")]
-        public int id
-        {
-            get
-            {
-                return this._id;
-            }
-            set
-            {
-                this._id = value;
-            }
-        }
-        
-        /// <summary>
-        /// 逻辑id
-        /// </summary>
-        [FieldAttribute("逻辑id")]
-        public string logical_id
-        {
-            get
-            {
-                return this._logical_id;
-            }
-            set
-            {
-                this._logical_id = value;
-            }
-        }
-        
+
         /// <summary>
         /// 邮件消息Id
         /// </summary>

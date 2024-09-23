@@ -25,16 +25,6 @@ namespace HS.Message.Model
         private int? _REVISION;
         
         /// <summary>
-        // id
-        /// </summary>
-        private int _id;
-        
-        /// <summary>
-        // 逻辑id
-        /// </summary>
-        private string _logical_id;
-        
-        /// <summary>
         // 短信消息主id
         /// </summary>
         private string _sms_message_id;
@@ -159,39 +149,7 @@ namespace HS.Message.Model
                 this._REVISION = value;
             }
         }
-        
-        /// <summary>
-        /// id
-        /// </summary>
-        [FieldAttribute("id")]
-        public int id
-        {
-            get
-            {
-                return this._id;
-            }
-            set
-            {
-                this._id = value;
-            }
-        }
-        
-        /// <summary>
-        /// 逻辑id
-        /// </summary>
-        [FieldAttribute("逻辑id")]
-        public string logical_id
-        {
-            get
-            {
-                return this._logical_id;
-            }
-            set
-            {
-                this._logical_id = value;
-            }
-        }
-        
+
         /// <summary>
         /// 短信消息主id
         /// </summary>

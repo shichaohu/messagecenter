@@ -25,16 +25,6 @@ namespace HS.Message.Model
         private int? _REVISION;
         
         /// <summary>
-        // id
-        /// </summary>
-        private int _id;
-        
-        /// <summary>
-        // 逻辑id
-        /// </summary>
-        private string _logical_id;
-        
-        /// <summary>
         // 渠道编号;1、阿里云，2、上海大汉三通数据通信
         /// </summary>
         private int? _channel_code;
@@ -122,38 +112,6 @@ namespace HS.Message.Model
             set
             {
                 this._REVISION = value;
-            }
-        }
-        
-        /// <summary>
-        /// id
-        /// </summary>
-        [FieldAttribute("id")]
-        public int id
-        {
-            get
-            {
-                return this._id;
-            }
-            set
-            {
-                this._id = value;
-            }
-        }
-        
-        /// <summary>
-        /// 逻辑id
-        /// </summary>
-        [FieldAttribute("逻辑id")]
-        public string logical_id
-        {
-            get
-            {
-                return this._logical_id;
-            }
-            set
-            {
-                this._logical_id = value;
             }
         }
         

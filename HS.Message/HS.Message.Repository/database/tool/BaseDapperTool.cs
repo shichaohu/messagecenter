@@ -992,7 +992,8 @@ namespace HS.Message.Repository.database.tool
             stringBuilder.AppendFormat("SELECT  {0} from {1} \r\n                                WHERE  {2} {3}\r\n                               ", files, tableName, where, string.IsNullOrEmpty(orderBy) ? string.Empty : "order by " + orderBy);
 
             string sql = stringBuilder.ToString();
-            TRetrun result = (await dbConnection.QueryAsync<TRetrun>(sql, model)).ToList().FirstOrDefault();
+            var res = await dbConnection.QueryAsync<TRetrun>(sql, model);
+            TRetrun result = res.ToList().FirstOrDefault();
             try
             {
                 dbConnection.Close();

@@ -7,7 +7,7 @@ using HS.Message.Service.core;
 using HS.Message.Share.BaseModel;
 using HS.Message.Share.Redis;
 using HS.Message.Share.Utils;
-using HS.Rabbitmq;
+using HS.Rabbitmq.Core;
 using HS.Rabbitmq.Model;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -30,8 +30,9 @@ namespace HS.Message.Service.core.imp
         private readonly ISmsTemplateService _smsTemplateService;
         private readonly IMailSendLogsService _mailSendLogsService;
         private readonly ISmsMessageDetailsService _mailMessageDetailsService;
+        private readonly IInjectedObjects _injectedObjects;
         private readonly IDistributedCache _cache;
-        private readonly RabbitmqTopic _rabbitmq;
+        private readonly RabbitmqTopicProducer _rabbitmqTopicProducer;
 
         /// <summary>
         /// 
@@ -48,7 +49,7 @@ namespace HS.Message.Service.core.imp
         /// <param name="smsMessageService"></param>
         /// <param name="injectedObjects"></param>
         /// <param name="cache"></param>
-        /// <param name="rabbitmq"></param>
+        /// <param name="rabbitmqTopicProducer"></param>
         public MessageService(
             IMessageRepository<MMessage, MMessageCondtion> messageRepository,
             IMessageReceiverService messageReceiverService,
@@ -64,7 +65,7 @@ namespace HS.Message.Service.core.imp
 
             IInjectedObjects injectedObjects,
             IDistributedCache cache,
-            RabbitmqTopic rabbitmq
+            RabbitmqTopicProducer rabbitmqTopicProducer
             )
         {
             _messageRepository = messageRepository;
@@ -77,9 +78,9 @@ namespace HS.Message.Service.core.imp
             _smsTemplateService = smsTemplateService;
             _mailSendLogsService = mailSendLogsService;
             _mailMessageDetailsService = mailMessageDetailsService;
+            _injectedObjects = injectedObjects;
             _cache = cache;
-            _rabbitmq = rabbitmq;
-            _rabbitmq.ConsumerFunc = ConsumerMqMessageStrategy;
+            _rabbitmqTopicProducer = rabbitmqTopicProducer;
         }
 
         /// <summary>
@@ -226,35 +227,33 @@ namespace HS.Message.Service.core.imp
                 };
             }
 
+            if (mailMessageList?.Count > 0)
+            {
+                List<QueueMessage> queueMessageList = mailMessageList.Select(x => new QueueMessage
+                {
+                    MessageType = QueueMessageType.Email,
+                    MessageContent = x.logical_id
+                }).ToList();
+
+                _rabbitmqTopicProducer.BatchProducer(queueMessageList);
+            }
+            if (smsMessageList?.Count > 0)
+            {
+                List<QueueMessage> queueMessageList = smsMessageList.Select(x => new QueueMessage
+                {
+                    MessageType = QueueMessageType.SMS,
+                    MessageContent = x.logical_id
+                }).ToList();
+
+                _rabbitmqTopicProducer.BatchProducer(queueMessageList);
+            }
             using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
                 var res1 = await _messageRepository.BactchAddAsync(messageList);
                 var res2 = await _messageReceiverService.BactchAddAsync(messageReceiveList);
+                var res3 = await _mailMessageService.BactchAddAsync(mailMessageList);
+                var res4 = await _smsMessageService.BactchAddAsync(smsMessageList);
 
-                if (mailMessageList?.Count > 0)
-                {
-                    List<QueueMessage> queueMessageList = mailMessageList.Select(x => new QueueMessage
-                    {
-                        MessageType = QueueMessageType.Email,
-                        MessageContent = x.logical_id,
-                        NameSpace = ""
-                    }).ToList();
-
-                    _rabbitmq.BatchProducer(queueMessageList);
-                    var res3 = await _mailMessageService.BactchAddAsync(mailMessageList);
-                }
-                if (smsMessageList?.Count > 0)
-                {
-                    List<QueueMessage> queueMessageList = smsMessageList.Select(x => new QueueMessage
-                    {
-                        MessageType = QueueMessageType.SMS,
-                        MessageContent = x.logical_id,
-                        NameSpace = ""
-                    }).ToList();
-
-                    _rabbitmq.BatchProducer(queueMessageList);
-                    var res4 = await _smsMessageService.BactchAddAsync(smsMessageList);
-                }
 
                 scope.Complete();
             }
@@ -264,138 +263,6 @@ namespace HS.Message.Service.core.imp
 
             return result;
 
-        }
-        /// <summary>
-        /// 消费MQ的消息
-        /// </summary>
-        /// <param name="message"></param>
-        /// <returns></returns>
-        public BaseResponse<ConsumerResponse> ConsumerMqMessageStrategy(QueueMessage message)
-        {
-            switch (message.MessageType)
-            {
-                case QueueMessageType.Email:
-                    return ConsumerMqMessageByEmail(message);
-                case QueueMessageType.SMS:
-                    return ConsumerMqMessageBySMS(message);
-                default:
-                    break;
-            }
-            var result = new BaseResponse<ConsumerResponse>
-            {
-                Code = ResponseCode.Success
-            };
-
-
-            return result;
-        }
-        private BaseResponse<ConsumerResponse> ConsumerMqMessageByEmail(QueueMessage message)
-        {
-            var result = new BaseResponse<ConsumerResponse>
-            {
-                Code = ResponseCode.Success,
-                Data = new ConsumerResponse
-                {
-                    Successed = true
-                }
-            };
-            var mailMessage = _mailMessageService.GetModelByIdAsync(message.MessageContent).Result;
-            if (mailMessage != null && mailMessage.Code == ResponseCode.Success)
-            {
-                //to do send email
-
-                //save log
-                var mailSendLogs = new MMailSendLogs()
-                {
-                    logical_id = Guid.NewGuid().ToString().Replace("-", ""),
-                    mail_message_id = mailMessage.Data.logical_id,
-                    mail_title = mailMessage.Data.mail_title,
-                    mail_body = mailMessage.Data.mail_body,
-                    mail_configuer_id = mailMessage.Data.mail_configuer_id,
-                    receiver_email = mailMessage.Data.receiver_email,
-                    receiver_cc_email = mailMessage.Data.receiver_cc_email,
-                    send_time = DateTime.Now,
-                    send_state = 1,
-                    created_by_id = "message center",
-                    created_by_name = "message center",
-                    created_time = DateTime.Now,
-                };
-                var response = _mailSendLogsService.AddOneAsync(mailSendLogs).Result;
-                if (response?.Code != ResponseCode.Success)
-                {
-                    result.Data = new ConsumerResponse
-                    {
-                        Successed = false
-                    };
-                }
-                else
-                {
-                    result.Code = ResponseCode.DataError;
-                    result.Data = new ConsumerResponse
-                    {
-                        Successed = false
-                    };
-                    result.Message = $"未找到Email队列对应的数据,id: {message.MessageContent}";
-                }
-            }
-            return result;
-        }
-        private BaseResponse<ConsumerResponse> ConsumerMqMessageBySMS(QueueMessage message)
-        {
-            var result = new BaseResponse<ConsumerResponse>
-            {
-                Code = ResponseCode.Success,
-                Data = new ConsumerResponse
-                {
-                    Successed = true
-                }
-            };
-            var smsMessage = _smsMessageService.GetModelByIdAsync(message.MessageContent).Result;
-            if (smsMessage != null && smsMessage.Code == ResponseCode.Success)
-            {
-                //to do send sms
-
-                //save log
-                var smsSendLogs = new MSmsMessageDetails()
-                {
-                    logical_id = Guid.NewGuid().ToString().Replace("-", ""),
-                    sms_message_id = smsMessage.Data.logical_id,
-                    channel_code = smsMessage.Data.channel_code,
-                    channel_name = smsMessage.Data.channel_name,
-                    content = smsMessage.Data.content,
-                    phone_number = smsMessage.Data.phone_numbers,
-                    has_send_num = 1,
-                    send_state = 1,
-                    //operator_state_code="",
-                    //lock_time=DateTime.Now,
-                    submit_time = DateTime.Now,
-                    receive_time = DateTime.Now,
-                    last_send_time = DateTime.Now,
-                    //biz_id=smsMessage.Data.biz_id,
-                    //request_id=smsMessage.Data.request_id,
-                    created_by_id = "message center",
-                    created_by_name = "message center",
-                    created_time = DateTime.Now,
-                };
-                var response = _mailMessageDetailsService.AddOneAsync(smsSendLogs).Result;
-                if (response?.Code != ResponseCode.Success)
-                {
-                    result.Data = new ConsumerResponse
-                    {
-                        Successed = false
-                    };
-                }
-            }
-            else
-            {
-                result.Code = ResponseCode.DataError;
-                result.Data = new ConsumerResponse
-                {
-                    Successed = false
-                };
-                result.Message = $"未找到SMS队列对应的数据,id: {message.MessageContent}";
-            }
-            return result;
         }
     }
 

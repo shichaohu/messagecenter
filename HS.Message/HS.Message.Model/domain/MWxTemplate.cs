@@ -20,11 +20,6 @@ namespace HS.Message.Model
     {
         
         /// <summary>
-        // 主键
-        /// </summary>
-        private string _id;
-        
-        /// <summary>
         // 模板名称
         /// </summary>
         private string _temp_name;
@@ -80,23 +75,6 @@ namespace HS.Message.Model
         // 更新时间
         /// </summary>
         private System.DateTime _updated_time;
-        
-        /// <summary>
-        /// 主键
-        /// </summary>
-        [FieldAttribute("主键")]
-        [ExcelAttribute("主键", 20, 10)]
-        public string id
-        {
-            get
-            {
-                return this._id;
-            }
-            set
-            {
-                this._id = value;
-            }
-        }
         
         /// <summary>
         /// 模板名称

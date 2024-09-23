@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
+using HS.Rabbitmq.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAspDotNetBasic();
@@ -35,6 +36,7 @@ builder.Services.AddControllers(option =>
     });
 
 builder.Services.AddAutoDependency("HS.Message");
+builder.Services.AddRabbitmq("HS.Message.Service");
 builder.Services.AddScoped(typeof(AliyunSMSTool));
 builder.Services.AddScoped(typeof(SendingMailTool));
 builder.Services.AddScoped(typeof(SMSParameter));
@@ -65,6 +67,7 @@ app.UseDefaultFiles().UseStaticFiles(new StaticFileOptions()
 });
 app.UseHttpsRedirection();
 app.UseRouting();
+app.UseRabbitmq();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();

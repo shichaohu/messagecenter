@@ -59,6 +59,24 @@ public static class AspDotNetExtensions
                     return x.IsAssignableTo(typeof(IDependency));
                 })
         .WithScopedLifetime());
+
+        services.Scan(s =>
+            s.FromAssemblies(assemblies)
+                .AddClasses(c => c.Where(t => t.IsAssignableTo(typeof(ISingletonDependency))))
+                .AsImplementedInterfaces(x =>
+                {
+                    return x.IsAssignableTo(typeof(ISingletonDependency));
+                })
+        .WithSingletonLifetime());
+
+        services.Scan(s =>
+            s.FromAssemblies(assemblies)
+                .AddClasses(c => c.Where(t => t.IsAssignableTo(typeof(ITransientDependency))))
+                .AsImplementedInterfaces(x =>
+                {
+                    return x.IsAssignableTo(typeof(ITransientDependency));
+                })
+        .WithTransientLifetime());
     }
 
 
