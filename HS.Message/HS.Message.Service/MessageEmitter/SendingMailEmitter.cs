@@ -11,17 +11,17 @@ using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Transactions;
 
-namespace HS.Message.Service.tools
+namespace HS.Message.Service.MessageEmitter
 {
     /// <summary>
     /// 发送邮件工具
     /// </summary>
-    public class SendingMailTool
+    public class SendingMailEmitter
     {
         private readonly IMessageRepository<MMessage, MMessageCondtion> _messageRepository;
         private readonly IMailMessageService _mailMessageService;
         private readonly IMailSendLogsService _mailSendLogsService;
-        private readonly ILogger<SendingMailTool> _logger;
+        private readonly ILogger<SendingMailEmitter> _logger;
 
         /// <summary>
         /// 
@@ -30,12 +30,12 @@ namespace HS.Message.Service.tools
         /// <param name="mailMessageService"></param>
         /// <param name="mailSendLogsService"></param>
         /// <param name="logger"></param>
-        public SendingMailTool(
+        public SendingMailEmitter(
 
             IMessageRepository<MMessage, MMessageCondtion> messageRepository,
             IMailMessageService mailMessageService,
             IMailSendLogsService mailSendLogsService,
-            ILogger<SendingMailTool> logger)
+            ILogger<SendingMailEmitter> logger)
         {
             _messageRepository = messageRepository;
             _mailMessageService = mailMessageService;

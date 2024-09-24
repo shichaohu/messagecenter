@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace HS.Message.Service.tools
+namespace HS.Message.Service.MessageEmitter
 {
     /// <summary>
     /// SMS公共参数

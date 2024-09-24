@@ -8,22 +8,22 @@ using log4net.Core;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
-namespace HS.Message.Service.tools
+namespace HS.Message.Service.MessageEmitter
 {
     /// <summary>
     /// 阿里云短信
     /// </summary>
-    public class AliyunSMSTool
+    public class AliyunSMSEmitter
     {
         private readonly SMSParameter _sMSParameter;
         private readonly ISmsMessageService _smsMessageService;
         private readonly ISmsMessageDetailsService _smsMessageDetailsService;
-        private readonly ILogger<AliyunSMSTool> _logger;
+        private readonly ILogger<AliyunSMSEmitter> _logger;
 
-        public AliyunSMSTool(SMSParameter sMSParameter,
+        public AliyunSMSEmitter(SMSParameter sMSParameter,
             ISmsMessageService smsMessageService,
             ISmsMessageDetailsService smsMessageDetailsService,
-            ILogger<AliyunSMSTool> logger)
+            ILogger<AliyunSMSEmitter> logger)
         {
             _sMSParameter = sMSParameter;
             _smsMessageService = smsMessageService;

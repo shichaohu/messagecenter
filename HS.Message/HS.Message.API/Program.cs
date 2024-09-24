@@ -1,6 +1,5 @@
 using HS.Message.Extensions;
 using HS.Message.HttpClients;
-using HS.Message.Service.tools;
 using HS.Message.Share.Authentication;
 using HS.Message.Share.Extensions;
 using HS.Message.Share.Handlers;
@@ -12,6 +11,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 using HS.Rabbitmq.Extensions;
+using HS.Message.Service.MessageEmitter;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAspDotNetBasic();
@@ -37,8 +37,8 @@ builder.Services.AddControllers(option =>
 
 builder.Services.AddAutoDependency("HS.Message");
 builder.Services.AddRabbitmq("HS.Message.Service");
-builder.Services.AddScoped(typeof(AliyunSMSTool));
-builder.Services.AddScoped(typeof(SendingMailTool));
+builder.Services.AddScoped(typeof(AliyunSMSEmitter));
+builder.Services.AddScoped(typeof(SendingMailEmitter));
 builder.Services.AddScoped(typeof(SMSParameter));
 
 builder.Services.AddModelStateVrify();
