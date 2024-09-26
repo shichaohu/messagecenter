@@ -422,7 +422,7 @@ namespace HS.Message.Repository.repository.@base.core
         public virtual StringBuilder GetSqlWhereByModel(TCondition model, string table = "")
         {
             #region 根据model构建查询条件
-            var fieldsDic = GetAllFields();
+            var fieldsDic = GetAllFields(null,true);
             // 构建查查询条件sql
             StringBuilder sqlSB = new();
             if (fieldsDic?.Keys.Count > 0)
@@ -519,10 +519,16 @@ namespace HS.Message.Repository.repository.@base.core
         /// <summary>
         /// 获取表全部字段
         /// </summary>
+        /// <param name="ignoreField">忽略的字段</param>
+        /// <param name="isCondition">是否是条件模板</param>
         /// <returns></returns>
-        public virtual Dictionary<string, Type> GetAllFields(string[] ignoreField = null)
+        public virtual Dictionary<string, Type> GetAllFields(string[] ignoreField = null, bool isCondition = false)
         {
             Type mType = typeof(TModel);
+            if (isCondition)
+            {
+                mType = typeof(TCondition);
+            }
             Dictionary<string, Type> fieldMap = new();
             ignoreField = ignoreField ?? Array.Empty<string>();
             foreach (var propInfo in mType.GetProperties())
