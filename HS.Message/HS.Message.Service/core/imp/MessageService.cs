@@ -9,6 +9,7 @@ using HS.Message.Share.Redis;
 using HS.Message.Share.Utils;
 using HS.Rabbitmq.Core;
 using HS.Rabbitmq.Model;
+using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Transactions;
@@ -33,6 +34,7 @@ namespace HS.Message.Service.core.imp
         private readonly IInjectedObjects _injectedObjects;
         private readonly IDistributedCache _cache;
         private readonly RabbitmqTopicProducer _rabbitmqTopicProducer;
+        private readonly IConfiguration _configuration;
 
         /// <summary>
         /// 
@@ -50,6 +52,7 @@ namespace HS.Message.Service.core.imp
         /// <param name="injectedObjects"></param>
         /// <param name="cache"></param>
         /// <param name="rabbitmqTopicProducer"></param>
+        /// <param name="configuration"></param>
         public MessageService(
             IMessageRepository<MMessage, MMessageCondtion> messageRepository,
             IMessageReceiverService messageReceiverService,
@@ -65,7 +68,8 @@ namespace HS.Message.Service.core.imp
 
             IInjectedObjects injectedObjects,
             IDistributedCache cache,
-            RabbitmqTopicProducer rabbitmqTopicProducer
+            RabbitmqTopicProducer rabbitmqTopicProducer,
+            IConfiguration configuration
             )
         {
             _messageRepository = messageRepository;
@@ -81,6 +85,7 @@ namespace HS.Message.Service.core.imp
             _injectedObjects = injectedObjects;
             _cache = cache;
             _rabbitmqTopicProducer = rabbitmqTopicProducer;
+            _configuration = configuration;
         }
 
         /// <summary>
@@ -182,6 +187,9 @@ namespace HS.Message.Service.core.imp
                     {
                         logical_id = Guid.NewGuid().ToString().Replace("-", ""),
                         message_id = message.logical_id,
+                        send_email = _configuration["EmailConfig:SendEmail"],//"502242999@qq.com",
+                        send_pwd = _configuration["EmailConfig:SendPassowrd"],//vkspnryltkotbjhc
+                        smtp_service = _configuration["EmailConfig:SmtpService"],
                         receiver_id = x.logical_id,
                         mail_template_id = mailTemplate?.Data?.logical_id,
                         mail_configuer_id = "",
@@ -193,6 +201,7 @@ namespace HS.Message.Service.core.imp
                         start_send_time = DateTime.Now,
                         has_send_num = 0,
                         send_state = 1,
+                        last_send_time = DateTime.Now,
                         created_by_id = x.created_by_id,
                         created_by_name = x.created_by_name,
                         created_time = DateTime.Now

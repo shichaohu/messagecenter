@@ -11,5 +11,7 @@ namespace HS.Message.Repository.repository.core
 
         Task<MSmsMessage> GetSmsMessageByIdAsync(string id);
         Task<int> AddOneSmsMessageDetailsAsync(MSmsMessageDetails data);
+        Task<int> UpdateMailMessageByIdAsync(MMailMessage message);
+        Task<int> UpdateSmsMessageByIdAsync(MSmsMessage message);
     }
 }

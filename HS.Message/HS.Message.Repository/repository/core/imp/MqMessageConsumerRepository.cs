@@ -45,5 +45,16 @@ namespace HS.Message.Repository.repository.core.imp
             return await repository.AddOneAsync(data);
         }
 
+        public async Task<int> UpdateMailMessageByIdAsync(MMailMessage message)
+        {
+            var repository = new BizTransientRepositoryAdapter<MMailMessage, MMailMessageCondtion>(_configuration, "mail_message");
+            return await repository.UpdateByIdAsync(message);
+        }
+        public async Task<int> UpdateSmsMessageByIdAsync(MSmsMessage message)
+        {
+            var repository = new BizTransientRepositoryAdapter<MSmsMessage, MSmsMessageCondtion>(_configuration, "sms_message");
+            return await repository.UpdateByIdAsync(message);
+        }
+
     }
 }

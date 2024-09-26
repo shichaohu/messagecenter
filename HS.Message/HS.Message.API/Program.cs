@@ -4,14 +4,15 @@ using HS.Message.Share.Authentication;
 using HS.Message.Share.Extensions;
 using HS.Message.Share.Handlers;
 using HS.Message.Share.Log.Serilogs;
+using HS.Message.Share.MessageEmitter;
+using HS.Message.Share.MessageEmitter.Params;
+using HS.Rabbitmq.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
-using HS.Rabbitmq.Extensions;
-using HS.Message.Service.MessageEmitter;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAspDotNetBasic();
@@ -37,9 +38,6 @@ builder.Services.AddControllers(option =>
 
 builder.Services.AddAutoDependency("HS.Message");
 builder.Services.AddRabbitmq("HS.Message.Service");
-builder.Services.AddScoped(typeof(AliyunSMSEmitter));
-builder.Services.AddScoped(typeof(SendingMailEmitter));
-builder.Services.AddScoped(typeof(SMSParameter));
 
 builder.Services.AddModelStateVrify();
 
@@ -71,6 +69,6 @@ app.UseRabbitmq();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
-app.Logger.LogInformation($"The application starts in the {JsonConvert.SerializeObject(app.Environment)} environment");
+app.Logger.LogInformation($"The application started successfully, the following is information about the environment:{JsonConvert.SerializeObject(app.Environment)}");
 
 app.Run();

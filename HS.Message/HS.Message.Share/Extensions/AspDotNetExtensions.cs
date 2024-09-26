@@ -1,6 +1,8 @@
 using HS.Message.Share.BaseModel;
 using HS.Message.Share.CommonObject;
 using HS.Message.Share.Http;
+using HS.Message.Share.MessageEmitter;
+using HS.Message.Share.MessageEmitter.Params;
 using HS.Message.Share.Redis;
 using HS.Message.Share.Utils;
 using Microsoft.AspNetCore.Hosting;
@@ -29,6 +31,10 @@ public static class AspDotNetExtensions
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         services.AddScoped(typeof(HttpContextInfo));
         services.AddTransient<IDistributedCache, RedisCache>();
+
+        services.AddTransient<SendMailEmitter>(); 
+        services.AddTransient<AliyunSMSEmitter>();
+        services.AddTransient<SMSParameter>();
 
         services.AddCors(policy =>
         {

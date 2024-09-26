@@ -1,16 +1,13 @@
 using HS.Message.Model;
-using HS.Message.Model.Enums;
-using HS.Message.Model.Requests;
 using HS.Message.Repository.repository.core;
-using HS.Message.Service.@base;
-using HS.Message.Service.core;
+using HS.Message.Repository.repository.core.imp;
 using HS.Message.Share.BaseModel;
-using HS.Message.Share.Redis;
-using HS.Message.Share.Utils;
+using HS.Message.Share.MessageEmitter;
+using HS.Message.Share.MessageEmitter.Params;
 using HS.Rabbitmq.Core;
 using HS.Rabbitmq.Model;
 using Microsoft.Extensions.DependencyInjection;
-using System.Collections.Generic;
+using MimeKit;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Transactions;
@@ -50,9 +47,9 @@ namespace HS.Message.Service.core.imp
             switch (message.MessageType)
             {
                 case QueueMessageType.Email:
-                    return ConsumerMqMessageByEmail(message);
+                    return await ConsumerMqMessageByEmail(message);
                 case QueueMessageType.SMS:
-                    return ConsumerMqMessageBySMS(message);
+                    return await ConsumerMqMessageBySMS(message);
                 default:
                     break;
             }
@@ -61,7 +58,7 @@ namespace HS.Message.Service.core.imp
             return result;
         }
 
-        private BaseResponse<ConsumerResponse> ConsumerMqMessageByEmail(QueueMessage message)
+        private async Task<BaseResponse<ConsumerResponse>> ConsumerMqMessageByEmail(QueueMessage message)
         {
             var result = new BaseResponse<ConsumerResponse>
             {
@@ -74,11 +71,22 @@ namespace HS.Message.Service.core.imp
             try
             {
                 var repository = _serviceProvider.GetService<IMqMessageConsumerRepository>();
-                var mailMessage = repository.GetMailMessageByIdAsync(message.MessageContent).Result;
+                var mailMessage = await repository.GetMailMessageByIdAsync(message.MessageContent);
                 if (mailMessage != null)
                 {
                     //to do send email
-                    Thread.Sleep(5000);
+                    var sender = _serviceProvider.GetService<SendMailEmitter>();
+                    var sendMessage = new MailMParameter
+                    {
+                        SmtpService = mailMessage.smtp_service,
+                        SendEmail = mailMessage.send_email,
+                        SendPwd = mailMessage.send_pwd,
+                        ReceiverEmails = mailMessage.receiver_email.Split(','),
+                        ReceiverCcEmails = mailMessage.receiver_cc_email.Split(','),
+                        MailTitle = mailMessage.mail_title,
+                        MailBody = mailMessage.mail_body
+                    };
+                    var sendResponse = await sender.SendMailByMailKitMassed(sendMessage);
                     //save log
                     var mailSendLogs = new MMailSendLogs()
                     {
@@ -90,13 +98,29 @@ namespace HS.Message.Service.core.imp
                         receiver_email = mailMessage.receiver_email,
                         receiver_cc_email = mailMessage.receiver_cc_email,
                         send_time = DateTime.Now,
-                        send_state = 1,
+                        send_state = sendResponse.Code == ResponseCode.Success ? 1 : 2,
+                        send_result = JsonConvert.SerializeObject(sendResponse),
                         created_by_id = "message center",
                         created_by_name = "message center",
                         created_time = DateTime.Now,
                     };
-                    var response = repository.AddOneMailSendLogsAsync(mailSendLogs).Result;
-                    if (response > 0)
+                    mailMessage.send_state = 3;
+                    mailMessage.last_send_time = DateTime.Now;
+                    mailMessage.updated_time = DateTime.Now;
+                    mailMessage.updated_by_id = "message center";
+                    mailMessage.updated_by_name = "message center";
+                    mailMessage.total_send_num++;
+
+                    bool successed = false;
+                    using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+                    {
+                        var response1 = await repository.UpdateMailMessageByIdAsync(mailMessage);
+                        var response2 = await repository.AddOneMailSendLogsAsync(mailSendLogs);
+                        scope.Complete();
+                        successed = response1 > 0 && response2 > 0;
+                    }
+
+                    if (successed)
                     {
                         result.Data = new ConsumerResponse
                         {
@@ -135,7 +159,7 @@ namespace HS.Message.Service.core.imp
 
             return result;
         }
-        private BaseResponse<ConsumerResponse> ConsumerMqMessageBySMS(QueueMessage message)
+        private async Task<BaseResponse<ConsumerResponse>> ConsumerMqMessageBySMS(QueueMessage message)
         {
             var result = new BaseResponse<ConsumerResponse>
             {
@@ -148,7 +172,7 @@ namespace HS.Message.Service.core.imp
             try
             {
                 var repository = _serviceProvider.GetService<IMqMessageConsumerRepository>();
-                var smsMessage = repository.GetSmsMessageByIdAsync(message.MessageContent).Result;
+                var smsMessage = await repository.GetSmsMessageByIdAsync(message.MessageContent);
                 if (smsMessage != null)
                 {
                     //to do send sms
@@ -176,8 +200,21 @@ namespace HS.Message.Service.core.imp
                         created_by_name = "message center",
                         created_time = DateTime.Now,
                     };
-                    var response = repository.AddOneSmsMessageDetailsAsync(smsSendLogs).Result;
-                    if (response > 0)
+                    smsMessage.send_state = 3;
+                    smsMessage.updated_time = DateTime.Now;
+                    smsMessage.updated_by_id = "message center";
+                    smsMessage.updated_by_name = "message center";
+
+                    bool successed = false;
+                    using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+                    {
+                        var response1 = await repository.UpdateSmsMessageByIdAsync(smsMessage);
+                        var response2 = await repository.AddOneSmsMessageDetailsAsync(smsSendLogs);
+                        scope.Complete();
+                        successed = response1 > 0 && response2 > 0;
+                    }
+
+                    if (successed)
                     {
                         result.Data = new ConsumerResponse
                         {
