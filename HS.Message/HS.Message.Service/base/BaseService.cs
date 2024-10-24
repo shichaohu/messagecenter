@@ -221,8 +221,8 @@ namespace HS.Message.Service.@base
         public async Task<BaseResponse> AddOneAsync(TModel model)
         {
             // 操作结果
-            BaseResponse returnResultBase = null;
-
+            BaseResponse returnResultBase = new()
+            { Code = ResponseCode.Success };
             // 第一步：数据校验
             returnResultBase = CheckInfoBase(model);
             if (returnResultBase.Code != ResponseCode.Success)
@@ -245,7 +245,8 @@ namespace HS.Message.Service.@base
         public async Task<BaseResponse> BactchAddAsync(List<TModel> modelList)
         {
             // 操作结果
-            BaseResponse returnResultBase = null;
+            BaseResponse returnResultBase = new()
+            { Code = ResponseCode.Success };
 
             // 第一步：数据校验
             if (modelList == null || modelList.Count < 1)
@@ -283,7 +284,7 @@ namespace HS.Message.Service.@base
         public async Task<BaseResponse> DeleteByIdAsync(string logical_id)
         {
             // 操作结果
-            BaseResponse returnResultBase = new BaseResponse()
+            BaseResponse returnResultBase = new()
             { Code = ResponseCode.Success };
 
             // 第一步：数据校验
@@ -321,7 +322,7 @@ namespace HS.Message.Service.@base
         public async Task<BaseResponse> BactchDeleteByIdListAsync(List<string> idList)
         {
             // 操作结果
-            BaseResponse returnResultBase = new BaseResponse()
+            BaseResponse returnResultBase = new()
             { Code = ResponseCode.Success };
 
             // 第一步：数据校验
@@ -348,7 +349,7 @@ namespace HS.Message.Service.@base
         public async Task<BaseResponse> UpdateByIdAsync(TModel model)
         {
             // 操作结果
-            BaseResponse mReturnResultBase = new BaseResponse()
+            BaseResponse mReturnResultBase = new()
             { Code = ResponseCode.Success };
 
             //// 第一步：数据校验
@@ -391,7 +392,7 @@ namespace HS.Message.Service.@base
         public async Task<BaseResponse> BactchUpdateByIdAsync(List<TModel> modelList)
         {
             // 操作结果
-            BaseResponse mReturnResultBase = new BaseResponse()
+            BaseResponse mReturnResultBase = new()
             { Code = ResponseCode.Success };
 
             //// 第一步：数据校验

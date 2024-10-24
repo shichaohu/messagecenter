@@ -256,16 +256,14 @@ namespace HS.Rabbitmq.Core
 
                         if (message == null || string.IsNullOrEmpty(message.MessageContent) || message.MessageContent.StartsWith("mq init", StringComparison.OrdinalIgnoreCase))
                         {
-                            channel.BasicAck(ea.DeliveryTag, false);//空消息体，标记已被消费
-                            return;
+                            _logger.LogInformation($"message is empty and has been Acknowledged.");//空消息体，标记已被消费
                         }
                         else
                         {
                             var res = await ConsumerRun(message);
                             if (res.Code == ResponseCode.Success && res.Data.Successed)
                             {
-                                channel.BasicAck(ea.DeliveryTag, false);//确认该消息已被消费
-                                _logger.LogInformation($"message consumption success : {messageSource}");
+                                _logger.LogInformation($"message consumption success : {messageString}");
                             }
                             else
                             {
@@ -282,6 +280,7 @@ namespace HS.Rabbitmq.Core
                             }
                         }
 
+                        channel.BasicAck(ea.DeliveryTag, false);//确认该消息已被消费
 
                     }
                     catch (Exception ex)

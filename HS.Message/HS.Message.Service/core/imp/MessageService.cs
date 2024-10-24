@@ -244,7 +244,13 @@ namespace HS.Message.Service.core.imp
                     MessageContent = x.logical_id
                 }).ToList();
 
-                _rabbitmqTopicProducer.BatchProducer(queueMessageList);
+                var mqresponse = _rabbitmqTopicProducer.BatchProducer(queueMessageList);
+                if (!mqresponse.Successed)
+                {
+                    result.Code = ResponseCode.InternalError;
+                    result.Message = mqresponse.Message;
+                    return result;
+                }
             }
             if (smsMessageList?.Count > 0)
             {
@@ -254,17 +260,49 @@ namespace HS.Message.Service.core.imp
                     MessageContent = x.logical_id
                 }).ToList();
 
-                _rabbitmqTopicProducer.BatchProducer(queueMessageList);
+                var mqresponse = _rabbitmqTopicProducer.BatchProducer(queueMessageList);
+                if (!mqresponse.Successed)
+                {
+                    result.Code = ResponseCode.InternalError;
+                    result.Message = mqresponse.Message;
+                    return result;
+                }
             }
+            int insertCount = 0;
+            List<string> errorMessage = new List<string>();
             using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
-                var res1 = await _messageRepository.BactchAddAsync(messageList);
+                insertCount = await _messageRepository.BactchAddAsync(messageList);
                 var res2 = await _messageReceiverService.BactchAddAsync(messageReceiveList);
-                var res3 = await _mailMessageService.BactchAddAsync(mailMessageList);
-                var res4 = await _smsMessageService.BactchAddAsync(smsMessageList);
+                if (res2?.Code != ResponseCode.Success)
+                {
+                    errorMessage.Add(res2?.Message);
+                }
+                if (mailMessageList?.Count > 0)
+                {
+                    var res3 = await _mailMessageService.BactchAddAsync(mailMessageList);
+                    if (res3?.Code != ResponseCode.Success)
+                    {
+                        errorMessage.Add(res3?.Message);
+                    }
+                }
+                if (smsMessageList?.Count > 0)
+                {
+                    var res4 = await _smsMessageService.BactchAddAsync(smsMessageList);
+                    if (res4?.Code != ResponseCode.Success)
+                    {
+                        errorMessage.Add(res4?.Message);
+                    }
+                }
 
 
                 scope.Complete();
+            }
+            if (insertCount == 0)
+            {
+                result.Code = ResponseCode.InternalError;
+                result.Message = "消息写入数据库时，事物提交失败！";
+                return result;
             }
 
             result.Code = ResponseCode.Success;

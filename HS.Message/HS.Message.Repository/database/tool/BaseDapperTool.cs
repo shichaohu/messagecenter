@@ -21,17 +21,12 @@ namespace HS.Message.Repository.database.tool
         {
             using IDbConnection dbConnection = GetDbConnection();
             int result = dbConnection.Execute(SQLString);
-            try
+
+            dbConnection.Close();
+            dbConnection.Dispose();
+            if (dbtype == DBType.Oracle)
             {
-                dbConnection.Close();
-                dbConnection.Dispose();
-                if (dbtype == DBType.Oracle)
-                {
-                    OracleConnection.ClearPool((OracleConnection)dbConnection);
-                }
-            }
-            catch (Exception)
-            {
+                OracleConnection.ClearPool((OracleConnection)dbConnection);
             }
 
             return result;
@@ -40,17 +35,12 @@ namespace HS.Message.Repository.database.tool
         {
             using IDbConnection dbConnection = GetDbConnection();
             int result = await dbConnection.ExecuteAsync(SQLString);
-            try
+
+            dbConnection.Close();
+            dbConnection.Dispose();
+            if (dbtype == DBType.Oracle)
             {
-                dbConnection.Close();
-                dbConnection.Dispose();
-                if (dbtype == DBType.Oracle)
-                {
-                    OracleConnection.ClearPool((OracleConnection)dbConnection);
-                }
-            }
-            catch (Exception)
-            {
+                OracleConnection.ClearPool((OracleConnection)dbConnection);
             }
 
             return result;
@@ -60,17 +50,12 @@ namespace HS.Message.Repository.database.tool
         {
             using IDbConnection dbConnection = GetDbConnection();
             int result = dbConnection.Execute(SQLString, tmodel);
-            try
+
+            dbConnection.Close();
+            dbConnection.Dispose();
+            if (dbtype == DBType.Oracle)
             {
-                dbConnection.Close();
-                dbConnection.Dispose();
-                if (dbtype == DBType.Oracle)
-                {
-                    OracleConnection.ClearPool((OracleConnection)dbConnection);
-                }
-            }
-            catch (Exception)
-            {
+                OracleConnection.ClearPool((OracleConnection)dbConnection);
             }
 
             return result;
@@ -79,17 +64,12 @@ namespace HS.Message.Repository.database.tool
         {
             using IDbConnection dbConnection = GetDbConnection();
             int result = await dbConnection.ExecuteAsync(SQLString, tmodel);
-            try
+
+            dbConnection.Close();
+            dbConnection.Dispose();
+            if (dbtype == DBType.Oracle)
             {
-                dbConnection.Close();
-                dbConnection.Dispose();
-                if (dbtype == DBType.Oracle)
-                {
-                    OracleConnection.ClearPool((OracleConnection)dbConnection);
-                }
-            }
-            catch (Exception)
-            {
+                OracleConnection.ClearPool((OracleConnection)dbConnection);
             }
 
             return result;
@@ -104,17 +84,12 @@ namespace HS.Message.Repository.database.tool
             }
 
             int result = dbConnection.Execute(SQLString, tmodel);
-            try
+
+            dbConnection.Close();
+            dbConnection.Dispose();
+            if (dbtype == DBType.Oracle)
             {
-                dbConnection.Close();
-                dbConnection.Dispose();
-                if (dbtype == DBType.Oracle)
-                {
-                    OracleConnection.ClearPool((OracleConnection)dbConnection);
-                }
-            }
-            catch (Exception)
-            {
+                OracleConnection.ClearPool((OracleConnection)dbConnection);
             }
 
             return result;
@@ -128,17 +103,12 @@ namespace HS.Message.Repository.database.tool
             }
 
             int result = await dbConnection.ExecuteAsync(SQLString, tmodel);
-            try
+
+            dbConnection.Close();
+            dbConnection.Dispose();
+            if (dbtype == DBType.Oracle)
             {
-                dbConnection.Close();
-                dbConnection.Dispose();
-                if (dbtype == DBType.Oracle)
-                {
-                    OracleConnection.ClearPool((OracleConnection)dbConnection);
-                }
-            }
-            catch (Exception)
-            {
+                OracleConnection.ClearPool((OracleConnection)dbConnection);
             }
 
             return result;
@@ -148,17 +118,12 @@ namespace HS.Message.Repository.database.tool
         {
             using IDbConnection dbConnection = GetDbConnection();
             int result = dbConnection.Query<int>(SQLString).FirstOrDefault();
-            try
+
+            dbConnection.Close();
+            dbConnection.Dispose();
+            if (dbtype == DBType.Oracle)
             {
-                dbConnection.Close();
-                dbConnection.Dispose();
-                if (dbtype == DBType.Oracle)
-                {
-                    OracleConnection.ClearPool((OracleConnection)dbConnection);
-                }
-            }
-            catch (Exception)
-            {
+                OracleConnection.ClearPool((OracleConnection)dbConnection);
             }
 
             return result;
@@ -167,17 +132,12 @@ namespace HS.Message.Repository.database.tool
         {
             using IDbConnection dbConnection = GetDbConnection();
             int result = (await dbConnection.QueryAsync<int>(SQLString)).FirstOrDefault();
-            try
+
+            dbConnection.Close();
+            dbConnection.Dispose();
+            if (dbtype == DBType.Oracle)
             {
-                dbConnection.Close();
-                dbConnection.Dispose();
-                if (dbtype == DBType.Oracle)
-                {
-                    OracleConnection.ClearPool((OracleConnection)dbConnection);
-                }
-            }
-            catch (Exception)
-            {
+                OracleConnection.ClearPool((OracleConnection)dbConnection);
             }
 
             return result;
@@ -187,17 +147,12 @@ namespace HS.Message.Repository.database.tool
         {
             using IDbConnection dbConnection = GetDbConnection();
             int result = dbConnection.Query<int>(SQLString, tmodel).FirstOrDefault();
-            try
+
+            dbConnection.Close();
+            dbConnection.Dispose();
+            if (dbtype == DBType.Oracle)
             {
-                dbConnection.Close();
-                dbConnection.Dispose();
-                if (dbtype == DBType.Oracle)
-                {
-                    OracleConnection.ClearPool((OracleConnection)dbConnection);
-                }
-            }
-            catch (Exception)
-            {
+                OracleConnection.ClearPool((OracleConnection)dbConnection);
             }
 
             return result;
@@ -206,17 +161,12 @@ namespace HS.Message.Repository.database.tool
         {
             using IDbConnection dbConnection = GetDbConnection();
             int result = (await dbConnection.QueryAsync<int>(SQLString, tmodel)).FirstOrDefault();
-            try
+
+            dbConnection.Close();
+            dbConnection.Dispose();
+            if (dbtype == DBType.Oracle)
             {
-                dbConnection.Close();
-                dbConnection.Dispose();
-                if (dbtype == DBType.Oracle)
-                {
-                    OracleConnection.ClearPool((OracleConnection)dbConnection);
-                }
-            }
-            catch (Exception)
-            {
+                OracleConnection.ClearPool((OracleConnection)dbConnection);
             }
 
             return result;
@@ -226,17 +176,12 @@ namespace HS.Message.Repository.database.tool
         {
             using IDbConnection dbConnection = GetDbConnection();
             int result = dbConnection.Query<int>(SQLString, tmodel).FirstOrDefault();
-            try
+
+            dbConnection.Close();
+            dbConnection.Dispose();
+            if (dbtype == DBType.Oracle)
             {
-                dbConnection.Close();
-                dbConnection.Dispose();
-                if (dbtype == DBType.Oracle)
-                {
-                    OracleConnection.ClearPool((OracleConnection)dbConnection);
-                }
-            }
-            catch (Exception)
-            {
+                OracleConnection.ClearPool((OracleConnection)dbConnection);
             }
 
             return result;
@@ -245,17 +190,12 @@ namespace HS.Message.Repository.database.tool
         {
             using IDbConnection dbConnection = GetDbConnection();
             int result = (await dbConnection.QueryAsync<int>(SQLString, tmodel)).FirstOrDefault();
-            try
+
+            dbConnection.Close();
+            dbConnection.Dispose();
+            if (dbtype == DBType.Oracle)
             {
-                dbConnection.Close();
-                dbConnection.Dispose();
-                if (dbtype == DBType.Oracle)
-                {
-                    OracleConnection.ClearPool((OracleConnection)dbConnection);
-                }
-            }
-            catch (Exception)
-            {
+                OracleConnection.ClearPool((OracleConnection)dbConnection);
             }
 
             return result;
@@ -265,17 +205,12 @@ namespace HS.Message.Repository.database.tool
         {
             using IDbConnection dbConnection = GetDbConnection();
             int result = dbConnection.Execute(SQLString, listModel);
-            try
+
+            dbConnection.Close();
+            dbConnection.Dispose();
+            if (dbtype == DBType.Oracle)
             {
-                dbConnection.Close();
-                dbConnection.Dispose();
-                if (dbtype == DBType.Oracle)
-                {
-                    OracleConnection.ClearPool((OracleConnection)dbConnection);
-                }
-            }
-            catch (Exception)
-            {
+                OracleConnection.ClearPool((OracleConnection)dbConnection);
             }
 
             return result;
@@ -284,17 +219,12 @@ namespace HS.Message.Repository.database.tool
         {
             using IDbConnection dbConnection = GetDbConnection();
             int result = await dbConnection.ExecuteAsync(SQLString, listModel);
-            try
+
+            dbConnection.Close();
+            dbConnection.Dispose();
+            if (dbtype == DBType.Oracle)
             {
-                dbConnection.Close();
-                dbConnection.Dispose();
-                if (dbtype == DBType.Oracle)
-                {
-                    OracleConnection.ClearPool((OracleConnection)dbConnection);
-                }
-            }
-            catch (Exception)
-            {
+                OracleConnection.ClearPool((OracleConnection)dbConnection);
             }
 
             return result;
@@ -320,17 +250,12 @@ namespace HS.Message.Repository.database.tool
             }
 
             List<TRetrun> result = dbConnection.Query<TRetrun>(SQLString).ToList();
-            try
+
+            dbConnection.Close();
+            dbConnection.Dispose();
+            if (dbtype == DBType.Oracle)
             {
-                dbConnection.Close();
-                dbConnection.Dispose();
-                if (dbtype == DBType.Oracle)
-                {
-                    OracleConnection.ClearPool((OracleConnection)dbConnection);
-                }
-            }
-            catch (Exception)
-            {
+                OracleConnection.ClearPool((OracleConnection)dbConnection);
             }
 
             return result;
@@ -344,17 +269,12 @@ namespace HS.Message.Repository.database.tool
             }
 
             List<TRetrun> result = (await dbConnection.QueryAsync<TRetrun>(SQLString)).ToList();
-            try
+
+            dbConnection.Close();
+            dbConnection.Dispose();
+            if (dbtype == DBType.Oracle)
             {
-                dbConnection.Close();
-                dbConnection.Dispose();
-                if (dbtype == DBType.Oracle)
-                {
-                    OracleConnection.ClearPool((OracleConnection)dbConnection);
-                }
-            }
-            catch (Exception)
-            {
+                OracleConnection.ClearPool((OracleConnection)dbConnection);
             }
 
             return result;
@@ -391,17 +311,12 @@ namespace HS.Message.Repository.database.tool
         {
             using IDbConnection dbConnection = GetDbConnection();
             List<TRetrun> result = dbConnection.Query<TRetrun>(SQLString, model).ToList();
-            try
+
+            dbConnection.Close();
+            dbConnection.Dispose();
+            if (dbtype == DBType.Oracle)
             {
-                dbConnection.Close();
-                dbConnection.Dispose();
-                if (dbtype == DBType.Oracle)
-                {
-                    OracleConnection.ClearPool((OracleConnection)dbConnection);
-                }
-            }
-            catch (Exception)
-            {
+                OracleConnection.ClearPool((OracleConnection)dbConnection);
             }
 
             return result;
@@ -411,17 +326,12 @@ namespace HS.Message.Repository.database.tool
             using IDbConnection dbConnection = GetDbConnection();
             var res = await dbConnection.QueryAsync<TRetrun>(SQLString, model);
             List<TRetrun> result = res?.ToList();
-            try
+
+            dbConnection.Close();
+            dbConnection.Dispose();
+            if (dbtype == DBType.Oracle)
             {
-                dbConnection.Close();
-                dbConnection.Dispose();
-                if (dbtype == DBType.Oracle)
-                {
-                    OracleConnection.ClearPool((OracleConnection)dbConnection);
-                }
-            }
-            catch (Exception)
-            {
+                OracleConnection.ClearPool((OracleConnection)dbConnection);
             }
 
             return result;
@@ -458,17 +368,12 @@ namespace HS.Message.Repository.database.tool
         {
             using IDbConnection dbConnection = GetDbConnection();
             TRetrun result = dbConnection.Query<TRetrun>(SQLString, model).SingleOrDefault();
-            try
+
+            dbConnection.Close();
+            dbConnection.Dispose();
+            if (dbtype == DBType.Oracle)
             {
-                dbConnection.Close();
-                dbConnection.Dispose();
-                if (dbtype == DBType.Oracle)
-                {
-                    OracleConnection.ClearPool((OracleConnection)dbConnection);
-                }
-            }
-            catch (Exception)
-            {
+                OracleConnection.ClearPool((OracleConnection)dbConnection);
             }
 
             return result;
@@ -477,17 +382,12 @@ namespace HS.Message.Repository.database.tool
         {
             using IDbConnection dbConnection = GetDbConnection();
             TRetrun result = (await dbConnection.QueryAsync<TRetrun>(SQLString, model)).SingleOrDefault();
-            try
+
+            dbConnection.Close();
+            dbConnection.Dispose();
+            if (dbtype == DBType.Oracle)
             {
-                dbConnection.Close();
-                dbConnection.Dispose();
-                if (dbtype == DBType.Oracle)
-                {
-                    OracleConnection.ClearPool((OracleConnection)dbConnection);
-                }
-            }
-            catch (Exception)
-            {
+                OracleConnection.ClearPool((OracleConnection)dbConnection);
             }
 
             return result;
@@ -498,22 +398,16 @@ namespace HS.Message.Repository.database.tool
             long result = 0L;
             using (IDbConnection dbConnection = GetDbConnection())
             {
-                try
+                using (SqlMapper.GridReader gridReader = dbConnection.QueryMultiple(sql))
                 {
-                    using (SqlMapper.GridReader gridReader = dbConnection.QueryMultiple(sql))
-                    {
-                        result = gridReader.ReadFirst<long>();
-                    }
-
-                    dbConnection.Close();
-                    dbConnection.Dispose();
-                    if (dbtype == DBType.Oracle)
-                    {
-                        OracleConnection.ClearPool((OracleConnection)dbConnection);
-                    }
+                    result = gridReader.ReadFirst<long>();
                 }
-                catch (Exception)
+
+                dbConnection.Close();
+                dbConnection.Dispose();
+                if (dbtype == DBType.Oracle)
                 {
+                    OracleConnection.ClearPool((OracleConnection)dbConnection);
                 }
             }
 
@@ -524,22 +418,16 @@ namespace HS.Message.Repository.database.tool
             long result = 0L;
             using (IDbConnection dbConnection = GetDbConnection())
             {
-                try
+                using (SqlMapper.GridReader gridReader = await dbConnection.QueryMultipleAsync(sql))
                 {
-                    using (SqlMapper.GridReader gridReader = await dbConnection.QueryMultipleAsync(sql))
-                    {
-                        result = await gridReader.ReadFirstAsync<long>();
-                    }
-
-                    dbConnection.Close();
-                    dbConnection.Dispose();
-                    if (dbtype == DBType.Oracle)
-                    {
-                        OracleConnection.ClearPool((OracleConnection)dbConnection);
-                    }
+                    result = await gridReader.ReadFirstAsync<long>();
                 }
-                catch (Exception)
+
+                dbConnection.Close();
+                dbConnection.Dispose();
+                if (dbtype == DBType.Oracle)
                 {
+                    OracleConnection.ClearPool((OracleConnection)dbConnection);
                 }
             }
 
@@ -552,22 +440,17 @@ namespace HS.Message.Repository.database.tool
             using (IDbConnection dbConnection = GetDbConnection())
             {
                 string sql = $"select count(1) from {tableName} where {where} ";
-                try
-                {
-                    using (SqlMapper.GridReader gridReader = dbConnection.QueryMultiple(sql, model))
-                    {
-                        result = gridReader.ReadFirst<long>();
-                    }
 
-                    dbConnection.Close();
-                    dbConnection.Dispose();
-                    if (dbtype == DBType.Oracle)
-                    {
-                        OracleConnection.ClearPool((OracleConnection)dbConnection);
-                    }
-                }
-                catch (Exception)
+                using (SqlMapper.GridReader gridReader = dbConnection.QueryMultiple(sql, model))
                 {
+                    result = gridReader.ReadFirst<long>();
+                }
+
+                dbConnection.Close();
+                dbConnection.Dispose();
+                if (dbtype == DBType.Oracle)
+                {
+                    OracleConnection.ClearPool((OracleConnection)dbConnection);
                 }
             }
 
@@ -579,22 +462,16 @@ namespace HS.Message.Repository.database.tool
             using (IDbConnection dbConnection = GetDbConnection())
             {
                 string sql = $"select count(1) from {tableName} where {where} ";
-                try
+                using (SqlMapper.GridReader gridReader = await dbConnection.QueryMultipleAsync(sql, model))
                 {
-                    using (SqlMapper.GridReader gridReader = await dbConnection.QueryMultipleAsync(sql, model))
-                    {
-                        result = await gridReader.ReadFirstAsync<long>();
-                    }
-
-                    dbConnection.Close();
-                    dbConnection.Dispose();
-                    if (dbtype == DBType.Oracle)
-                    {
-                        OracleConnection.ClearPool((OracleConnection)dbConnection);
-                    }
+                    result = await gridReader.ReadFirstAsync<long>();
                 }
-                catch (Exception)
+
+                dbConnection.Close();
+                dbConnection.Dispose();
+                if (dbtype == DBType.Oracle)
                 {
+                    OracleConnection.ClearPool((OracleConnection)dbConnection);
                 }
             }
 
@@ -607,22 +484,16 @@ namespace HS.Message.Repository.database.tool
             using (IDbConnection dbConnection = GetDbConnection())
             {
                 string sql = $"select count(1) from {tableName} where {where} ";
-                try
+                using (SqlMapper.GridReader gridReader = dbConnection.QueryMultiple(sql, model))
                 {
-                    using (SqlMapper.GridReader gridReader = dbConnection.QueryMultiple(sql, model))
-                    {
-                        result = gridReader.ReadFirst<long>();
-                    }
-
-                    dbConnection.Close();
-                    dbConnection.Dispose();
-                    if (dbtype == DBType.Oracle)
-                    {
-                        OracleConnection.ClearPool((OracleConnection)dbConnection);
-                    }
+                    result = gridReader.ReadFirst<long>();
                 }
-                catch (Exception)
+
+                dbConnection.Close();
+                dbConnection.Dispose();
+                if (dbtype == DBType.Oracle)
                 {
+                    OracleConnection.ClearPool((OracleConnection)dbConnection);
                 }
             }
 
@@ -634,22 +505,16 @@ namespace HS.Message.Repository.database.tool
             using (IDbConnection dbConnection = GetDbConnection())
             {
                 string sql = $"select count(1) from {tableName} where {where} ";
-                try
+                using (SqlMapper.GridReader gridReader = await dbConnection.QueryMultipleAsync(sql, model))
                 {
-                    using (SqlMapper.GridReader gridReader = await dbConnection.QueryMultipleAsync(sql, model))
-                    {
-                        result = await gridReader.ReadFirstAsync<long>();
-                    }
-
-                    dbConnection.Close();
-                    dbConnection.Dispose();
-                    if (dbtype == DBType.Oracle)
-                    {
-                        OracleConnection.ClearPool((OracleConnection)dbConnection);
-                    }
+                    result = await gridReader.ReadFirstAsync<long>();
                 }
-                catch (Exception)
+
+                dbConnection.Close();
+                dbConnection.Dispose();
+                if (dbtype == DBType.Oracle)
                 {
+                    OracleConnection.ClearPool((OracleConnection)dbConnection);
                 }
             }
 
@@ -662,22 +527,16 @@ namespace HS.Message.Repository.database.tool
             using (IDbConnection dbConnection = GetDbConnection())
             {
                 string sql = $"select count(1) from {tableName} where {where} ";
-                try
+                using (SqlMapper.GridReader gridReader = dbConnection.QueryMultiple(sql))
                 {
-                    using (SqlMapper.GridReader gridReader = dbConnection.QueryMultiple(sql))
-                    {
-                        result = gridReader.ReadFirst<long>();
-                    }
-
-                    dbConnection.Close();
-                    dbConnection.Dispose();
-                    if (dbtype == DBType.Oracle)
-                    {
-                        OracleConnection.ClearPool((OracleConnection)dbConnection);
-                    }
+                    result = gridReader.ReadFirst<long>();
                 }
-                catch (Exception)
+
+                dbConnection.Close();
+                dbConnection.Dispose();
+                if (dbtype == DBType.Oracle)
                 {
+                    OracleConnection.ClearPool((OracleConnection)dbConnection);
                 }
             }
 
@@ -689,22 +548,16 @@ namespace HS.Message.Repository.database.tool
             using (IDbConnection dbConnection = GetDbConnection())
             {
                 string sql = $"select count(1) from {tableName} where {where} ";
-                try
+                using (SqlMapper.GridReader gridReader = await dbConnection.QueryMultipleAsync(sql))
                 {
-                    using (SqlMapper.GridReader gridReader = await dbConnection.QueryMultipleAsync(sql))
-                    {
-                        result = await gridReader.ReadFirstAsync<long>();
-                    }
-
-                    dbConnection.Close();
-                    dbConnection.Dispose();
-                    if (dbtype == DBType.Oracle)
-                    {
-                        OracleConnection.ClearPool((OracleConnection)dbConnection);
-                    }
+                    result = await gridReader.ReadFirstAsync<long>();
                 }
-                catch (Exception)
+
+                dbConnection.Close();
+                dbConnection.Dispose();
+                if (dbtype == DBType.Oracle)
                 {
+                    OracleConnection.ClearPool((OracleConnection)dbConnection);
                 }
             }
 
@@ -840,7 +693,7 @@ namespace HS.Message.Repository.database.tool
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
             finally
             {
@@ -915,7 +768,7 @@ namespace HS.Message.Repository.database.tool
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
             finally
             {
@@ -969,17 +822,11 @@ namespace HS.Message.Repository.database.tool
 
             string sql = stringBuilder.ToString();
             TRetrun result = dbConnection.Query<TRetrun>(sql, model).ToList().FirstOrDefault();
-            try
+            dbConnection.Close();
+            dbConnection.Dispose();
+            if (dbtype == DBType.Oracle)
             {
-                dbConnection.Close();
-                dbConnection.Dispose();
-                if (dbtype == DBType.Oracle)
-                {
-                    OracleConnection.ClearPool((OracleConnection)dbConnection);
-                }
-            }
-            catch
-            {
+                OracleConnection.ClearPool((OracleConnection)dbConnection);
             }
 
             return result;
@@ -994,17 +841,11 @@ namespace HS.Message.Repository.database.tool
             string sql = stringBuilder.ToString();
             var res = await dbConnection.QueryAsync<TRetrun>(sql, model);
             TRetrun result = res.ToList().FirstOrDefault();
-            try
+            dbConnection.Close();
+            dbConnection.Dispose();
+            if (dbtype == DBType.Oracle)
             {
-                dbConnection.Close();
-                dbConnection.Dispose();
-                if (dbtype == DBType.Oracle)
-                {
-                    OracleConnection.ClearPool((OracleConnection)dbConnection);
-                }
-            }
-            catch
-            {
+                OracleConnection.ClearPool((OracleConnection)dbConnection);
             }
 
             return result;
