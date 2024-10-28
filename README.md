@@ -1,9 +1,10 @@
 ### 1、场景概述
-消息中心适用于软件系统有发送消息的场景，其中消息渠道目前支持邮件、短息（发送逻辑待实现）、企业微信（发送逻辑待实现）
+- 消息中心适用于软件系统有大量发送消息的场景。
+- 消息渠道目前支持邮件、短息（发送逻辑待实现）、企业微信（发送逻辑待实现）
 ### 2、优势
 - 系统解耦
 - 消息时序性、可靠性
-- 成熟的失败重试机制，经过千万级并发的互联网项目考验
+- 成熟的失败重试机制（经过千万级并发量的互联网项目考验）
 ### 3、技术框架
 - .net 8
 - mysql 9.0.1
@@ -15,8 +16,11 @@
   http://139.155.133.198:15672/ admin/admin123456
   - 安装教程
   https://note.youdao.com/s/Evg9AuTi
+- [源代码](https://github.com/shichaohu/messagecenter/tree/master)
+
 ### 4、系统运行时序图
-![alt text](消息中心系统运行时序图.jpg)
+<img src="wiki/file/image/消息中心系统运行时序图.jpg">
+
 ### 5、接口文档
 - 第三方向消息中心发送消息
 ```
@@ -70,7 +74,7 @@ response:
 | LinkText | string | 跳转连接，尚未使用 |
 | BusinessTypeKey | string | 业务类型key，用于标记消息模板 |
 | BusinessTypeValue | string | 业务类型key，消息模板名称 |
-| Sendchannel | int | 发送渠道，1=邮件，2=短息3=企业微信...  |
+| Sendchannel | int | 发送渠道，1=邮件，2=短息，3=企业微信 ...  |
 | Sender | json object | 发送者信息，冗余记录，无业务操作逻辑 |
 | Receiver | json object array | 接收者，数组 |
 | Receiver.ReceiverUserid | string | 接收者的id |
