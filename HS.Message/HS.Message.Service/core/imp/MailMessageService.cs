@@ -16,7 +16,7 @@ namespace HS.Message.Service.core.imp
         private readonly IDistributedCache _cache;
 
         /// <summary>
-        /// 字典相关服务
+        /// 邮件消息相关服务
         /// </summary>
         /// <param name="mailMessageRepository"></param>
         /// <param name="injectedObjects"></param>

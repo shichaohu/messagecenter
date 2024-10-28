@@ -16,7 +16,9 @@
   http://139.155.133.198:15672/ admin/admin123456
   - 安装教程
   https://note.youdao.com/s/Evg9AuTi
-- [源代码](https://github.com/shichaohu/messagecenter/tree/master)
+- 源代码
+  - https://github.com/shichaohu/messagecenter/tree/master
+  - https://gitee.com/TheCustodian/messagecenter
 
 ### 4、系统运行时序图
 <img src="wiki/file/image/消息中心系统运行时序图.jpg">

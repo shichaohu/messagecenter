@@ -351,7 +351,7 @@ namespace HS.Rabbitmq.Core
         {
             get
             {
-                //return [1, 5, 10, 20, 60, 300, 600];
+                //return [1, 5, 10, 30, 60, 300, 600];
                 return [5, 5, 5, 5, 5];
             }
         }
