@@ -8,7 +8,7 @@ WORKDIR /app
 COPY . .
 
 #设置Docker容器对外暴露的端口
-EXPOSE 1086
+EXPOSE 80
 
 #容器中使用 ["dotnet","系统启动的dll"] 来运行应用程序
 ENTRYPOINT ["dotnet", "HS.Message.API.dll"]

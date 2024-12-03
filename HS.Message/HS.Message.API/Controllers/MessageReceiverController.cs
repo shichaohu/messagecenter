@@ -11,7 +11,7 @@ namespace HS.Message.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [ApiGroup(ApiGroupNames.Message)]
-    public class MessageReceiverController : CommonController<MMessageReceiver, MMessageReceiverCondtion>
+    public class MessageReceiverController : CommonController<MMessageReceiver, MMessageReceiverCondition>
     {
         /// <summary>
         /// 操作逻辑

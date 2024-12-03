@@ -11,7 +11,7 @@ namespace HS.Message.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [ApiGroup(ApiGroupNames.Message)]
-    public class MailSendLogsController : CommonController<MMailSendLogs, MMailSendLogsCondtion>
+    public class MailSendLogsController : CommonController<MMailSendLogs, MMailSendLogsCondition>
     {
         /// <summary>
         /// 操作逻辑

@@ -9,7 +9,7 @@ namespace HS.Message.Repository.repository.core.imp
     /// <summary>
     /// 邮件发送日志仓储
     /// </summary>
-    public class MailSendLogsRepository : BizRepositoryAdapter<MMailSendLogs, MMailSendLogsCondtion>, IMailSendLogsRepository<MMailSendLogs, MMailSendLogsCondtion>
+    public class MailSendLogsRepository : BizRepositoryAdapter<MMailSendLogs, MMailSendLogsCondition>, IMailSendLogsRepository<MMailSendLogs, MMailSendLogsCondition>
     {
         /// <summary>
         /// 构造函数

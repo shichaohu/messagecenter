@@ -9,7 +9,7 @@ namespace HS.Message.Repository.repository.core.imp
     /// <summary>
     /// 邮件消息仓储
     /// </summary>
-    public class MailMessageRepository : BizRepositoryAdapter<MMailMessage, MMailMessageCondtion>, IMailMessageRepository<MMailMessage, MMailMessageCondtion>
+    public class MailMessageRepository : BizRepositoryAdapter<MMailMessage, MMailMessageCondition>, IMailMessageRepository<MMailMessage, MMailMessageCondition>
     {
         /// <summary>
         /// 构造函数

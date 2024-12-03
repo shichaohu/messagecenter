@@ -14,10 +14,20 @@ namespace HS.Message.Model
 
 
     /// <summary>
-    // SmsTemplate 条件查询扩展模型
+    // MailSendLogs 条件查询扩展模型
     /// </summary>
-    public class MSmsTemplateCondtion:MSmsTemplate
+    public class MMailSendLogsCondition:MMailSendLogs
     {
+        
+        /// <summary>
+        // 发送时间
+        /// </summary>
+        private System.DateTime _send_time_start;
+        
+        /// <summary>
+        // 发送时间
+        /// </summary>
+        private System.DateTime _send_time_end;
         
         /// <summary>
         // 创建时间
@@ -38,6 +48,38 @@ namespace HS.Message.Model
         // 更新时间
         /// </summary>
         private System.DateTime _updated_time_end;
+        
+        /// <summary>
+        /// 发送时间
+        /// </summary>
+        [FieldAttribute("发送时间")]
+        public System.DateTime send_time_start
+        {
+            get
+            {
+                return this._send_time_start;
+            }
+            set
+            {
+                this._send_time_start = value;
+            }
+        }
+        
+        /// <summary>
+        /// 发送时间
+        /// </summary>
+        [FieldAttribute("发送时间")]
+        public System.DateTime send_time_end
+        {
+            get
+            {
+                return this._send_time_end;
+            }
+            set
+            {
+                this._send_time_end = value;
+            }
+        }
         
         /// <summary>
         /// 创建时间

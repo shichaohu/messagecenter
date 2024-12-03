@@ -10,9 +10,9 @@ namespace HS.Message.Service.core.imp
     /// <summary>
     /// 邮件消息相关服务
     /// </summary>
-    public class MailMessageService : BaseService<MMailMessage, MMailMessageCondtion>, IMailMessageService
+    public class MailMessageService : BaseService<MMailMessage, MMailMessageCondition>, IMailMessageService
     {
-        private readonly IMailMessageRepository<MMailMessage, MMailMessageCondtion> _mailMessageRepository;
+        private readonly IMailMessageRepository<MMailMessage, MMailMessageCondition> _mailMessageRepository;
         private readonly IDistributedCache _cache;
 
         /// <summary>
@@ -22,7 +22,7 @@ namespace HS.Message.Service.core.imp
         /// <param name="injectedObjects"></param>
         /// <param name="cache"></param>
         public MailMessageService(
-            IMailMessageRepository<MMailMessage, MMailMessageCondtion> mailMessageRepository,
+            IMailMessageRepository<MMailMessage, MMailMessageCondition> mailMessageRepository,
             IInjectedObjects injectedObjects,
             IDistributedCache cache
             )

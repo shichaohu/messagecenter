@@ -8,7 +8,7 @@ namespace HS.Message.Service.core
     /// <summary>
     /// 邮件服务
     /// </summary>
-    public interface IMailMessageService : IBaseService<MMailMessage, MMailMessageCondtion>, ITransientDependency
+    public interface IMailMessageService : IBaseService<MMailMessage, MMailMessageCondition>, ITransientDependency
     {
     }
 }

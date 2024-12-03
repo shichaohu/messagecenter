@@ -8,7 +8,7 @@ namespace HS.Message.Service.core
     /// <summary>
     /// 邮件发送日志服务
     /// </summary>
-    public interface IMailSendLogsService : IBaseService<MMailSendLogs, MMailSendLogsCondtion>, IDependency
+    public interface IMailSendLogsService : IBaseService<MMailSendLogs, MMailSendLogsCondition>, IDependency
     {
     }
 }

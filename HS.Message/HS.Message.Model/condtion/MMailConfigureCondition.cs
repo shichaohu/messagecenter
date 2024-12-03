@@ -14,9 +14,9 @@ namespace HS.Message.Model
 
 
     /// <summary>
-    // MessageReceiver 条件查询扩展模型
+    // MailConfigure 条件查询扩展模型
     /// </summary>
-    public class MMessageReceiverCondtion:MMessageReceiver
+    public class MMailConfigureCondition:MMailConfigure
     {
         
         /// <summary>

@@ -9,7 +9,7 @@ namespace HS.Message.Repository.repository.core.imp
     /// <summary>
     /// 短信配置仓储
     /// </summary>
-    public class SmsConfigureRepository : BizRepositoryAdapter<MSmsConfigure, MSmsConfigureCondtion>, ISmsConfigureRepository<MSmsConfigure, MSmsConfigureCondtion>
+    public class SmsConfigureRepository : BizRepositoryAdapter<MSmsConfigure, MSmsConfigureCondition>, ISmsConfigureRepository<MSmsConfigure, MSmsConfigureCondition>
     {
         /// <summary>
         /// 构造函数

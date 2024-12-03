@@ -10,9 +10,9 @@ namespace HS.Message.Service.core.imp
     /// <summary>
     /// 短息服务
     /// </summary>
-    public class SmsMessageService : BaseService<MSmsMessage, MSmsMessageCondtion>, ISmsMessageService
+    public class SmsMessageService : BaseService<MSmsMessage, MSmsMessageCondition>, ISmsMessageService
     {
-        private readonly ISmsMessageRepository<MSmsMessage, MSmsMessageCondtion> _smsMessageRepository;
+        private readonly ISmsMessageRepository<MSmsMessage, MSmsMessageCondition> _smsMessageRepository;
         private readonly IDistributedCache _cache;
 
         /// <summary>
@@ -22,7 +22,7 @@ namespace HS.Message.Service.core.imp
         /// <param name="injectedObjects"></param>
         /// <param name="cache"></param>
         public SmsMessageService(
-            ISmsMessageRepository<MSmsMessage, MSmsMessageCondtion> smsMessageRepository,
+            ISmsMessageRepository<MSmsMessage, MSmsMessageCondition> smsMessageRepository,
             IInjectedObjects injectedObjects,
             IDistributedCache cache
             )

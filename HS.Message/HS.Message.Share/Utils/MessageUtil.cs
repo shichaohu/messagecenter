@@ -22,7 +22,7 @@ namespace HS.Message.Share.Utils
         public static string LoadMessageTemplate(string input, string template, Dictionary<string, string> dynamicParameter)
         {
             string result = input ?? template;
-            if (dynamicParameter != null && dynamicParameter.Keys?.Count > 0)
+            if (dynamicParameter != null && dynamicParameter.Keys?.Count > 0 && !string.IsNullOrWhiteSpace(template))
             {
                 result = template;
                 foreach (var param in dynamicParameter)

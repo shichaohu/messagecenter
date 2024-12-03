@@ -16,5 +16,9 @@ namespace HS.Rabbitmq.Model
         /// 消费失败时的延迟时间（秒）
         /// </summary>
         public int DelaySeconds { get; set; }
+        /// <summary>
+        /// 消息
+        /// </summary>
+        public QueueMessage Message {  get; set; }
     }
 }

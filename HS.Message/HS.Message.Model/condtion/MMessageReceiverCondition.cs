@@ -14,9 +14,9 @@ namespace HS.Message.Model
 
 
     /// <summary>
-    // Message 条件查询扩展模型
+    // MessageReceiver 条件查询扩展模型
     /// </summary>
-    public class MMessageCondtion:MMessage
+    public class MMessageReceiverCondition:MMessageReceiver
     {
         
         /// <summary>

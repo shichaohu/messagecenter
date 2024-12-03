@@ -12,7 +12,7 @@ namespace HS.Message.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [ApiGroup(ApiGroupNames.Message)]
-    public class SmsMessageController : CommonController<MSmsMessage, MSmsMessageCondtion>
+    public class SmsMessageController : CommonController<MSmsMessage, MSmsMessageCondition>
     {
         /// <summary>
         /// 操作逻辑

@@ -14,40 +14,20 @@ namespace HS.Message.Model
 
 
     /// <summary>
-    // MailMessage 条件查询扩展模型
+    // SmsMessage 条件查询扩展模型
     /// </summary>
-    public class MMailMessageCondtion:MMailMessage
+    public class MSmsMessageCondition:MSmsMessage
     {
         
         /// <summary>
-        // 开始发送时间
+        // 提交时间;我方提交短信平台时间
         /// </summary>
-        private System.DateTime _start_send_time_start;
+        private System.DateTime _submit_time_start;
         
         /// <summary>
-        // 开始发送时间
+        // 提交时间;我方提交短信平台时间
         /// </summary>
-        private System.DateTime _start_send_time_end;
-        
-        /// <summary>
-        // 上一次发送时间
-        /// </summary>
-        private System.DateTime _last_send_time_start;
-        
-        /// <summary>
-        // 上一次发送时间
-        /// </summary>
-        private System.DateTime _last_send_time_end;
-        
-        /// <summary>
-        // 下一次发送时间
-        /// </summary>
-        private System.DateTime _next_send_time_start;
-        
-        /// <summary>
-        // 下一次发送时间
-        /// </summary>
-        private System.DateTime _next_send_time_end;
+        private System.DateTime _submit_time_end;
         
         /// <summary>
         // 创建时间
@@ -70,98 +50,34 @@ namespace HS.Message.Model
         private System.DateTime _updated_time_end;
         
         /// <summary>
-        /// 开始发送时间
+        /// 提交时间;我方提交短信平台时间
         /// </summary>
-        [FieldAttribute("开始发送时间")]
-        public System.DateTime start_send_time_start
+        [FieldAttribute("提交时间;我方提交短信平台时间")]
+        public System.DateTime submit_time_start
         {
             get
             {
-                return this._start_send_time_start;
+                return this._submit_time_start;
             }
             set
             {
-                this._start_send_time_start = value;
+                this._submit_time_start = value;
             }
         }
         
         /// <summary>
-        /// 开始发送时间
+        /// 提交时间;我方提交短信平台时间
         /// </summary>
-        [FieldAttribute("开始发送时间")]
-        public System.DateTime start_send_time_end
+        [FieldAttribute("提交时间;我方提交短信平台时间")]
+        public System.DateTime submit_time_end
         {
             get
             {
-                return this._start_send_time_end;
+                return this._submit_time_end;
             }
             set
             {
-                this._start_send_time_end = value;
-            }
-        }
-        
-        /// <summary>
-        /// 上一次发送时间
-        /// </summary>
-        [FieldAttribute("上一次发送时间")]
-        public System.DateTime last_send_time_start
-        {
-            get
-            {
-                return this._last_send_time_start;
-            }
-            set
-            {
-                this._last_send_time_start = value;
-            }
-        }
-        
-        /// <summary>
-        /// 上一次发送时间
-        /// </summary>
-        [FieldAttribute("上一次发送时间")]
-        public System.DateTime last_send_time_end
-        {
-            get
-            {
-                return this._last_send_time_end;
-            }
-            set
-            {
-                this._last_send_time_end = value;
-            }
-        }
-        
-        /// <summary>
-        /// 下一次发送时间
-        /// </summary>
-        [FieldAttribute("下一次发送时间")]
-        public System.DateTime next_send_time_start
-        {
-            get
-            {
-                return this._next_send_time_start;
-            }
-            set
-            {
-                this._next_send_time_start = value;
-            }
-        }
-        
-        /// <summary>
-        /// 下一次发送时间
-        /// </summary>
-        [FieldAttribute("下一次发送时间")]
-        public System.DateTime next_send_time_end
-        {
-            get
-            {
-                return this._next_send_time_end;
-            }
-            set
-            {
-                this._next_send_time_end = value;
+                this._submit_time_end = value;
             }
         }
         

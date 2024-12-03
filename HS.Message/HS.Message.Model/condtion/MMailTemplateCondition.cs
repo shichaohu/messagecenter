@@ -14,9 +14,9 @@ namespace HS.Message.Model
 
 
     /// <summary>
-    // SmsConfigure 条件查询扩展模型
+    // MailTemplate 条件查询扩展模型
     /// </summary>
-    public class MSmsConfigureCondtion:MSmsConfigure
+    public class MMailTemplateCondition:MMailTemplate
     {
         
         /// <summary>

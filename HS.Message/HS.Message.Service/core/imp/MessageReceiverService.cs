@@ -10,9 +10,9 @@ namespace HS.Message.Service.core.imp
     /// <summary>
     /// 消息接收人服务
     /// </summary>
-    public class MessageReceiverService : BaseService<MMessageReceiver, MMessageReceiverCondtion>, IMessageReceiverService
+    public class MessageReceiverService : BaseService<MMessageReceiver, MMessageReceiverCondition>, IMessageReceiverService
     {
-        private readonly IMessageReceiverRepository<MMessageReceiver, MMessageReceiverCondtion> _messageReceiverRepository;
+        private readonly IMessageReceiverRepository<MMessageReceiver, MMessageReceiverCondition> _messageReceiverRepository;
         private readonly IDistributedCache _cache;
 
         /// <summary>
@@ -22,7 +22,7 @@ namespace HS.Message.Service.core.imp
         /// <param name="injectedObjects"></param>
         /// <param name="cache"></param>
         public MessageReceiverService(
-            IMessageReceiverRepository<MMessageReceiver, MMessageReceiverCondtion> messageReceiverRepository,
+            IMessageReceiverRepository<MMessageReceiver, MMessageReceiverCondition> messageReceiverRepository,
             IInjectedObjects injectedObjects,
             IDistributedCache cache
             )

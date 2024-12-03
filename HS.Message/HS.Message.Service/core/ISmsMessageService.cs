@@ -8,7 +8,7 @@ namespace HS.Message.Service.core
     /// <summary>
     /// 短息服务
     /// </summary>
-    public interface ISmsMessageService : IBaseService<MSmsMessage, MSmsMessageCondtion>, IDependency
+    public interface ISmsMessageService : IBaseService<MSmsMessage, MSmsMessageCondition>, IDependency
     {
     }
 }

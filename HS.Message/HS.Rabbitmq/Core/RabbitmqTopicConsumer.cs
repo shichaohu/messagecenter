@@ -38,7 +38,8 @@ namespace HS.Rabbitmq.Core
                 {
                     QueueMessage queueMessage = new QueueMessage
                     {
-                        MessageContent = $"",
+                        MessageId = Guid.Empty.ToString(),
+                        MessageContent = "",
                         MessageType = Enum.Parse<QueueMessageType>(channel)
                     };
                     Producer(queueMessage);

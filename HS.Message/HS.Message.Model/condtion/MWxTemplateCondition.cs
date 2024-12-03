@@ -16,7 +16,7 @@ namespace HS.Message.Model
     /// <summary>
     // WxTemplate 条件查询扩展模型
     /// </summary>
-    public class MWxTemplateCondtion:MWxTemplate
+    public class MWxTemplateCondition:MWxTemplate
     {
         
         /// <summary>

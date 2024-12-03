@@ -16,7 +16,7 @@ namespace HS.Message.Model
     /// <summary>
     // SmsMessageDetails 条件查询扩展模型
     /// </summary>
-    public class MSmsMessageDetailsCondtion:MSmsMessageDetails
+    public class MSmsMessageDetailsCondition:MSmsMessageDetails
     {
         
         /// <summary>

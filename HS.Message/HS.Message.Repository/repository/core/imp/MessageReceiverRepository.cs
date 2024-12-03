@@ -9,7 +9,7 @@ namespace HS.Message.Repository.repository.core.imp
     /// <summary>
     /// 消息接收人仓储
     /// </summary>
-    public class MessageReceiverRepository : BizRepositoryAdapter<MMessageReceiver, MMessageReceiverCondtion>, IMessageReceiverRepository<MMessageReceiver, MMessageReceiverCondtion>
+    public class MessageReceiverRepository : BizRepositoryAdapter<MMessageReceiver, MMessageReceiverCondition>, IMessageReceiverRepository<MMessageReceiver, MMessageReceiverCondition>
     {
         /// <summary>
         /// 构造函数

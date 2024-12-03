@@ -8,7 +8,7 @@ namespace HS.Message.Service.core
     /// <summary>
     /// 邮件配置服务
     /// </summary>
-    public interface IMailConfigureService : IBaseService<MMailConfigure, MMailConfigureCondtion>, IDependency
+    public interface IMailConfigureService : IBaseService<MMailConfigure, MMailConfigureCondition>, IDependency
     {
     }
 }

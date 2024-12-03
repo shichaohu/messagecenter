@@ -10,9 +10,9 @@ namespace HS.Message.Service.core.imp
     /// <summary>
     /// 邮件发送日志服务
     /// </summary>
-    public class MailSendLogsService : BaseService<MMailSendLogs, MMailSendLogsCondtion>, IMailSendLogsService
+    public class MailSendLogsService : BaseService<MMailSendLogs, MMailSendLogsCondition>, IMailSendLogsService
     {
-        private readonly IMailSendLogsRepository<MMailSendLogs, MMailSendLogsCondtion> _mailSendLogsRepository;
+        private readonly IMailSendLogsRepository<MMailSendLogs, MMailSendLogsCondition> _mailSendLogsRepository;
         private readonly IDistributedCache _cache;
 
         /// <summary>
@@ -22,7 +22,7 @@ namespace HS.Message.Service.core.imp
         /// <param name="injectedObjects"></param>
         /// <param name="cache"></param>
         public MailSendLogsService(
-            IMailSendLogsRepository<MMailSendLogs, MMailSendLogsCondtion> mailSendLogsRepository,
+            IMailSendLogsRepository<MMailSendLogs, MMailSendLogsCondition> mailSendLogsRepository,
             IInjectedObjects injectedObjects,
             IDistributedCache cache
             )

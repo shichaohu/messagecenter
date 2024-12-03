@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace HS.Rabbitmq.Model
 {
@@ -16,6 +17,10 @@ namespace HS.Rabbitmq.Model
         /// </summary>
         public string NameSpace { get; set; }
         /// <summary>
+        /// 消息Id
+        /// </summary>
+        public string MessageId { get; set; }
+        /// <summary>
         /// 消息类型
         /// </summary>
         public QueueMessageType MessageType { get; set; }
@@ -23,6 +28,10 @@ namespace HS.Rabbitmq.Model
         /// 消息内容
         /// </summary>
         public string MessageContent { get; set; }
+        /// <summary>
+        /// 消息内容是否写入数据库
+        /// </summary>
+        public bool hasContentWritedToDb { get; set; }
         /// <summary>
         /// The number of times currently consumed
         /// </summary>

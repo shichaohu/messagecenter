@@ -1,13 +1,12 @@
 using HS.Message.Model;
 using HS.Message.Repository.repository.core;
-using HS.Message.Repository.repository.core.imp;
 using HS.Message.Share.BaseModel;
 using HS.Message.Share.MessageEmitter;
 using HS.Message.Share.MessageEmitter.Params;
 using HS.Rabbitmq.Core;
 using HS.Rabbitmq.Model;
 using Microsoft.Extensions.DependencyInjection;
-using MimeKit;
+using Microsoft.Extensions.Logging;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Transactions;
@@ -20,14 +19,18 @@ namespace HS.Message.Service.core.imp
     public class MqMessageConsumerService : IConsumerCallBack
     {
         private readonly IServiceProvider _serviceProvider;
+        private readonly ILogger<MqMessageConsumerService> _logger;
+        private string operatorTag= "【队列消费】";
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="serviceProvider"></param>
-        public MqMessageConsumerService(IServiceProvider serviceProvider)
+        /// <param name="logger"></param>
+        public MqMessageConsumerService(IServiceProvider serviceProvider, ILogger<MqMessageConsumerService> logger)
         {
             _serviceProvider = serviceProvider;
+            _logger = logger;
         }
 
         /// <summary>
@@ -36,14 +39,6 @@ namespace HS.Message.Service.core.imp
         /// <returns></returns>
         public async Task<BaseResponse<ConsumerResponse>> RunAsync(QueueMessage message)
         {
-            var result = new BaseResponse<ConsumerResponse>
-            {
-                Code = ResponseCode.Success,
-                Data = new ConsumerResponse
-                {
-                    Successed = true
-                }
-            };
             switch (message.MessageType)
             {
                 case QueueMessageType.Email:
@@ -51,27 +46,34 @@ namespace HS.Message.Service.core.imp
                 case QueueMessageType.SMS:
                     return await ConsumerMqMessageBySMS(message);
                 default:
-                    break;
+                    var result = new BaseResponse<ConsumerResponse>
+                    {
+                        Code = ResponseCode.Success,
+                        Data = new ConsumerResponse
+                        {
+                            Successed = true,
+                            Message = message
+                        }
+                    };
+                    return result;
             }
-
-
-            return result;
         }
 
         private async Task<BaseResponse<ConsumerResponse>> ConsumerMqMessageByEmail(QueueMessage message)
         {
+            string logPrefix = $"{operatorTag}【{message.MessageType}:{message.MessageId}】";
             var result = new BaseResponse<ConsumerResponse>
             {
                 Code = ResponseCode.Success,
                 Data = new ConsumerResponse
                 {
-                    Successed = true
+                    Successed = true,
+                    Message = message
                 }
             };
             try
             {
-                var repository = _serviceProvider.GetService<IMqMessageConsumerRepository>();
-                var mailMessage = await repository.GetMailMessageByIdAsync(message.MessageContent);
+                var mailMessage = JsonConvert.DeserializeObject<MMailMessage>(message.MessageContent);
                 if (mailMessage != null)
                 {
                     //to do send email
@@ -87,7 +89,8 @@ namespace HS.Message.Service.core.imp
                         MailBody = mailMessage.mail_body
                     };
                     var sendResponse = await sender.SendMailByMailKitMassed(sendMessage);
-                    //save log
+                    _logger.LogInformation($"{logPrefix}邮件发送成功：{string.Join(",", sendMessage.ReceiverEmails)},抄送：{string.Join(",", sendMessage.ReceiverCcEmails)}");
+                    //email send log
                     var mailSendLogs = new MMailSendLogs()
                     {
                         logical_id = Guid.NewGuid().ToString().Replace("-", ""),
@@ -112,71 +115,88 @@ namespace HS.Message.Service.core.imp
                     mailMessage.total_send_num++;
 
                     bool successed = false;
+                    bool stepOne = false;//第一步执行结果
+                    bool stepTwo = false;//第二步执行结果
+                    bool hasContentWritedToDb = message.hasContentWritedToDb;//消息内容是否已经写入数据库
                     using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
                     {
-                        var response1 = await repository.UpdateMailMessageByIdAsync(mailMessage);
-                        var response2 = await repository.AddOneMailSendLogsAsync(mailSendLogs);
+                        var mqMsgConsumRepository = _serviceProvider.GetService<IMqMessageConsumerRepository>();
+
+                        if (hasContentWritedToDb)
+                        {
+                            var res = await mqMsgConsumRepository.UpdateMailMessageByIdAsync(mailMessage);
+                            stepOne = res > 0;
+                            _logger.LogInformation($"{logPrefix}邮件状态更新成功...");
+                        }
+                        else
+                        {
+                            var res = await mqMsgConsumRepository.AddOneMailMessageAsync(mailMessage);
+                            stepOne = res > 0;
+                            _logger.LogInformation($"{logPrefix}邮件信息落库成功...");
+                        }
+                        var res2 = await mqMsgConsumRepository.AddOneMailSendLogsAsync(mailSendLogs);
+                        stepTwo = res2 > 0;
+                        _logger.LogInformation($"{logPrefix}邮件发送日志落库完成...");
+
                         scope.Complete();
-                        successed = response1 > 0 && response2 > 0;
                     }
+                    if (!message.hasContentWritedToDb && stepOne) message.hasContentWritedToDb = true;
+                    successed = stepOne && stepTwo;
 
                     if (successed)
                     {
-                        result.Data = new ConsumerResponse
-                        {
-                            Successed = true
-                        };
+                        result.Data.Successed = true;
                     }
                     else
                     {
                         result.Code = ResponseCode.DataError;
-                        result.Data = new ConsumerResponse
-                        {
-                            Successed = false
-                        };
-                        result.Message = $"add MailSendLogs failure,id: {message.MessageContent}";
+                        result.Data.Successed = false;
+
+                        string errorMsg = $"add MailSendLogs failure,id: {JsonConvert.SerializeObject(message)}";
+                        result.Message = errorMsg;
+                        _logger.LogInformation($"{logPrefix}{errorMsg}");
                     }
                 }
                 else
                 {
                     result.Code = ResponseCode.DataError;
-                    result.Data = new ConsumerResponse
-                    {
-                        Successed = false
-                    };
-                    result.Message = $"未找到Email队列对应的数据,id: {message.MessageContent}";
+                    result.Data.Successed = false;
+                    string errorMsg = $"消息内容构造失败,id: {JsonConvert.SerializeObject(message)}";
+                    result.Message = errorMsg;
+                    _logger.LogInformation($"{logPrefix}{errorMsg}");
                 }
             }
             catch (Exception ex)
             {
                 result.Code = ResponseCode.InternalError;
-                result.Data = new ConsumerResponse
-                {
-                    Successed = false
-                };
-                result.Message = $"消费Email队列的数据出错,message: {ex}";
+                result.Data.Successed = false;
+                string errorMsg = $"消费Email队列的数据出错,message: {ex}";
+                result.Message = errorMsg;
+                _logger.LogInformation($"{logPrefix}{errorMsg}");
             }
 
             return result;
         }
         private async Task<BaseResponse<ConsumerResponse>> ConsumerMqMessageBySMS(QueueMessage message)
         {
+            string logPrefix = $"{operatorTag}【{message.MessageType}:{message.MessageId}】";
             var result = new BaseResponse<ConsumerResponse>
             {
                 Code = ResponseCode.Success,
                 Data = new ConsumerResponse
                 {
-                    Successed = true
+                    Successed = true,
+                    Message = message
                 }
             };
             try
             {
-                var repository = _serviceProvider.GetService<IMqMessageConsumerRepository>();
-                var smsMessage = await repository.GetSmsMessageByIdAsync(message.MessageContent);
+                var smsMessage = JsonConvert.DeserializeObject<MSmsMessage>(message.MessageContent);
                 if (smsMessage != null)
                 {
                     //to do send sms
                     Thread.Sleep(5000);
+                    _logger.LogInformation($"{logPrefix}短息发送成功：{smsMessage.phone_numbers}");
 
                     //save log
                     var smsSendLogs = new MSmsMessageDetails()
@@ -206,49 +226,67 @@ namespace HS.Message.Service.core.imp
                     smsMessage.updated_by_name = "message center";
 
                     bool successed = false;
+                    bool stepOne = false;//第一步执行结果
+                    bool stepTwo = false;//第二步执行结果
+                    bool hasContentWritedToDb = message.hasContentWritedToDb;//消息内容是否已经写入数据库
                     using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
                     {
-                        var response1 = await repository.UpdateSmsMessageByIdAsync(smsMessage);
-                        var response2 = await repository.AddOneSmsMessageDetailsAsync(smsSendLogs);
+                        var mqMsgConsumRepository = _serviceProvider.GetService<IMqMessageConsumerRepository>();
+
+                        if (hasContentWritedToDb)
+                        {
+                            var res = await mqMsgConsumRepository.UpdateSmsMessageByIdAsync(smsMessage);
+                            stepOne = res > 0;
+                            _logger.LogInformation($"{logPrefix}短息状态更新成功...");
+                        }
+                        else
+                        {
+                            var res = await mqMsgConsumRepository.AddOneSmsMessageAsync(smsMessage);
+                            stepOne = res > 0;
+                            _logger.LogInformation($"{logPrefix}短息信息落库成功...");
+                        }
+                        var res2 = await mqMsgConsumRepository.AddOneSmsMessageDetailsAsync(smsSendLogs);
+                        stepTwo = res2 > 0;
+                        _logger.LogInformation($"{logPrefix}短息发送日志落库完成...");
+
                         scope.Complete();
-                        successed = response1 > 0 && response2 > 0;
                     }
+
+                    if (!message.hasContentWritedToDb && stepOne) message.hasContentWritedToDb = true;
+                    successed = stepOne && stepTwo;
 
                     if (successed)
                     {
-                        result.Data = new ConsumerResponse
-                        {
-                            Successed = true
-                        };
+                        result.Data.Successed = true;
                     }
                     else
                     {
                         result.Code = ResponseCode.DataError;
-                        result.Data = new ConsumerResponse
-                        {
-                            Successed = false
-                        };
-                        result.Message = $"add SmsMessageDetails failure,id: {message.MessageContent}";
+                        result.Data.Successed = false;
+
+                        string errorMsg = $"add SmsMessageDetails failure,id: {JsonConvert.SerializeObject(message)}";
+                        result.Message = errorMsg;
+                        _logger.LogInformation($"{logPrefix}{errorMsg}");
                     }
                 }
                 else
                 {
                     result.Code = ResponseCode.DataError;
-                    result.Data = new ConsumerResponse
-                    {
-                        Successed = false
-                    };
-                    result.Message = $"未找到SMS队列对应的数据,id: {message.MessageContent}";
+                    result.Data.Successed = false;
+
+                    string errorMsg = $"消息内容构造失败,id: {JsonConvert.SerializeObject(message)}";
+                    result.Message = errorMsg;
+                    _logger.LogInformation($"{logPrefix}{errorMsg}");
                 }
             }
             catch (Exception ex)
             {
                 result.Code = ResponseCode.InternalError;
-                result.Data = new ConsumerResponse
-                {
-                    Successed = false
-                };
-                result.Message = $"消费SMS队列的数据出错,message: {ex}";
+                result.Data.Successed = false;
+
+                string errorMsg = $"消费SMS队列的数据出错,message: {ex}";
+                result.Message = errorMsg;
+                _logger.LogInformation($"{logPrefix}{errorMsg}");
             }
             return result;
         }

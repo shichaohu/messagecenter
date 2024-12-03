@@ -8,7 +8,7 @@ namespace HS.Message.Service.core
     /// <summary>
     /// 邮件模板服务
     /// </summary>
-    public interface IMailTemplateService : IBaseService<MMailTemplate, MMailTemplateCondtion>, IDependency
+    public interface IMailTemplateService : IBaseService<MMailTemplate, MMailTemplateCondition>, IDependency
     {
     }
 }

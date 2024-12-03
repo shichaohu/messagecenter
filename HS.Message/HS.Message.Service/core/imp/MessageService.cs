@@ -10,6 +10,7 @@ using HS.Message.Share.Utils;
 using HS.Rabbitmq.Core;
 using HS.Rabbitmq.Model;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Transactions;
@@ -21,7 +22,8 @@ namespace HS.Message.Service.core.imp
     /// </summary>
     public class MessageService : IMessageService
     {
-        private readonly IMessageRepository<MMessage, MMessageCondtion> _messageRepository;
+        private readonly ILogger<MessageService> _logger;
+        private readonly IMessageRepository<MMessage, MMessageCondition> _messageRepository;
         private readonly IMessageReceiverService _messageReceiverService;
         private readonly IMailConfigureService _mailConfigureService;
         private readonly IMailMessageService _mailMessageService;
@@ -39,6 +41,7 @@ namespace HS.Message.Service.core.imp
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="logger"></param>
         /// <param name="messageRepository"></param>
         /// <param name="messageReceiverService"></param>
         /// <param name="mailConfigureService"></param>
@@ -54,7 +57,8 @@ namespace HS.Message.Service.core.imp
         /// <param name="rabbitmqTopicProducer"></param>
         /// <param name="configuration"></param>
         public MessageService(
-            IMessageRepository<MMessage, MMessageCondtion> messageRepository,
+            ILogger<MessageService> logger,
+            IMessageRepository<MMessage, MMessageCondition> messageRepository,
             IMessageReceiverService messageReceiverService,
 
             IMailConfigureService mailConfigureService,
@@ -72,6 +76,7 @@ namespace HS.Message.Service.core.imp
             IConfiguration configuration
             )
         {
+            _logger = logger;
             _messageRepository = messageRepository;
             _messageReceiverService = messageReceiverService;
             _mailConfigureService = mailConfigureService;
@@ -95,6 +100,9 @@ namespace HS.Message.Service.core.imp
         /// <returns></returns>
         public async Task<BaseResponse> SendMessageAsync(List<MessageRequest> request)
         {
+
+            string logPrefix = $"【消息中心】";
+            _logger.LogInformation($"{logPrefix}开始处理消息:{JsonConvert.SerializeObject(request)}");
             var result = new BaseResponse()
             {
                 Code = ResponseCode.ParameterError
@@ -139,9 +147,12 @@ namespace HS.Message.Service.core.imp
                 }
 
                 //1、分解消息
+                _logger.LogInformation($"{logPrefix}分解消息...");
                 var sendChannels = item.Sendchannel.Split(',').Select(x => Enum.Parse<MessageSendchannel>(x)).ToList();
                 bool needEmail = sendChannels.Any(x => x == MessageSendchannel.Email);//是否需要发邮件
-                bool needShortMessage = sendChannels.Any(x => x == MessageSendchannel.SMS);//是否需要发短信
+                bool needSMS = sendChannels.Any(x => x == MessageSendchannel.SMS);//是否需要发短信
+                _logger.LogInformation($"{logPrefix}是否需要发邮件：{needEmail},");
+                _logger.LogInformation($"{logPrefix}是否需要发短信：{needSMS},");
 
                 var message = new MMessage()
                 {
@@ -178,7 +189,7 @@ namespace HS.Message.Service.core.imp
                 messageReceiveList.AddRange(messageReceives);
                 if (needEmail)
                 {
-                    var mailTemplate = await _mailTemplateService.GetOneModelAsync(new MMailTemplateCondtion
+                    var mailTemplate = await _mailTemplateService.GetOneModelAsync(new MMailTemplateCondition
                     {
                         business_type_key = message.business_type_key,
                         state = 1
@@ -209,9 +220,9 @@ namespace HS.Message.Service.core.imp
                     mailMessageList.AddRange(mailMessages);
 
                 };
-                if (needShortMessage)
+                if (needSMS)
                 {
-                    var smsTemplate = await _smsTemplateService.GetOneModelAsync(new MSmsTemplateCondtion
+                    var smsTemplate = await _smsTemplateService.GetOneModelAsync(new MSmsTemplateCondition
                     {
                         business_type_key = message.business_type_key,
                         state = 1
@@ -241,9 +252,12 @@ namespace HS.Message.Service.core.imp
                 List<QueueMessage> queueMessageList = mailMessageList.Select(x => new QueueMessage
                 {
                     MessageType = QueueMessageType.Email,
-                    MessageContent = x.logical_id
+                    MessageContent = JsonConvert.SerializeObject(x),
+                    MessageId = x.logical_id,
+                    hasContentWritedToDb = false
                 }).ToList();
 
+                _logger.LogInformation($"{logPrefix}邮件消息写入队列：{JsonConvert.SerializeObject(queueMessageList)},");
                 var mqresponse = _rabbitmqTopicProducer.BatchProducer(queueMessageList);
                 if (!mqresponse.Successed)
                 {
@@ -257,9 +271,12 @@ namespace HS.Message.Service.core.imp
                 List<QueueMessage> queueMessageList = smsMessageList.Select(x => new QueueMessage
                 {
                     MessageType = QueueMessageType.SMS,
-                    MessageContent = x.logical_id
+                    MessageContent = JsonConvert.SerializeObject(x),
+                    MessageId = x.logical_id,
+                    hasContentWritedToDb = false
                 }).ToList();
 
+                _logger.LogInformation($"{logPrefix}短息消息写入队列：{JsonConvert.SerializeObject(queueMessageList)},");
                 var mqresponse = _rabbitmqTopicProducer.BatchProducer(queueMessageList);
                 if (!mqresponse.Successed)
                 {
@@ -278,23 +295,6 @@ namespace HS.Message.Service.core.imp
                 {
                     errorMessage.Add(res2?.Message);
                 }
-                if (mailMessageList?.Count > 0)
-                {
-                    var res3 = await _mailMessageService.BactchAddAsync(mailMessageList);
-                    if (res3?.Code != ResponseCode.Success)
-                    {
-                        errorMessage.Add(res3?.Message);
-                    }
-                }
-                if (smsMessageList?.Count > 0)
-                {
-                    var res4 = await _smsMessageService.BactchAddAsync(smsMessageList);
-                    if (res4?.Code != ResponseCode.Success)
-                    {
-                        errorMessage.Add(res4?.Message);
-                    }
-                }
-
 
                 scope.Complete();
             }

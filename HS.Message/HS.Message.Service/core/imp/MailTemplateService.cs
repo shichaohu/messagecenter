@@ -10,9 +10,9 @@ namespace HS.Message.Service.core.imp
     /// <summary>
     /// 邮件模板服务
     /// </summary>
-    public class MailTemplateService : BaseService<MMailTemplate, MMailTemplateCondtion>, IMailTemplateService
+    public class MailTemplateService : BaseService<MMailTemplate, MMailTemplateCondition>, IMailTemplateService
     {
-        private readonly IMailTemplateRepository<MMailTemplate, MMailTemplateCondtion> _mailTemplateRepository;
+        private readonly IMailTemplateRepository<MMailTemplate, MMailTemplateCondition> _mailTemplateRepository;
         private readonly IDistributedCache _cache;
 
         /// <summary>
@@ -22,7 +22,7 @@ namespace HS.Message.Service.core.imp
         /// <param name="injectedObjects"></param>
         /// <param name="cache"></param>
         public MailTemplateService(
-            IMailTemplateRepository<MMailTemplate, MMailTemplateCondtion> mailTemplateRepository,
+            IMailTemplateRepository<MMailTemplate, MMailTemplateCondition> mailTemplateRepository,
             IInjectedObjects injectedObjects,
             IDistributedCache cache
             )

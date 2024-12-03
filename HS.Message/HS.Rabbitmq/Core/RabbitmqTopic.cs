@@ -63,12 +63,13 @@ namespace HS.Rabbitmq.Core
         /// <param name="message"></param>
         public ProducerResponse Producer(QueueMessage queueMessage)
         {
+            string logPrefix = $"【消息入队】【{queueMessage.MessageType}:{queueMessage.MessageId}】";
             var result = new ProducerResponse();
             try
             {
                 queueMessage.NumberOfConsumed = 1;
 
-                _logger.LogInformation($"start queuing a message : {queueMessage}");
+                _logger.LogInformation($"{logPrefix}start queuing a message...");
 
                 var factory = GetFactory();
                 //创建连接
@@ -97,13 +98,13 @@ namespace HS.Rabbitmq.Core
                 var properties = channel.CreateBasicProperties();
                 channel.BasicPublish(exchangeName, routeKey, null, sendBytes);
 
-                _logger.LogInformation($"queuing a message success : {queueMessage}");
+                _logger.LogInformation($"{logPrefix}queuing a message success...");
                 result.Successed = true;
             }
             catch (Exception ex)
             {
                 result.Successed = false;
-                string msg = $"queuing a message error : {ex.Message}";
+                string msg = $"{logPrefix}queuing a message error : {ex.Message}";
                 result.Message = ex.Message;
                 _logger.LogError(msg);
             }
@@ -142,9 +143,10 @@ namespace HS.Rabbitmq.Core
                 channel.QueueBind(queueName, exchangeName, routeKey, null);
                 foreach (QueueMessage queueMessage in queueMessageList)
                 {
+                    string logPrefix = $"【消息入队-批量】【{queueMessage.MessageType}:{queueMessage.MessageId}】";
                     queueMessage.NumberOfConsumed = 1;
 
-                    _logger.LogInformation($"start queuing a message : {queueMessage}");
+                    _logger.LogInformation($"{logPrefix}start batch queuing a message...");
 
                     string message = $"{queueMessage.MessageType}.{JsonConvert.SerializeObject(queueMessage)}";
 
@@ -152,7 +154,7 @@ namespace HS.Rabbitmq.Core
                     var properties = channel.CreateBasicProperties();
                     channel.BasicPublish(exchangeName, routeKey, null, sendBytes);
 
-                    _logger.LogInformation($"queuing a message success : {queueMessage}");
+                    _logger.LogInformation($"{logPrefix}batch queuing a message success...");
                 }
 
                 result.Successed = true;
@@ -160,7 +162,7 @@ namespace HS.Rabbitmq.Core
             catch (Exception ex)
             {
                 result.Successed = false;
-                string msg = $"queuing a message error : {ex.Message}";
+                string msg = $"batch queuing a message error : {ex.Message}";
                 result.Message = ex.Message;
                 _logger.LogError(msg);
             }
@@ -174,11 +176,12 @@ namespace HS.Rabbitmq.Core
         /// <param name="delaySeconds">延迟时间（秒）</param>
         protected void ProducerDelayed(QueueMessage queueMessage, int delaySeconds)
         {
+            string logPrefix = $"【消息入队-延迟】【{queueMessage.MessageType}:{queueMessage.MessageId}】";
             try
             {
                 queueMessage.NumberOfConsumed++;
 
-                _logger.LogInformation($"start queuing a delayed message : {queueMessage}");
+                _logger.LogInformation($"{logPrefix}start queuing a delayed message...");
 
                 var factory = GetFactory();
                 using var connection = factory.CreateConnection();
@@ -214,11 +217,11 @@ namespace HS.Rabbitmq.Core
                 //发布消息
                 channel.BasicPublish(exchangeName, routeKey, properties, sendBytes);
 
-                _logger.LogInformation($"queuing a delayed message success : {queueMessage}");
+                _logger.LogInformation($"{logPrefix}queuing a delayed message success...");
             }
             catch (Exception ex)
             {
-                string msg = $"queuing a delayed message error : {ex.Message}";
+                string msg = $"{logPrefix}queuing a delayed message error : {ex.Message}";
                 _logger.LogError(msg);
             }
 
@@ -251,44 +254,46 @@ namespace HS.Rabbitmq.Core
                     try
                     {
                         var messageString = messageSource[(messageSource.IndexOf(".") + 1)..];
-                        _logger.LogInformation($"receive message : {messageString}");
                         var message = JsonConvert.DeserializeObject<QueueMessage>(messageString);
+
+                        string logPrefix = $"【消息出队】【{message.MessageType}:{message.MessageId}】";
+                        _logger.LogInformation($"{logPrefix}receive message...");
 
                         if (message == null || string.IsNullOrEmpty(message.MessageContent) || message.MessageContent.StartsWith("mq init", StringComparison.OrdinalIgnoreCase))
                         {
-                            _logger.LogInformation($"message is empty and has been Acknowledged.");//空消息体，标记已被消费
+                            _logger.LogInformation($"{logPrefix}message is empty and has been Acknowledged.");//空消息体，标记已被消费
                         }
                         else
                         {
                             var res = await ConsumerRun(message);
                             if (res.Code == ResponseCode.Success && res.Data.Successed)
                             {
-                                _logger.LogInformation($"message consumption success : {messageString}");
+                                _logger.LogInformation($"{logPrefix}message consumption success...");
                             }
                             else
                             {
                                 if (res.Data.DelaySeconds >= 0)
                                 {
                                     ProducerDelayed(message, res.Data.DelaySeconds);
-                                    _logger.LogInformation($"message consumption failure : {res}");
+                                    _logger.LogInformation($"{logPrefix}message consumption failure : {JsonConvert.SerializeObject(res)}");
                                 }
                                 else
                                 {
-                                    _logger.LogInformation($"message consumption over the maximum number of retries and stop : {res}");
+                                    _logger.LogInformation($"{logPrefix}message consumption over the maximum number of retries({message.NumberOfConsumed}) and stop : {JsonConvert.SerializeObject(res)}");
                                 }
-
                             }
                         }
-
-                        channel.BasicAck(ea.DeliveryTag, false);//确认该消息已被消费
 
                     }
                     catch (Exception ex)
                     {
                         _logger.LogInformation($"message consumption error and stop, message: {messageSource}; error:{ex}");
                     }
+                    finally
+                    {
+                        channel.BasicAck(ea.DeliveryTag, false);//确认该消息已被消费
+                    }
 
-                    channel.BasicAck(ea.DeliveryTag, false);//确认该消息已被消费
                 };
                 //启动消费者 设置为手动应答消息
                 channel.BasicConsume(queueName, false, consumer);
@@ -324,6 +329,7 @@ namespace HS.Rabbitmq.Core
                     {
                         Successed = false,
                         DelaySeconds = CalculateDelaySeconds(message.NumberOfConsumed),
+                        Message = message
                     }
                 };
             }

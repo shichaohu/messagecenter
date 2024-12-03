@@ -23,36 +23,46 @@ namespace HS.Message.Repository.repository.core.imp
             _configuration = configuration;
         }
 
+        public async Task<int> AddOneMailMessageAsync(MMailMessage data)
+        {
+            var repository = new BizTransientRepositoryAdapter<MMailMessage, MMailMessageCondition>(_configuration, "mail_message");
+            return await repository.AddOneAsync(data);
+        }
         public async Task<MMailMessage> GetMailMessageByIdAsync(string id)
         {
-            var repository = new BizTransientRepositoryAdapter<MMailMessage, MMailMessageCondtion>(_configuration, "mail_message");
+            var repository = new BizTransientRepositoryAdapter<MMailMessage, MMailMessageCondition>(_configuration, "mail_message");
             return await repository.GetModelByIdAsync(id);
         }
         public async Task<int> AddOneMailSendLogsAsync(MMailSendLogs data)
         {
-            var repository = new BizTransientRepositoryAdapter<MMailSendLogs, MMailSendLogsCondtion>(_configuration, "mail_send_logs");
+            var repository = new BizTransientRepositoryAdapter<MMailSendLogs, MMailSendLogsCondition>(_configuration, "mail_send_logs");
             return await repository.AddOneAsync(data);
         }
+        public async Task<int> UpdateMailMessageByIdAsync(MMailMessage message)
+        {
+            var repository = new BizTransientRepositoryAdapter<MMailMessage, MMailMessageCondition>(_configuration, "mail_message");
+            return await repository.UpdateByIdAsync(message);
+        }
 
+
+        public async Task<int> AddOneSmsMessageAsync(MSmsMessage data)
+        {
+            var repository = new BizTransientRepositoryAdapter<MSmsMessage, MSmsMessageCondition>(_configuration, "sms_message");
+            return await repository.AddOneAsync(data);
+        }
         public async Task<MSmsMessage> GetSmsMessageByIdAsync(string id)
         {
-            var repository = new BizTransientRepositoryAdapter<MSmsMessage, MSmsMessageCondtion>(_configuration, "sms_message");
+            var repository = new BizTransientRepositoryAdapter<MSmsMessage, MSmsMessageCondition>(_configuration, "sms_message");
             return await repository.GetModelByIdAsync(id);
         }
         public async Task<int> AddOneSmsMessageDetailsAsync(MSmsMessageDetails data)
         {
-            var repository = new BizTransientRepositoryAdapter<MSmsMessageDetails, MSmsMessageDetailsCondtion>(_configuration, "sms_message_details");
+            var repository = new BizTransientRepositoryAdapter<MSmsMessageDetails, MSmsMessageDetailsCondition>(_configuration, "sms_message_details");
             return await repository.AddOneAsync(data);
-        }
-
-        public async Task<int> UpdateMailMessageByIdAsync(MMailMessage message)
-        {
-            var repository = new BizTransientRepositoryAdapter<MMailMessage, MMailMessageCondtion>(_configuration, "mail_message");
-            return await repository.UpdateByIdAsync(message);
         }
         public async Task<int> UpdateSmsMessageByIdAsync(MSmsMessage message)
         {
-            var repository = new BizTransientRepositoryAdapter<MSmsMessage, MSmsMessageCondtion>(_configuration, "sms_message");
+            var repository = new BizTransientRepositoryAdapter<MSmsMessage, MSmsMessageCondition>(_configuration, "sms_message");
             return await repository.UpdateByIdAsync(message);
         }
 

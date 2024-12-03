@@ -14,9 +14,9 @@ namespace HS.Message.Model
 
 
     /// <summary>
-    // MailTemplate 条件查询扩展模型
+    // Message 条件查询扩展模型
     /// </summary>
-    public class MMailTemplateCondtion:MMailTemplate
+    public class MMessageCondition:MMessage
     {
         
         /// <summary>

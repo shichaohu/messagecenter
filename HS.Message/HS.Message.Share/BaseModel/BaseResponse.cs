@@ -71,21 +71,21 @@ namespace HS.Message.Share.BaseModel
         /// </summary>
         Success = 200,
         /// <summary>
-        /// 参数错误
-        /// </summary>
-        ParameterError = 2000,
-        /// <summary>
         /// 内部错误
         /// </summary>
-        InternalError = 2010,
+        InternalError = 500,
+        /// <summary>
+        /// 参数错误
+        /// </summary>
+        ParameterError = 501,
         /// <summary>
         /// 其他错误
         /// </summary>
-        OtherError = 2020,
+        OtherError = 502,
         /// <summary>
         /// 数据错误
         /// </summary>
-        DataError = 2030
+        DataError = 503
     }
 
 }

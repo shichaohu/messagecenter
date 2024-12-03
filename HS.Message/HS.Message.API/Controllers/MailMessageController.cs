@@ -11,7 +11,7 @@ namespace HS.Message.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [ApiGroup(ApiGroupNames.Message)]
-    public class MailMessageController : CommonController<MMailMessage, MMailMessageCondtion>
+    public class MailMessageController : CommonController<MMailMessage, MMailMessageCondition>
     {
         /// <summary>
         /// 操作逻辑
