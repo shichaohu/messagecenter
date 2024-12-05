@@ -297,6 +297,12 @@ namespace HS.Message.Share.MessageEmitter
             // 处理结果
             BaseResponse<string> result = new() { Code = ResponseCode.Success };
 
+            if (sendInfo == null || sendInfo.ReceiverEmails == null || sendInfo.ReceiverEmails.Length == 0)
+            {
+                result.Code = ResponseCode.ParameterError;
+                result.Message = "邮件信息为空或者邮件的接收人为空";
+                return result;
+            }
 
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress(sendInfo.SendEmail, sendInfo.SendEmail));
@@ -312,15 +318,15 @@ namespace HS.Message.Share.MessageEmitter
             message.Body = builder.ToMessageBody();
 
 
-            var receives = sendInfo.ReceiverEmails.Select(x => new MailboxAddress(x, x)).ToList();
-            if (receives?.Count > 0)
+            if (sendInfo.ReceiverEmails?.Length > 0)
             {
+                var receives = sendInfo.ReceiverEmails.Select(x => new MailboxAddress(x, x)).ToList();
                 message.To.AddRange(receives);
             }
 
-            var cc = sendInfo.ReceiverCcEmails.Select(x => new MailboxAddress(x, x)).ToList();
-            if (cc?.Count > 0)
+            if (sendInfo.ReceiverCcEmails?.Length > 0)
             {
+                var cc = sendInfo.ReceiverCcEmails.Select(x => new MailboxAddress(x, x)).ToList();
                 message.Cc.AddRange(cc);
             }
             try

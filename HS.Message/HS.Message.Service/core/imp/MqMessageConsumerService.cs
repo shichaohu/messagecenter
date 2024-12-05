@@ -20,7 +20,7 @@ namespace HS.Message.Service.core.imp
     {
         private readonly IServiceProvider _serviceProvider;
         private readonly ILogger<MqMessageConsumerService> _logger;
-        private string operatorTag= "【队列消费】";
+        private string operatorTag = "【队列消费】";
 
         /// <summary>
         /// 
@@ -74,7 +74,7 @@ namespace HS.Message.Service.core.imp
             try
             {
                 var mailMessage = JsonConvert.DeserializeObject<MMailMessage>(message.MessageContent);
-                if (mailMessage != null)
+                if (mailMessage != null && !string.IsNullOrWhiteSpace(mailMessage.receiver_email))
                 {
                     //to do send email
                     var sender = _serviceProvider.GetService<SendMailEmitter>();
@@ -83,13 +83,23 @@ namespace HS.Message.Service.core.imp
                         SmtpService = mailMessage.smtp_service,
                         SendEmail = mailMessage.send_email,
                         SendPwd = mailMessage.send_pwd,
-                        ReceiverEmails = mailMessage.receiver_email.Split(','),
-                        ReceiverCcEmails = mailMessage.receiver_cc_email.Split(','),
+                        ReceiverEmails = string.IsNullOrWhiteSpace(mailMessage.receiver_email) ? null : mailMessage.receiver_email.Replace("，", ",").Split(','),
+                        ReceiverCcEmails = string.IsNullOrWhiteSpace(mailMessage.receiver_cc_email) ? null : mailMessage.receiver_cc_email.Replace("，", ",").Split(','),
                         MailTitle = mailMessage.mail_title,
                         MailBody = mailMessage.mail_body
                     };
                     var sendResponse = await sender.SendMailByMailKitMassed(sendMessage);
-                    _logger.LogInformation($"{logPrefix}邮件发送成功：{string.Join(",", sendMessage.ReceiverEmails)},抄送：{string.Join(",", sendMessage.ReceiverCcEmails)}");
+                    string sendSuccessMessage = $"{logPrefix}邮件发送成功 ";
+                    if (sendMessage.ReceiverEmails != null)
+                    {
+                        sendSuccessMessage += $" 接收邮箱：{string.Join(",", sendMessage.ReceiverEmails)}";
+                    }
+                    if (sendMessage.ReceiverCcEmails != null)
+                    {
+                        sendSuccessMessage += $" 抄送邮箱：{string.Join(",", sendMessage.ReceiverCcEmails)}";
+                    }
+                    _logger.LogInformation(sendSuccessMessage);
+
                     //email send log
                     var mailSendLogs = new MMailSendLogs()
                     {
@@ -161,7 +171,7 @@ namespace HS.Message.Service.core.imp
                 {
                     result.Code = ResponseCode.DataError;
                     result.Data.Successed = false;
-                    string errorMsg = $"消息内容构造失败,id: {JsonConvert.SerializeObject(message)}";
+                    string errorMsg = $"消息内容构造失败或者没有邮件接收邮箱，id: {JsonConvert.SerializeObject(message)}";
                     result.Message = errorMsg;
                     _logger.LogInformation($"{logPrefix}{errorMsg}");
                 }
@@ -192,7 +202,7 @@ namespace HS.Message.Service.core.imp
             try
             {
                 var smsMessage = JsonConvert.DeserializeObject<MSmsMessage>(message.MessageContent);
-                if (smsMessage != null)
+                if (smsMessage != null && !string.IsNullOrWhiteSpace(smsMessage.phone_numbers))
                 {
                     //to do send sms
                     Thread.Sleep(5000);
@@ -274,7 +284,7 @@ namespace HS.Message.Service.core.imp
                     result.Code = ResponseCode.DataError;
                     result.Data.Successed = false;
 
-                    string errorMsg = $"消息内容构造失败,id: {JsonConvert.SerializeObject(message)}";
+                    string errorMsg = $"消息内容构造失败或者没有短息接收号码，id: {JsonConvert.SerializeObject(message)}";
                     result.Message = errorMsg;
                     _logger.LogInformation($"{logPrefix}{errorMsg}");
                 }
