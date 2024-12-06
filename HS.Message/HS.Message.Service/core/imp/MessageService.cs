@@ -156,66 +156,69 @@ namespace HS.Message.Service.core.imp
 
                 var message = new MMessage()
                 {
-                    logical_id = Guid.NewGuid().ToString().Replace("-", ""),
-                    title = item.Title,
-                    content = item.Content,
-                    dynamic_parameter = JsonConvert.SerializeObject(item.DynamicParameter, Formatting.Indented),
-                    link_url = item.LinkUrl,
-                    link_text = item.LinkText,
-                    business_type_key = item.BusinessTypeKey,
-                    business_type_value = item.BusinessTypeValue,
-                    sendchannel = item.Sendchannel,
-                    created_by_id = item.Sender.UserId,
-                    created_by_name = item.Sender.UserName,
-                    created_time = DateTime.Now,
+                    LogicalId = Guid.NewGuid().ToString().Replace("-", ""),
+                    Title = item.Title,
+                    Content = item.Content,
+                    DynamicParameter = JsonConvert.SerializeObject(item.DynamicParameter, Formatting.Indented),
+                    LinkUrl = item.LinkUrl,
+                    LinkText = item.LinkText,
+                    BusinessTypeKey = item.BusinessTypeKey,
+                    BusinessTypeValue = item.BusinessTypeValue,
+                    SendChannel = item.Sendchannel,
+                    SendState = 1,
+                    CreatedById = item.Sender.UserId,
+                    CreatedByName = item.Sender.UserName,
+                    CreatedTime = DateTime.Now,
                 };
                 messageList.Add(message);
                 var messageReceives = item.Receiver.Select(x => new MMessageReceiver
                 {
-                    logical_id = Guid.NewGuid().ToString().Replace("-", ""),
-                    message_id = message.logical_id,
-                    receiver_userid = x.ReceiverUserid,
-                    receiver_name = x.ReceiverName,
-                    email = x.Email,
-                    cc_email = x.CcEmail,
-                    phone = x.Phone,
-                    enterprise_wechat = x.EnterpriseWechat,
-                    dingtalk = x.Dingtalk,
-                    other_receive_channel = x.OtherReceiveChannel,
-                    created_by_id = item.Sender.UserId,
-                    created_by_name = item.Sender.UserName,
-                    created_time = DateTime.Now,
+                    LogicalId = Guid.NewGuid().ToString().Replace("-", ""),
+                    MessageId = message.LogicalId,
+                    ReceiverUserid = x.ReceiverUserid,
+                    ReceiverName = x.ReceiverName,
+                    Email = x.Email,
+                    CcEmail = x.CcEmail,
+                    EmailSendState = needEmail ? 1 : null,
+                    Phone = x.Phone,
+                    EnterpriseWechat = x.EnterpriseWechat,
+                    SmsSendState = needSMS ? 1 : null,
+                    Dingtalk = x.Dingtalk,
+                    OtherReceiveChannel = x.OtherReceiveChannel,
+                    CreatedById = item.Sender.UserId,
+                    CreatedByName = item.Sender.UserName,
+                    CreatedTime = DateTime.Now,
                 }).ToList();
                 messageReceiveList.AddRange(messageReceives);
                 if (needEmail)
                 {
                     var mailTemplate = await _mailTemplateService.GetOneModelAsync(new MMailTemplateCondition
                     {
-                        business_type_key = message.business_type_key,
-                        state = 1
+                        BusinessTypeKey = message.BusinessTypeKey,
+                        State = 1
                     });
                     var mailMessages = messageReceives.Select(x => new MMailMessage
                     {
-                        logical_id = Guid.NewGuid().ToString().Replace("-", ""),
-                        message_id = message.logical_id,
-                        send_email = _configuration["EmailConfig:SendEmail"],//"502242999@qq.com",
-                        send_pwd = _configuration["EmailConfig:SendPassowrd"],//vkspnryltkotbjhc
-                        smtp_service = _configuration["EmailConfig:SmtpService"],
-                        receiver_id = x.logical_id,
-                        mail_template_id = mailTemplate?.Data?.logical_id,
-                        mail_configuer_id = "",
-                        mail_title = MessageUtil.LoadMessageTemplate(message.title, mailTemplate?.Data?.temp_title, item.DynamicParameter),
-                        mail_body = MessageUtil.LoadMessageTemplate(message.content, mailTemplate?.Data?.temp_body, item.DynamicParameter),
-                        receiver_email = x.email,
-                        receiver_cc_email = x.cc_email,
-                        total_send_num = 1,
-                        start_send_time = DateTime.Now,
-                        has_send_num = 0,
-                        send_state = 1,
-                        last_send_time = DateTime.Now,
-                        created_by_id = x.created_by_id,
-                        created_by_name = x.created_by_name,
-                        created_time = DateTime.Now
+                        LogicalId = Guid.NewGuid().ToString().Replace("-", ""),
+                        MessageId = message.LogicalId,
+                        SendEmail = _configuration["EmailConfig:SendEmail"],//"502242999@qq.com",
+                        SendPwd = _configuration["EmailConfig:SendPassowrd"],//vkspnryltkotbjhc
+                        SmtpService = _configuration["EmailConfig:SmtpService"],
+                        ReceiverId = x.LogicalId,
+                        MailTemplateId = mailTemplate?.Data?.LogicalId,
+                        MailConfiguerId = "",
+                        MailTitle = MessageUtil.LoadMessageTemplate(message.Title, mailTemplate?.Data?.TempTitle, item.DynamicParameter),
+                        MailBody = MessageUtil.LoadMessageTemplate(message.Content, mailTemplate?.Data?.TempBody, item.DynamicParameter),
+                        ReceiverEmail = x.Email,
+                        ReceiverCcEmail = x.CcEmail,
+                        TotalSendNum = 1,
+                        StartSendTime = DateTime.Now,
+                        HasSendNum = 0,
+                        SendState = 1,
+                        LastSendTime = DateTime.Now,
+                        CreatedById = x.CreatedById,
+                        CreatedByName = x.CreatedByName,
+                        CreatedTime = DateTime.Now
                     }).ToList();
                     mailMessageList.AddRange(mailMessages);
 
@@ -224,23 +227,23 @@ namespace HS.Message.Service.core.imp
                 {
                     var smsTemplate = await _smsTemplateService.GetOneModelAsync(new MSmsTemplateCondition
                     {
-                        business_type_key = message.business_type_key,
-                        state = 1
+                        BusinessTypeKey = message.BusinessTypeKey,
+                        State = 1
                     });
                     var smsMessages = messageReceives.Select(x => new MSmsMessage
                     {
-                        logical_id = Guid.NewGuid().ToString().Replace("-", ""),
-                        message_id = message.logical_id,
-                        receiver_id = x.logical_id,
-                        template_code = smsTemplate?.Data?.temp_code,
-                        template_param = message.dynamic_parameter,
-                        content = MessageUtil.LoadMessageTemplate(message.content, smsTemplate?.Data?.temp_body, item.DynamicParameter),
-                        send_type = 1,
-                        phone_numbers = x.phone,
-                        send_state = 1,
-                        created_by_id = x.created_by_id,
-                        created_by_name = x.created_by_name,
-                        created_time = DateTime.Now
+                        LogicalId = Guid.NewGuid().ToString().Replace("-", ""),
+                        MessageId = message.LogicalId,
+                        ReceiverId = x.LogicalId,
+                        TemplateCode = smsTemplate?.Data?.TempCode,
+                        TemplateParam = message.DynamicParameter,
+                        Content = MessageUtil.LoadMessageTemplate(message.Content, smsTemplate?.Data?.TempBody, item.DynamicParameter),
+                        SendType = 1,
+                        PhoneNumbers = x.Phone,
+                        SendState = 1,
+                        CreatedById = x.CreatedById,
+                        CreatedByName = x.CreatedByName,
+                        CreatedTime = DateTime.Now
                     }).ToList();
 
                     smsMessageList.AddRange(smsMessages);
@@ -253,7 +256,7 @@ namespace HS.Message.Service.core.imp
                 {
                     MessageType = QueueMessageType.Email,
                     MessageContent = JsonConvert.SerializeObject(x),
-                    MessageId = x.logical_id,
+                    MessageId = x.LogicalId,
                     hasContentWritedToDb = false
                 }).ToList();
 
@@ -272,7 +275,7 @@ namespace HS.Message.Service.core.imp
                 {
                     MessageType = QueueMessageType.SMS,
                     MessageContent = JsonConvert.SerializeObject(x),
-                    MessageId = x.logical_id,
+                    MessageId = x.LogicalId,
                     hasContentWritedToDb = false
                 }).ToList();
 

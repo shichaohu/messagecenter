@@ -4,14 +4,17 @@ using System.Text.RegularExpressions;
 
 namespace HS.Message.Share.Utils
 {
-    public class StringUtils
+    /// <summary>
+    /// 字符串工具
+    /// </summary>
+    public static class StringUtil
     {
         /// <summary>
         /// 判断字符串是否为数字
         /// </summary>
         /// <param name="strNumber"></param>
         /// <returns></returns>
-        public bool IsNumber(string strNumber)
+        public static bool IsNumber(string strNumber)
         {
             Regex objNotNumberPattern = new Regex("[^0-9.-]");
             Regex objTwoDotPattern = new Regex("[0-9]*[.][0-9]*[.][0-9]*");
@@ -147,6 +150,23 @@ namespace HS.Message.Share.Utils
         public static string Base64ToString(string base64String)
         {
             return Encoding.UTF8.GetString(Convert.FromBase64String(base64String));
+        }
+        /// <summary>
+        /// 大驼峰转下划线连接
+        /// </summary>
+        /// <param name="pascalCase"></param>
+        /// <returns></returns>
+        public static string PascalToSnakeCase(string pascalCase)
+        {
+            if (string.IsNullOrEmpty(pascalCase))
+            {
+                return pascalCase;
+            }
+
+            return Regex.Replace(
+                pascalCase,
+                @"([a-z])([A-Z])",
+                match => match.Groups[1].Value + "_" + match.Groups[2].Value).ToLower();
         }
     }
 }

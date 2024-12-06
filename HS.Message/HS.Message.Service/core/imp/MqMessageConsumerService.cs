@@ -74,19 +74,19 @@ namespace HS.Message.Service.core.imp
             try
             {
                 var mailMessage = JsonConvert.DeserializeObject<MMailMessage>(message.MessageContent);
-                if (mailMessage != null && !string.IsNullOrWhiteSpace(mailMessage.receiver_email))
+                if (mailMessage != null && !string.IsNullOrWhiteSpace(mailMessage.ReceiverEmail))
                 {
                     //to do send email
                     var sender = _serviceProvider.GetService<SendMailEmitter>();
                     var sendMessage = new MailMParameter
                     {
-                        SmtpService = mailMessage.smtp_service,
-                        SendEmail = mailMessage.send_email,
-                        SendPwd = mailMessage.send_pwd,
-                        ReceiverEmails = string.IsNullOrWhiteSpace(mailMessage.receiver_email) ? null : mailMessage.receiver_email.Replace("，", ",").Split(','),
-                        ReceiverCcEmails = string.IsNullOrWhiteSpace(mailMessage.receiver_cc_email) ? null : mailMessage.receiver_cc_email.Replace("，", ",").Split(','),
-                        MailTitle = mailMessage.mail_title,
-                        MailBody = mailMessage.mail_body
+                        SmtpService = mailMessage.SmtpService,
+                        SendEmail = mailMessage.SendEmail,
+                        SendPwd = mailMessage.SendPwd,
+                        ReceiverEmails = string.IsNullOrWhiteSpace(mailMessage.ReceiverEmail) ? null : mailMessage.ReceiverEmail.Replace("，", ",").Split(','),
+                        ReceiverCcEmails = string.IsNullOrWhiteSpace(mailMessage.ReceiverCcEmail) ? null : mailMessage.ReceiverCcEmail.Replace("，", ",").Split(','),
+                        MailTitle = mailMessage.MailTitle,
+                        MailBody = mailMessage.MailBody
                     };
                     var sendResponse = await sender.SendMailByMailKitMassed(sendMessage);
                     string sendSuccessMessage = $"{logPrefix}邮件发送成功 ";
@@ -103,26 +103,26 @@ namespace HS.Message.Service.core.imp
                     //email send log
                     var mailSendLogs = new MMailSendLogs()
                     {
-                        logical_id = Guid.NewGuid().ToString().Replace("-", ""),
-                        mail_message_id = mailMessage.logical_id,
-                        mail_title = mailMessage.mail_title,
-                        mail_body = mailMessage.mail_body,
-                        mail_configuer_id = mailMessage.mail_configuer_id,
-                        receiver_email = mailMessage.receiver_email,
-                        receiver_cc_email = mailMessage.receiver_cc_email,
-                        send_time = DateTime.Now,
-                        send_state = sendResponse.Code == ResponseCode.Success ? 1 : 2,
-                        send_result = JsonConvert.SerializeObject(sendResponse),
-                        created_by_id = "message center",
-                        created_by_name = "message center",
-                        created_time = DateTime.Now,
+                        LogicalId = Guid.NewGuid().ToString().Replace("-", ""),
+                        MailMessageId = mailMessage.LogicalId,
+                        MailTitle = mailMessage.MailTitle,
+                        MailBody = mailMessage.MailBody,
+                        MailConfiguerId = mailMessage.MailConfiguerId,
+                        ReceiverEmail = mailMessage.ReceiverEmail,
+                        ReceiverCcEmail = mailMessage.ReceiverCcEmail,
+                        SendTime = DateTime.Now,
+                        SendState = sendResponse.Code == ResponseCode.Success ? 1 : 2,
+                        SendResult = JsonConvert.SerializeObject(sendResponse),
+                        CreatedById = "message center",
+                        CreatedByName = "message center",
+                        CreatedTime = DateTime.Now,
                     };
-                    mailMessage.send_state = 3;
-                    mailMessage.last_send_time = DateTime.Now;
-                    mailMessage.updated_time = DateTime.Now;
-                    mailMessage.updated_by_id = "message center";
-                    mailMessage.updated_by_name = "message center";
-                    mailMessage.total_send_num++;
+                    mailMessage.SendState = sendResponse.Code == ResponseCode.Success ? 2 : 3;
+                    mailMessage.LastSendTime = DateTime.Now;
+                    mailMessage.UpdatedTime = DateTime.Now;
+                    mailMessage.UpdatedById = "message center";
+                    mailMessage.UpdatedByName = "message center";
+                    mailMessage.TotalSendNum++;
 
                     bool successed = false;
                     bool stepOne = false;//第一步执行结果
@@ -131,7 +131,7 @@ namespace HS.Message.Service.core.imp
                     using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
                     {
                         var mqMsgConsumRepository = _serviceProvider.GetService<IMqMessageConsumerRepository>();
-
+                        //更新邮件主表
                         if (hasContentWritedToDb)
                         {
                             var res = await mqMsgConsumRepository.UpdateMailMessageByIdAsync(mailMessage);
@@ -144,9 +144,25 @@ namespace HS.Message.Service.core.imp
                             stepOne = res > 0;
                             _logger.LogInformation($"{logPrefix}邮件信息落库成功...");
                         }
+                        //写邮件发送日志
                         var res2 = await mqMsgConsumRepository.AddOneMailSendLogsAsync(mailSendLogs);
                         stepTwo = res2 > 0;
                         _logger.LogInformation($"{logPrefix}邮件发送日志落库完成...");
+
+                        //更新消息接收表.邮件发送状态
+                        var res3 = await mqMsgConsumRepository.UpdateMessageReceiverByIdAsync(new MMessageReceiver
+                        {
+                            LogicalId = mailMessage.ReceiverId,
+                            EmailLastSendtime = DateTime.Now,
+                            EmailSendState = sendResponse.Code == ResponseCode.Success ? 2 : 3
+                        });
+                        stepTwo = stepTwo && res3 > 0;
+                        //更新消息结束表邮件发送状态
+                        var res4 = await mqMsgConsumRepository.UpdateMessageByIdAsync(new MMessage
+                        {
+                            LogicalId = mailMessage.MessageId
+                        });
+                        stepTwo = stepTwo && res4 > 0;
 
                         scope.Complete();
                     }
@@ -202,38 +218,38 @@ namespace HS.Message.Service.core.imp
             try
             {
                 var smsMessage = JsonConvert.DeserializeObject<MSmsMessage>(message.MessageContent);
-                if (smsMessage != null && !string.IsNullOrWhiteSpace(smsMessage.phone_numbers))
+                if (smsMessage != null && !string.IsNullOrWhiteSpace(smsMessage.PhoneNumbers))
                 {
                     //to do send sms
                     Thread.Sleep(5000);
-                    _logger.LogInformation($"{logPrefix}短息发送成功：{smsMessage.phone_numbers}");
+                    _logger.LogInformation($"{logPrefix}短息发送成功：{smsMessage.PhoneNumbers}");
 
                     //save log
                     var smsSendLogs = new MSmsMessageDetails()
                     {
-                        logical_id = Guid.NewGuid().ToString().Replace("-", ""),
-                        sms_message_id = smsMessage.logical_id,
-                        channel_code = smsMessage.channel_code,
-                        channel_name = smsMessage.channel_name,
-                        content = smsMessage.content,
-                        phone_number = smsMessage.phone_numbers,
-                        has_send_num = 1,
-                        send_state = 1,
+                        LogicalId = Guid.NewGuid().ToString().Replace("-", ""),
+                        SmsMessageId = smsMessage.LogicalId,
+                        ChannelCode = smsMessage.ChannelCode,
+                        ChannelName = smsMessage.ChannelName,
+                        Content = smsMessage.Content,
+                        PhoneNumber = smsMessage.PhoneNumbers,
+                        HasSendNum = 1,
+                        SendState = 1,
                         //operator_state_code="",
                         //lock_time=DateTime.Now,
-                        submit_time = DateTime.Now,
-                        receive_time = DateTime.Now,
-                        last_send_time = DateTime.Now,
+                        SubmitTime = DateTime.Now,
+                        ReceiveTime = DateTime.Now,
+                        LastSendTime = DateTime.Now,
                         //biz_id=smsMessage.Data.biz_id,
                         //request_id=smsMessage.Data.request_id,
-                        created_by_id = "message center",
-                        created_by_name = "message center",
-                        created_time = DateTime.Now,
+                        CreatedById = "message center",
+                        CreatedByName = "message center",
+                        CreatedTime = DateTime.Now,
                     };
-                    smsMessage.send_state = 3;
-                    smsMessage.updated_time = DateTime.Now;
-                    smsMessage.updated_by_id = "message center";
-                    smsMessage.updated_by_name = "message center";
+                    smsMessage.SendState = 3;
+                    smsMessage.UpdatedTime = DateTime.Now;
+                    smsMessage.UpdatedById = "message center";
+                    smsMessage.UpdatedByName = "message center";
 
                     bool successed = false;
                     bool stepOne = false;//第一步执行结果

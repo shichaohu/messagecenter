@@ -1,6 +1,10 @@
 # 添加基础镜像：docker会从网络下载这个镜像
 FROM asp.net:8.0
 
+#设置时区
+ENV TZ=Asia/Shanghai
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 #容器中系统的工作空间
 WORKDIR /app
 

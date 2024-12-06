@@ -14,534 +14,116 @@ namespace HS.Message.Model
 
 
     /// <summary>
-    // MailMessage数据模型
+    /// 邮件消息
     /// </summary>
     public partial class MMailMessage: MBaseModel
     {
-        
-        /// <summary>
-        // 乐观锁
-        /// </summary>
-        private int? _REVISION;
-                
-        /// <summary>
-        // 消息id
-        /// </summary>
-        private string _message_id;
-        
-        /// <summary>
-        // 消息接收人id
-        /// </summary>
-        private string _receiver_id;
-        
-        /// <summary>
-        // 邮件模板id
-        /// </summary>
-        private string _mail_template_id;
-        
-        /// <summary>
-        // 邮件发送信息配置id
-        /// </summary>
-        private string _mail_configuer_id;
-        
-        /// <summary>
-        // 邮件标题
-        /// </summary>
-        private string _mail_title;
-        
-        /// <summary>
-        // 邮件内容
-        /// </summary>
-        private string _mail_body;
-        
-        /// <summary>
-        // 收件邮箱;支持多个邮件一起发送，不同的接受邮件地址间通过“,”连接起来
-        /// </summary>
-        private string _receiver_email;
-        
-        /// <summary>
-        // 抄送邮箱
-        /// </summary>
-        private string _receiver_cc_email;
-        
-        /// <summary>
-        // 总共发送次数;默认为1一次
-        /// </summary>
-        private int _total_send_num;
-        
-        /// <summary>
-        // 发送频率间隔(单位秒);单位为秒，只有要求发送多次的才有效
-        /// </summary>
-        private int? _send_frequency;
-        
-        /// <summary>
-        // 开始发送时间
-        /// </summary>
-        private System.DateTime _start_send_time;
-        
-        /// <summary>
-        // 已经发送次数
-        /// </summary>
-        private int? _has_send_num;
-        
-        /// <summary>
-        // 上一次发送时间
-        /// </summary>
-        private System.DateTime _last_send_time;
-        
-        /// <summary>
-        // 下一次发送时间
-        /// </summary>
-        private System.DateTime _next_send_time;
-        
-        /// <summary>
-        // 发送状态;1：待发送，2：发送中（针对发送多次的，还未发送完都是这个状态），3：已发送，默认为1
-        /// </summary>
-        private int? _send_state;
-        
-        /// <summary>
-        // 邮件Smtp服务器
-        /// </summary>
-        private string _smtp_service;
-        
-        /// <summary>
-        // 发送邮件地址
-        /// </summary>
-        private string _send_email;
-        
-        /// <summary>
-        // 邮件发送密码
-        /// </summary>
-        private string _send_pwd;
-        
-        /// <summary>
-        // 创建人Id
-        /// </summary>
-        private string _created_by_id;
-        
-        /// <summary>
-        // 创建人姓名
-        /// </summary>
-        private string _created_by_name;
-        
-        /// <summary>
-        // 创建时间
-        /// </summary>
-        private System.DateTime _created_time;
-        
-        /// <summary>
-        // 更新人Id
-        /// </summary>
-        private string _updated_by_id;
-        
-        /// <summary>
-        // 更新人姓名
-        /// </summary>
-        private string _updated_by_name;
-        
-        /// <summary>
-        // 更新时间
-        /// </summary>
-        private System.DateTime _updated_time;
-        
-        /// <summary>
-        /// 乐观锁
-        /// </summary>
-        [FieldAttribute("乐观锁")]
-        public int? REVISION
-        {
-            get
-            {
-                return this._REVISION;
-            }
-            set
-            {
-                this._REVISION = value;
-            }
-        }
-                
         /// <summary>
         /// 消息id
         /// </summary>
-        [FieldAttribute("消息id")]
-        public string message_id
-        {
-            get
-            {
-                return this._message_id;
-            }
-            set
-            {
-                this._message_id = value;
-            }
-        }
-        
+        [Field("消息id")]
+        public string MessageId { get; set; }
+
         /// <summary>
         /// 消息接收人id
         /// </summary>
-        [FieldAttribute("消息接收人id")]
-        public string receiver_id
-        {
-            get
-            {
-                return this._receiver_id;
-            }
-            set
-            {
-                this._receiver_id = value;
-            }
-        }
-        
+        [Field("消息接收人id")]
+        public string ReceiverId { get; set; }
+
         /// <summary>
         /// 邮件模板id
         /// </summary>
-        [FieldAttribute("邮件模板id")]
-        public string mail_template_id
-        {
-            get
-            {
-                return this._mail_template_id;
-            }
-            set
-            {
-                this._mail_template_id = value;
-            }
-        }
-        
+        [Field("邮件模板id")]
+        public string MailTemplateId { get; set; }
+
         /// <summary>
         /// 邮件发送信息配置id
         /// </summary>
-        [FieldAttribute("邮件发送信息配置id")]
-        public string mail_configuer_id
-        {
-            get
-            {
-                return this._mail_configuer_id;
-            }
-            set
-            {
-                this._mail_configuer_id = value;
-            }
-        }
-        
+        [Field("邮件发送信息配置id")]
+        public string MailConfiguerId { get; set; }
+
         /// <summary>
         /// 邮件标题
         /// </summary>
-        [FieldAttribute("邮件标题")]
-        public string mail_title
-        {
-            get
-            {
-                return this._mail_title;
-            }
-            set
-            {
-                this._mail_title = value;
-            }
-        }
-        
+        [Field("邮件标题")]
+        public string MailTitle { get; set; }
+
         /// <summary>
         /// 邮件内容
         /// </summary>
-        [FieldAttribute("邮件内容")]
-        public string mail_body
-        {
-            get
-            {
-                return this._mail_body;
-            }
-            set
-            {
-                this._mail_body = value;
-            }
-        }
-        
+        [Field("邮件内容")]
+        public string MailBody { get; set; }
+
         /// <summary>
         /// 收件邮箱;支持多个邮件一起发送，不同的接受邮件地址间通过“,”连接起来
         /// </summary>
-        [FieldAttribute("收件邮箱;支持多个邮件一起发送，不同的接受邮件地址间通过“,”连接起来")]
-        public string receiver_email
-        {
-            get
-            {
-                return this._receiver_email;
-            }
-            set
-            {
-                this._receiver_email = value;
-            }
-        }
-        
+        [Field("收件邮箱")]
+        public string ReceiverEmail { get; set; }
+
         /// <summary>
         /// 抄送邮箱
         /// </summary>
-        [FieldAttribute("抄送邮箱")]
-        public string receiver_cc_email
-        {
-            get
-            {
-                return this._receiver_cc_email;
-            }
-            set
-            {
-                this._receiver_cc_email = value;
-            }
-        }
-        
+        [Field("抄送邮箱")]
+        public string ReceiverCcEmail { get; set; }
+
         /// <summary>
         /// 总共发送次数;默认为1一次
         /// </summary>
-        [FieldAttribute("总共发送次数;默认为1一次")]
-        public int total_send_num
-        {
-            get
-            {
-                return this._total_send_num;
-            }
-            set
-            {
-                this._total_send_num = value;
-            }
-        }
-        
+        [Field("总共发送次数")]
+        public int TotalSendNum { get; set; }
+
         /// <summary>
         /// 发送频率间隔(单位秒);单位为秒，只有要求发送多次的才有效
         /// </summary>
-        [FieldAttribute("发送频率间隔(单位秒);单位为秒，只有要求发送多次的才有效")]
-        public int? send_frequency
-        {
-            get
-            {
-                return this._send_frequency;
-            }
-            set
-            {
-                this._send_frequency = value;
-            }
-        }
-        
+        [Field("发送频率间隔")]
+        public int SendFrequency { get; set; }
+
         /// <summary>
         /// 开始发送时间
         /// </summary>
-        [FieldAttribute("开始发送时间")]
-        public System.DateTime start_send_time
-        {
-            get
-            {
-                return this._start_send_time;
-            }
-            set
-            {
-                this._start_send_time = value;
-            }
-        }
-        
+        [Field("开始发送时间")]
+        public DateTime StartSendTime { get; set; }
+
         /// <summary>
         /// 已经发送次数
         /// </summary>
-        [FieldAttribute("已经发送次数")]
-        public int? has_send_num
-        {
-            get
-            {
-                return this._has_send_num;
-            }
-            set
-            {
-                this._has_send_num = value;
-            }
-        }
-        
+        [Field("已经发送次数")]
+        public int HasSendNum { get; set; }
+
         /// <summary>
         /// 上一次发送时间
         /// </summary>
-        [FieldAttribute("上一次发送时间")]
-        public System.DateTime last_send_time
-        {
-            get
-            {
-                return this._last_send_time;
-            }
-            set
-            {
-                this._last_send_time = value;
-            }
-        }
-        
+        [Field("上一次发送时间")]
+        public DateTime LastSendTime { get; set; }
+
         /// <summary>
         /// 下一次发送时间
         /// </summary>
-        [FieldAttribute("下一次发送时间")]
-        public System.DateTime next_send_time
-        {
-            get
-            {
-                return this._next_send_time;
-            }
-            set
-            {
-                this._next_send_time = value;
-            }
-        }
-        
+        [Field("下一次发送时间")]
+        public DateTime NextSendTime { get; set; }
+
         /// <summary>
-        /// 发送状态;1：待发送，2：发送中（针对发送多次的，还未发送完都是这个状态），3：已发送，默认为1
+        /// 发送状态;发送状态：1=待发送，2=已发送，3=发送失败
         /// </summary>
-        [FieldAttribute("发送状态;1：待发送，2：发送中（针对发送多次的，还未发送完都是这个状态），3：已发送，默认为1")]
-        public int? send_state
-        {
-            get
-            {
-                return this._send_state;
-            }
-            set
-            {
-                this._send_state = value;
-            }
-        }
-        
+        [Field("发送状态")]
+        public int SendState { get; set; }
+
         /// <summary>
         /// 邮件Smtp服务器
         /// </summary>
-        [FieldAttribute("邮件Smtp服务器")]
-        public string smtp_service
-        {
-            get
-            {
-                return this._smtp_service;
-            }
-            set
-            {
-                this._smtp_service = value;
-            }
-        }
-        
+        [Field("邮件Smtp服务器")]
+        public string SmtpService { get; set; }
+
         /// <summary>
         /// 发送邮件地址
         /// </summary>
-        [FieldAttribute("发送邮件地址")]
-        public string send_email
-        {
-            get
-            {
-                return this._send_email;
-            }
-            set
-            {
-                this._send_email = value;
-            }
-        }
-        
+        [Field("发送邮件地址")]
+        public string SendEmail { get; set; }
+
         /// <summary>
         /// 邮件发送密码
         /// </summary>
-        [FieldAttribute("邮件发送密码")]
-        public string send_pwd
-        {
-            get
-            {
-                return this._send_pwd;
-            }
-            set
-            {
-                this._send_pwd = value;
-            }
-        }
-        
-        /// <summary>
-        /// 创建人Id
-        /// </summary>
-        [FieldAttribute("创建人Id")]
-        public string created_by_id
-        {
-            get
-            {
-                return this._created_by_id;
-            }
-            set
-            {
-                this._created_by_id = value;
-            }
-        }
-        
-        /// <summary>
-        /// 创建人姓名
-        /// </summary>
-        [FieldAttribute("创建人姓名")]
-        public string created_by_name
-        {
-            get
-            {
-                return this._created_by_name;
-            }
-            set
-            {
-                this._created_by_name = value;
-            }
-        }
-        
-        /// <summary>
-        /// 创建时间
-        /// </summary>
-        [FieldAttribute("创建时间")]
-        public System.DateTime created_time
-        {
-            get
-            {
-                return this._created_time;
-            }
-            set
-            {
-                this._created_time = value;
-            }
-        }
-        
-        /// <summary>
-        /// 更新人Id
-        /// </summary>
-        [FieldAttribute("更新人Id")]
-        public string updated_by_id
-        {
-            get
-            {
-                return this._updated_by_id;
-            }
-            set
-            {
-                this._updated_by_id = value;
-            }
-        }
-        
-        /// <summary>
-        /// 更新人姓名
-        /// </summary>
-        [FieldAttribute("更新人姓名")]
-        public string updated_by_name
-        {
-            get
-            {
-                return this._updated_by_name;
-            }
-            set
-            {
-                this._updated_by_name = value;
-            }
-        }
-        
-        /// <summary>
-        /// 更新时间
-        /// </summary>
-        [FieldAttribute("更新时间")]
-        public System.DateTime updated_time
-        {
-            get
-            {
-                return this._updated_time;
-            }
-            set
-            {
-                this._updated_time = value;
-            }
-        }
+        [Field("邮件发送密码")]
+        public string SendPwd { get; set; }
     }
 }

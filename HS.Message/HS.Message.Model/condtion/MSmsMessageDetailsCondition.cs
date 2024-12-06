@@ -14,303 +14,69 @@ namespace HS.Message.Model
 
 
     /// <summary>
-    // SmsMessageDetails 条件查询扩展模型
+    /// SmsMessageDetails 条件查询扩展模型
     /// </summary>
     public class MSmsMessageDetailsCondition:MSmsMessageDetails
     {
-        
-        /// <summary>
-        // 锁定时间
-        /// </summary>
-        private System.DateTime _lock_time_start;
-        
-        /// <summary>
-        // 锁定时间
-        /// </summary>
-        private System.DateTime _lock_time_end;
-        
-        /// <summary>
-        // 提交时间;我方提交短信平台时间
-        /// </summary>
-        private System.DateTime _submit_time_start;
-        
-        /// <summary>
-        // 提交时间;我方提交短信平台时间
-        /// </summary>
-        private System.DateTime _submit_time_end;
-        
-        /// <summary>
-        // 接收时间;用户查看时间
-        /// </summary>
-        private System.DateTime _receive_time_start;
-        
-        /// <summary>
-        // 接收时间;用户查看时间
-        /// </summary>
-        private System.DateTime _receive_time_end;
-        
-        /// <summary>
-        // 上一次发送时间
-        /// </summary>
-        private System.DateTime _last_send_time_start;
-        
-        /// <summary>
-        // 上一次发送时间
-        /// </summary>
-        private System.DateTime _last_send_time_end;
-        
-        /// <summary>
-        // 查询锁定时间
-        /// </summary>
-        private System.DateTime _query_lock_time_start;
-        
-        /// <summary>
-        // 查询锁定时间
-        /// </summary>
-        private System.DateTime _query_lock_time_end;
-        
-        /// <summary>
-        // 创建时间
-        /// </summary>
-        private System.DateTime _created_time_start;
-        
-        /// <summary>
-        // 创建时间
-        /// </summary>
-        private System.DateTime _created_time_end;
-        
-        /// <summary>
-        // 更新时间
-        /// </summary>
-        private System.DateTime _updated_time_start;
-        
-        /// <summary>
-        // 更新时间
-        /// </summary>
-        private System.DateTime _updated_time_end;
-        
         /// <summary>
         /// 锁定时间
         /// </summary>
         [FieldAttribute("锁定时间")]
-        public System.DateTime lock_time_start
-        {
-            get
-            {
-                return this._lock_time_start;
-            }
-            set
-            {
-                this._lock_time_start = value;
-            }
-        }
-        
+        public System.DateTime LockTimeStart { get; set; }
+
         /// <summary>
         /// 锁定时间
         /// </summary>
         [FieldAttribute("锁定时间")]
-        public System.DateTime lock_time_end
-        {
-            get
-            {
-                return this._lock_time_end;
-            }
-            set
-            {
-                this._lock_time_end = value;
-            }
-        }
-        
+        public System.DateTime LockTimeEnd { get; set; }
+
         /// <summary>
         /// 提交时间;我方提交短信平台时间
         /// </summary>
         [FieldAttribute("提交时间;我方提交短信平台时间")]
-        public System.DateTime submit_time_start
-        {
-            get
-            {
-                return this._submit_time_start;
-            }
-            set
-            {
-                this._submit_time_start = value;
-            }
-        }
-        
+        public System.DateTime SubmitTimeStart { get; set; }
+
         /// <summary>
         /// 提交时间;我方提交短信平台时间
         /// </summary>
         [FieldAttribute("提交时间;我方提交短信平台时间")]
-        public System.DateTime submit_time_end
-        {
-            get
-            {
-                return this._submit_time_end;
-            }
-            set
-            {
-                this._submit_time_end = value;
-            }
-        }
-        
+        public System.DateTime SubmitTimeEnd { get; set; }
+
         /// <summary>
         /// 接收时间;用户查看时间
         /// </summary>
         [FieldAttribute("接收时间;用户查看时间")]
-        public System.DateTime receive_time_start
-        {
-            get
-            {
-                return this._receive_time_start;
-            }
-            set
-            {
-                this._receive_time_start = value;
-            }
-        }
-        
+        public System.DateTime ReceiveTimeStart { get; set; }
+
         /// <summary>
         /// 接收时间;用户查看时间
         /// </summary>
         [FieldAttribute("接收时间;用户查看时间")]
-        public System.DateTime receive_time_end
-        {
-            get
-            {
-                return this._receive_time_end;
-            }
-            set
-            {
-                this._receive_time_end = value;
-            }
-        }
-        
+        public System.DateTime ReceiveTimeEnd { get; set; }
+
         /// <summary>
         /// 上一次发送时间
         /// </summary>
         [FieldAttribute("上一次发送时间")]
-        public System.DateTime last_send_time_start
-        {
-            get
-            {
-                return this._last_send_time_start;
-            }
-            set
-            {
-                this._last_send_time_start = value;
-            }
-        }
-        
+        public System.DateTime LastSendTimeStart { get; set; }
+
         /// <summary>
         /// 上一次发送时间
         /// </summary>
         [FieldAttribute("上一次发送时间")]
-        public System.DateTime last_send_time_end
-        {
-            get
-            {
-                return this._last_send_time_end;
-            }
-            set
-            {
-                this._last_send_time_end = value;
-            }
-        }
-        
+        public System.DateTime LastSendTimeEnd { get; set; }
+
         /// <summary>
         /// 查询锁定时间
         /// </summary>
         [FieldAttribute("查询锁定时间")]
-        public System.DateTime query_lock_time_start
-        {
-            get
-            {
-                return this._query_lock_time_start;
-            }
-            set
-            {
-                this._query_lock_time_start = value;
-            }
-        }
-        
+        public System.DateTime QueryLockTimeStart { get; set; }
+
         /// <summary>
         /// 查询锁定时间
         /// </summary>
         [FieldAttribute("查询锁定时间")]
-        public System.DateTime query_lock_time_end
-        {
-            get
-            {
-                return this._query_lock_time_end;
-            }
-            set
-            {
-                this._query_lock_time_end = value;
-            }
-        }
-        
-        /// <summary>
-        /// 创建时间
-        /// </summary>
-        [FieldAttribute("创建时间")]
-        public System.DateTime created_time_start
-        {
-            get
-            {
-                return this._created_time_start;
-            }
-            set
-            {
-                this._created_time_start = value;
-            }
-        }
-        
-        /// <summary>
-        /// 创建时间
-        /// </summary>
-        [FieldAttribute("创建时间")]
-        public System.DateTime created_time_end
-        {
-            get
-            {
-                return this._created_time_end;
-            }
-            set
-            {
-                this._created_time_end = value;
-            }
-        }
-        
-        /// <summary>
-        /// 更新时间
-        /// </summary>
-        [FieldAttribute("更新时间")]
-        public System.DateTime updated_time_start
-        {
-            get
-            {
-                return this._updated_time_start;
-            }
-            set
-            {
-                this._updated_time_start = value;
-            }
-        }
-        
-        /// <summary>
-        /// 更新时间
-        /// </summary>
-        [FieldAttribute("更新时间")]
-        public System.DateTime updated_time_end
-        {
-            get
-            {
-                return this._updated_time_end;
-            }
-            set
-            {
-                this._updated_time_end = value;
-            }
-        }
+        public System.DateTime QueryLockTimeEnd { get; set; }
+
     }
 }

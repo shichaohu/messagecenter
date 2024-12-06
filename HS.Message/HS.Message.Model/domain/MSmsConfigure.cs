@@ -14,345 +14,63 @@ namespace HS.Message.Model
 
 
     /// <summary>
-    // SmsConfigure数据模型
+    /// 短息配置
     /// </summary>
     public partial class MSmsConfigure: MBaseModel
     {
-        
-        /// <summary>
-        // 乐观锁
-        /// </summary>
-        private int? _REVISION;
-        
-        /// <summary>
-        // 渠道编号;1、阿里云，2、上海大汉三通数据通信
-        /// </summary>
-        private int? _channel_code;
-        
-        /// <summary>
-        // 渠道名称
-        /// </summary>
-        private string _channel_name;
-        
-        /// <summary>
-        // 服务器地址
-        /// </summary>
-        private string _sms_service;
-        
-        /// <summary>
-        // 短信发送账号
-        /// </summary>
-        private string _sms_account;
-        
-        /// <summary>
-        // 短信发送密码
-        /// </summary>
-        private string _sms_pwd;
-        
-        /// <summary>
-        // 模板编码
-        /// </summary>
-        private string _template_code;
-        
-        /// <summary>
-        // 签名名称
-        /// </summary>
-        private string _sign_name;
-        
-        /// <summary>
-        // 是否为当前渠道;1：当前渠道，
-        /// </summary>
-        private int _is_current_channel;
-        
-        /// <summary>
-        // 状态;1：启用，2：禁用，默认为1
-        /// </summary>
-        private int? _state;
-        
-        /// <summary>
-        // 创建人Id
-        /// </summary>
-        private string _created_by_id;
-        
-        /// <summary>
-        // 创建人姓名
-        /// </summary>
-        private string _created_by_name;
-        
-        /// <summary>
-        // 创建时间
-        /// </summary>
-        private System.DateTime _created_time;
-        
-        /// <summary>
-        // 更新人Id
-        /// </summary>
-        private string _updated_by_id;
-        
-        /// <summary>
-        // 更新人姓名
-        /// </summary>
-        private string _updated_by_name;
-        
-        /// <summary>
-        // 更新时间
-        /// </summary>
-        private System.DateTime _updated_time;
-        
-        /// <summary>
-        /// 乐观锁
-        /// </summary>
-        [FieldAttribute("乐观锁")]
-        public int? REVISION
-        {
-            get
-            {
-                return this._REVISION;
-            }
-            set
-            {
-                this._REVISION = value;
-            }
-        }
-        
         /// <summary>
         /// 渠道编号;1、阿里云，2、上海大汉三通数据通信
         /// </summary>
-        [FieldAttribute("渠道编号;1、阿里云，2、上海大汉三通数据通信")]
-        public int? channel_code
-        {
-            get
-            {
-                return this._channel_code;
-            }
-            set
-            {
-                this._channel_code = value;
-            }
-        }
-        
+        [Field("渠道编号")]
+        public int ChannelCode { get; set; }
+
         /// <summary>
         /// 渠道名称
         /// </summary>
-        [FieldAttribute("渠道名称")]
-        public string channel_name
-        {
-            get
-            {
-                return this._channel_name;
-            }
-            set
-            {
-                this._channel_name = value;
-            }
-        }
-        
+        [Field("渠道名称")]
+        public string ChannelName { get; set; }
+
         /// <summary>
         /// 服务器地址
         /// </summary>
-        [FieldAttribute("服务器地址")]
-        public string sms_service
-        {
-            get
-            {
-                return this._sms_service;
-            }
-            set
-            {
-                this._sms_service = value;
-            }
-        }
-        
+        [Field("服务器地址")]
+        public string SmsService { get; set; }
+
         /// <summary>
         /// 短信发送账号
         /// </summary>
-        [FieldAttribute("短信发送账号")]
-        public string sms_account
-        {
-            get
-            {
-                return this._sms_account;
-            }
-            set
-            {
-                this._sms_account = value;
-            }
-        }
-        
+        [Field("短信发送账号")]
+        public string SmsAccount { get; set; }
+
         /// <summary>
         /// 短信发送密码
         /// </summary>
-        [FieldAttribute("短信发送密码")]
-        public string sms_pwd
-        {
-            get
-            {
-                return this._sms_pwd;
-            }
-            set
-            {
-                this._sms_pwd = value;
-            }
-        }
-        
+        [Field("短信发送密码")]
+        public string SmsPwd { get; set; }
+
         /// <summary>
         /// 模板编码
         /// </summary>
-        [FieldAttribute("模板编码")]
-        public string template_code
-        {
-            get
-            {
-                return this._template_code;
-            }
-            set
-            {
-                this._template_code = value;
-            }
-        }
-        
+        [Field("模板编码")]
+        public string TemplateCode { get; set; }
+
         /// <summary>
         /// 签名名称
         /// </summary>
-        [FieldAttribute("签名名称")]
-        public string sign_name
-        {
-            get
-            {
-                return this._sign_name;
-            }
-            set
-            {
-                this._sign_name = value;
-            }
-        }
-        
+        [Field("签名名称")]
+        public string SignName { get; set; }
+
         /// <summary>
         /// 是否为当前渠道;1：当前渠道，
         /// </summary>
-        [FieldAttribute("是否为当前渠道;1：当前渠道，")]
-        public int is_current_channel
-        {
-            get
-            {
-                return this._is_current_channel;
-            }
-            set
-            {
-                this._is_current_channel = value;
-            }
-        }
-        
+        [Field("是否为当前渠道")]
+        public int IsCurrentChannel { get; set; }
+
         /// <summary>
         /// 状态;1：启用，2：禁用，默认为1
         /// </summary>
-        [FieldAttribute("状态;1：启用，2：禁用，默认为1")]
-        public int? state
-        {
-            get
-            {
-                return this._state;
-            }
-            set
-            {
-                this._state = value;
-            }
-        }
-        
-        /// <summary>
-        /// 创建人Id
-        /// </summary>
-        [FieldAttribute("创建人Id")]
-        public string created_by_id
-        {
-            get
-            {
-                return this._created_by_id;
-            }
-            set
-            {
-                this._created_by_id = value;
-            }
-        }
-        
-        /// <summary>
-        /// 创建人姓名
-        /// </summary>
-        [FieldAttribute("创建人姓名")]
-        public string created_by_name
-        {
-            get
-            {
-                return this._created_by_name;
-            }
-            set
-            {
-                this._created_by_name = value;
-            }
-        }
-        
-        /// <summary>
-        /// 创建时间
-        /// </summary>
-        [FieldAttribute("创建时间")]
-        public System.DateTime created_time
-        {
-            get
-            {
-                return this._created_time;
-            }
-            set
-            {
-                this._created_time = value;
-            }
-        }
-        
-        /// <summary>
-        /// 更新人Id
-        /// </summary>
-        [FieldAttribute("更新人Id")]
-        public string updated_by_id
-        {
-            get
-            {
-                return this._updated_by_id;
-            }
-            set
-            {
-                this._updated_by_id = value;
-            }
-        }
-        
-        /// <summary>
-        /// 更新人姓名
-        /// </summary>
-        [FieldAttribute("更新人姓名")]
-        public string updated_by_name
-        {
-            get
-            {
-                return this._updated_by_name;
-            }
-            set
-            {
-                this._updated_by_name = value;
-            }
-        }
-        
-        /// <summary>
-        /// 更新时间
-        /// </summary>
-        [FieldAttribute("更新时间")]
-        public System.DateTime updated_time
-        {
-            get
-            {
-                return this._updated_time;
-            }
-            set
-            {
-                this._updated_time = value;
-            }
-        }
+        [Field("状态")]
+        public int State { get; set; }
+
     }
 }

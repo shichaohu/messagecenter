@@ -14,240 +14,33 @@ namespace HS.Message.Model
 
 
     /// <summary>
-    // MailConfigure数据模型
+    /// 邮件配置-主要存储邮件发送方账号信息
     /// </summary>
     public partial class MMailConfigure: MBaseModel
     {
-        
-        /// <summary>
-        // 乐观锁
-        /// </summary>
-        private int? _REVISION;
-        
-        /// <summary>
-        // 邮件Smtp服务器
-        /// </summary>
-        private string _smtp_service;
-        
-        /// <summary>
-        // 发送邮件地址
-        /// </summary>
-        private string _send_email;
-        
-        /// <summary>
-        // 邮件发送密码
-        /// </summary>
-        private string _send_pwd;
-        
-        /// <summary>
-        // 状态;1：启用，2：禁用，默认为1
-        /// </summary>
-        private int _state;
-        
-        /// <summary>
-        // 创建人Id
-        /// </summary>
-        private string _created_by_id;
-        
-        /// <summary>
-        // 创建人姓名
-        /// </summary>
-        private string _created_by_name;
-        
-        /// <summary>
-        // 创建时间
-        /// </summary>
-        private System.DateTime _created_time;
-        
-        /// <summary>
-        // 更新人Id
-        /// </summary>
-        private string _updated_by_id;
-        
-        /// <summary>
-        // 更新人姓名
-        /// </summary>
-        private string _updated_by_name;
-        
-        /// <summary>
-        // 更新时间
-        /// </summary>
-        private System.DateTime _updated_time;
-        
-        /// <summary>
-        /// 乐观锁
-        /// </summary>
-        [FieldAttribute("乐观锁")]
-        public int? REVISION
-        {
-            get
-            {
-                return this._REVISION;
-            }
-            set
-            {
-                this._REVISION = value;
-            }
-        }
-        
         /// <summary>
         /// 邮件Smtp服务器
         /// </summary>
-        [FieldAttribute("邮件Smtp服务器")]
-        public string smtp_service
-        {
-            get
-            {
-                return this._smtp_service;
-            }
-            set
-            {
-                this._smtp_service = value;
-            }
-        }
-        
+        [Field("邮件Smtp服务器")]
+        public string SmtpService { get; set; }
+
         /// <summary>
         /// 发送邮件地址
         /// </summary>
-        [FieldAttribute("发送邮件地址")]
-        public string send_email
-        {
-            get
-            {
-                return this._send_email;
-            }
-            set
-            {
-                this._send_email = value;
-            }
-        }
-        
+        [Field("发送邮件地址")]
+        public string SendEmail { get; set; }
+
         /// <summary>
         /// 邮件发送密码
         /// </summary>
-        [FieldAttribute("邮件发送密码")]
-        public string send_pwd
-        {
-            get
-            {
-                return this._send_pwd;
-            }
-            set
-            {
-                this._send_pwd = value;
-            }
-        }
-        
+        [Field("邮件发送密码")]
+        public string SendPwd { get; set; }
+
         /// <summary>
         /// 状态;1：启用，2：禁用，默认为1
         /// </summary>
-        [FieldAttribute("状态;1：启用，2：禁用，默认为1")]
-        public int state
-        {
-            get
-            {
-                return this._state;
-            }
-            set
-            {
-                this._state = value;
-            }
-        }
-        
-        /// <summary>
-        /// 创建人Id
-        /// </summary>
-        [FieldAttribute("创建人Id")]
-        public string created_by_id
-        {
-            get
-            {
-                return this._created_by_id;
-            }
-            set
-            {
-                this._created_by_id = value;
-            }
-        }
-        
-        /// <summary>
-        /// 创建人姓名
-        /// </summary>
-        [FieldAttribute("创建人姓名")]
-        public string created_by_name
-        {
-            get
-            {
-                return this._created_by_name;
-            }
-            set
-            {
-                this._created_by_name = value;
-            }
-        }
-        
-        /// <summary>
-        /// 创建时间
-        /// </summary>
-        [FieldAttribute("创建时间")]
-        public System.DateTime created_time
-        {
-            get
-            {
-                return this._created_time;
-            }
-            set
-            {
-                this._created_time = value;
-            }
-        }
-        
-        /// <summary>
-        /// 更新人Id
-        /// </summary>
-        [FieldAttribute("更新人Id")]
-        public string updated_by_id
-        {
-            get
-            {
-                return this._updated_by_id;
-            }
-            set
-            {
-                this._updated_by_id = value;
-            }
-        }
-        
-        /// <summary>
-        /// 更新人姓名
-        /// </summary>
-        [FieldAttribute("更新人姓名")]
-        public string updated_by_name
-        {
-            get
-            {
-                return this._updated_by_name;
-            }
-            set
-            {
-                this._updated_by_name = value;
-            }
-        }
-        
-        /// <summary>
-        /// 更新时间
-        /// </summary>
-        [FieldAttribute("更新时间")]
-        public System.DateTime updated_time
-        {
-            get
-            {
-                return this._updated_time;
-            }
-            set
-            {
-                this._updated_time = value;
-            }
-        }
+        [Field("状态")]
+        public int State { get; set; }
+
     }
 }

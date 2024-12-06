@@ -14,245 +14,45 @@ namespace HS.Message.Model
 
 
     /// <summary>
-    // MailTemplate数据模型
+    /// 邮件模板
     /// </summary>
     public partial class MMailTemplate: MBaseModel
     {
-        
         /// <summary>
-        // 乐观锁
+        /// 业务类型key
         /// </summary>
-        private int? _REVISION;
-        
-        /// <summary>
-        // 模板名称
-        /// </summary>
-        private string _temp_name;
-        
-        /// <summary>
-        // 模板内容;邮件内容模板通过{key}来进行模板参数占位
-        /// </summary>
-        private string _temp_body;
-        
-        /// <summary>
-        // 模板邮件标题;邮件标题模板通过{key}来进行模板参数占位
-        /// </summary>
-        private string _temp_title;
-        
-        /// <summary>
-        // 状态;1：启用，2：禁用，默认为1
-        /// </summary>
-        private int? _state;
-        
-        /// <summary>
-        // 创建人Id
-        /// </summary>
-        private string _created_by_id;
-        
-        /// <summary>
-        // 创建人姓名
-        /// </summary>
-        private string _created_by_name;
-        
-        /// <summary>
-        // 创建时间
-        /// </summary>
-        private System.DateTime _created_time;
-        
-        /// <summary>
-        // 更新人Id
-        /// </summary>
-        private string _updated_by_id;
-        
-        /// <summary>
-        // 更新人姓名
-        /// </summary>
-        private string _updated_by_name;
-        
-        /// <summary>
-        // 更新时间
-        /// </summary>
-        private System.DateTime _updated_time;
-        
-        /// <summary>
-        /// 乐观锁
-        /// </summary>
-        [FieldAttribute("乐观锁")]
-        public int? REVISION
-        {
-            get
-            {
-                return this._REVISION;
-            }
-            set
-            {
-                this._REVISION = value;
-            }
-        }
-        [FieldAttribute("业务类型key")]
-        public string business_type_key { get; set; }
+        [Field("业务类型key")]
+        public string BusinessTypeKey { get; set; }
 
-        [FieldAttribute("业务类型value")]
-        public string business_type_value { get; set; }
+        /// <summary>
+        /// 业务类型value
+        /// </summary>
+        [Field("业务类型value")]
+        public string BusinessTypeValue { get; set; }
 
         /// <summary>
         /// 模板名称
         /// </summary>
-        [FieldAttribute("模板名称")]
-        public string temp_name
-        {
-            get
-            {
-                return this._temp_name;
-            }
-            set
-            {
-                this._temp_name = value;
-            }
-        }
-        
+        [Field("模板名称")]
+        public string TempName { get; set; }
+
         /// <summary>
-        /// 模板内容;邮件内容模板通过{key}来进行模板参数占位
+        /// 模板内容;邮件内容模板通过"{key}"来进行模板参数占位
         /// </summary>
-        [FieldAttribute("模板内容;邮件内容模板通过{key}来进行模板参数占位")]
-        public string temp_body
-        {
-            get
-            {
-                return this._temp_body;
-            }
-            set
-            {
-                this._temp_body = value;
-            }
-        }
-        
+        [Field("模板内容")]
+        public string TempBody { get; set; }
+
         /// <summary>
-        /// 模板邮件标题;邮件标题模板通过{key}来进行模板参数占位
+        /// 模板邮件标题;邮件标题模板通过"{key}"来进行模板参数占位
         /// </summary>
-        [FieldAttribute("模板邮件标题;邮件标题模板通过{key}来进行模板参数占位")]
-        public string temp_title
-        {
-            get
-            {
-                return this._temp_title;
-            }
-            set
-            {
-                this._temp_title = value;
-            }
-        }
-        
+        [Field("模板邮件标题")]
+        public string TempTitle { get; set; }
+
         /// <summary>
         /// 状态;1：启用，2：禁用，默认为1
         /// </summary>
-        [FieldAttribute("状态;1：启用，2：禁用，默认为1")]
-        public int? state
-        {
-            get
-            {
-                return this._state;
-            }
-            set
-            {
-                this._state = value;
-            }
-        }
-        
-        /// <summary>
-        /// 创建人Id
-        /// </summary>
-        [FieldAttribute("创建人Id")]
-        public string created_by_id
-        {
-            get
-            {
-                return this._created_by_id;
-            }
-            set
-            {
-                this._created_by_id = value;
-            }
-        }
-        
-        /// <summary>
-        /// 创建人姓名
-        /// </summary>
-        [FieldAttribute("创建人姓名")]
-        public string created_by_name
-        {
-            get
-            {
-                return this._created_by_name;
-            }
-            set
-            {
-                this._created_by_name = value;
-            }
-        }
-        
-        /// <summary>
-        /// 创建时间
-        /// </summary>
-        [FieldAttribute("创建时间")]
-        public System.DateTime created_time
-        {
-            get
-            {
-                return this._created_time;
-            }
-            set
-            {
-                this._created_time = value;
-            }
-        }
-        
-        /// <summary>
-        /// 更新人Id
-        /// </summary>
-        [FieldAttribute("更新人Id")]
-        public string updated_by_id
-        {
-            get
-            {
-                return this._updated_by_id;
-            }
-            set
-            {
-                this._updated_by_id = value;
-            }
-        }
-        
-        /// <summary>
-        /// 更新人姓名
-        /// </summary>
-        [FieldAttribute("更新人姓名")]
-        public string updated_by_name
-        {
-            get
-            {
-                return this._updated_by_name;
-            }
-            set
-            {
-                this._updated_by_name = value;
-            }
-        }
-        
-        /// <summary>
-        /// 更新时间
-        /// </summary>
-        [FieldAttribute("更新时间")]
-        public System.DateTime updated_time
-        {
-            get
-            {
-                return this._updated_time;
-            }
-            set
-            {
-                this._updated_time = value;
-            }
-        }
+        [Field("状态")]
+        public int State { get; set; }
+
     }
 }

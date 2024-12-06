@@ -24,9 +24,9 @@ namespace HS.Message.Repository.repository.@base.core
         public new int AddOne(TModel model)
         {
             // 初始化主键
-            if (string.IsNullOrEmpty(model.logical_id))
+            if (string.IsNullOrEmpty(model.LogicalId))
             {
-                model.logical_id = CreatKey(1);
+                model.LogicalId = CreatKey(1);
 
             }
 
@@ -41,9 +41,9 @@ namespace HS.Message.Repository.repository.@base.core
         public async new Task<int> AddOneAsync(TModel model)
         {
             // 初始化主键
-            if (string.IsNullOrEmpty(model.logical_id))
+            if (string.IsNullOrEmpty(model.LogicalId))
             {
-                model.logical_id = CreatKey(1);
+                model.LogicalId = CreatKey(1);
 
             }
 
@@ -62,16 +62,16 @@ namespace HS.Message.Repository.repository.@base.core
             foreach (var model in modelList)
             {
                 // 初始化主键
-                if (string.IsNullOrEmpty(model.logical_id))
+                if (string.IsNullOrEmpty(model.LogicalId))
                 {
-                    model.logical_id = CreatKey(1);
+                    model.LogicalId = CreatKey(1);
 
                     // 对上生成的唯一主键做一个判重，如果重复，那么重新生成，尝试重新生成3次
                     int num = 0;
-                    while (num < 3 && addList.Exists(x => x.logical_id == model.logical_id))
+                    while (num < 3 && addList.Exists(x => x.LogicalId == model.LogicalId))
                     {
                         Thread.Sleep(200);//停200秒 
-                        model.logical_id = CreatKey(1);
+                        model.LogicalId = CreatKey(1);
                         num++;
                     }
                 }
@@ -93,16 +93,16 @@ namespace HS.Message.Repository.repository.@base.core
             foreach (var model in modelList)
             {
                 // 初始化主键
-                if (string.IsNullOrEmpty(model.logical_id))
+                if (string.IsNullOrEmpty(model.LogicalId))
                 {
-                    model.logical_id = CreatKey(1);
+                    model.LogicalId = CreatKey(1);
 
                     // 对上生成的唯一主键做一个判重，如果重复，那么重新生成，尝试重新生成3次
                     int num = 0;
-                    while (num < 3 && addList.Exists(x => x.logical_id == model.logical_id))
+                    while (num < 3 && addList.Exists(x => x.LogicalId == model.LogicalId))
                     {
                         Thread.Sleep(200);//停200秒 
-                        model.logical_id = CreatKey(1);
+                        model.LogicalId = CreatKey(1);
                         num++;
                     }
                 }
@@ -122,7 +122,7 @@ namespace HS.Message.Repository.repository.@base.core
         public int DeleteById(string logical_id)
         {
             // 执行删除操作
-            return DapperTool.ExecuteNonQuery($" delete from  `{TableName}` where logical_id=@logical_id", new TModel() { logical_id = logical_id });
+            return DapperTool.ExecuteNonQuery($" delete from  `{TableName}` where logical_id=@logical_id", new TModel() { LogicalId = logical_id });
         }
         /// <summary>
         /// 根据logical_id删除数据
@@ -132,7 +132,7 @@ namespace HS.Message.Repository.repository.@base.core
         public async Task<int> DeleteByIdAsync(string logical_id)
         {
             // 执行删除操作
-            return await DapperTool.ExecuteNonQueryAsync($" delete from  `{TableName}` where logical_id=@logical_id", new TModel() { logical_id = logical_id });
+            return await DapperTool.ExecuteNonQueryAsync($" delete from  `{TableName}` where logical_id=@logical_id", new TModel() { LogicalId = logical_id });
         }
 
         /// <summary>
@@ -172,7 +172,7 @@ namespace HS.Message.Repository.repository.@base.core
         public int LogicDeleteById(string logical_id)
         {
             // 执行删除操作
-            return DapperTool.ExecuteNonQuery($" update `{TableName}` set ``=1 where logical_id=@logical_id", new TModel() { logical_id = logical_id });
+            return DapperTool.ExecuteNonQuery($" update `{TableName}` set ``=1 where logical_id=@logical_id", new TModel() { LogicalId = logical_id });
         }
         /// <summary>
         /// 根据logical_id删除数据
@@ -182,7 +182,7 @@ namespace HS.Message.Repository.repository.@base.core
         public async Task<int> LogicDeleteByIdAsync(string logical_id)
         {
             // 执行删除操作
-            return await DapperTool.ExecuteNonQueryAsync($" update `{TableName}` set ``=1 where logical_id=@logical_id", new TModel() { logical_id = logical_id });
+            return await DapperTool.ExecuteNonQueryAsync($" update `{TableName}` set ``=1 where logical_id=@logical_id", new TModel() { LogicalId = logical_id });
         }
 
         /// <summary>
@@ -420,7 +420,7 @@ namespace HS.Message.Repository.repository.@base.core
             T model = DapperTool.GetModel<TModel, T>(string.IsNullOrEmpty(queryFields) ? GetAllField() : queryFields,
                 $"`{TableName}`",
                 $" 1=1  and logical_id=@logical_id ",
-                new TModel() { logical_id = logical_id }
+                new TModel() { LogicalId = logical_id }
                 );
             ModelUtil.AutoFill(model, autoFillFieldsList);
             return model;
@@ -437,7 +437,7 @@ namespace HS.Message.Repository.repository.@base.core
             T model = await DapperTool.GetModelAsync<TModel, T>(string.IsNullOrEmpty(queryFields) ? GetAllField() : queryFields,
                 $"`{TableName}`",
                 $" 1=1  and logical_id=@logical_id ",
-                new TModel() { logical_id = logical_id }
+                new TModel() { LogicalId = logical_id }
                 );
             ModelUtil.AutoFill(model, autoFillFieldsList);
             return model;
@@ -452,7 +452,7 @@ namespace HS.Message.Repository.repository.@base.core
         {
             var sql = GetSqlWhereByModel(condition);
 
-            TModel model = DapperTool.GetModel<TModel>(condition == null || string.IsNullOrEmpty(condition.queryFields) ? GetAllField() : condition.queryFields,
+            TModel model = DapperTool.GetModel<TModel>(condition == null || string.IsNullOrEmpty(condition.QueryFields) ? GetAllField() : condition.QueryFields,
                     $"`{TableName}`",
                     sql,
                     condition as TModel
@@ -470,7 +470,7 @@ namespace HS.Message.Repository.repository.@base.core
         {
             var sql = GetSqlWhereByModel(condition);
 
-            TModel model = await DapperTool.GetModelAsync<TModel>(condition == null || string.IsNullOrEmpty(condition.queryFields) ? GetAllField() : condition.queryFields,
+            TModel model = await DapperTool.GetModelAsync<TModel>(condition == null || string.IsNullOrEmpty(condition.QueryFields) ? GetAllField() : condition.QueryFields,
                     $"`{TableName}`",
                     sql,
                     condition as TModel
@@ -580,7 +580,7 @@ namespace HS.Message.Repository.repository.@base.core
             var sql = GetSqlWhereByModel(condition);
 
             // 调用通用分页查询接口
-            List<TModel> listModel = DapperTool.GetPageList<TCondition, TModel>(string.IsNullOrEmpty(condition.queryFields) ? GetAllField() : condition.queryFields,
+            List<TModel> listModel = DapperTool.GetPageList<TCondition, TModel>(string.IsNullOrEmpty(condition.QueryFields) ? GetAllField() : condition.QueryFields,
                  $"`{TableName}`", sql, pageInfor, condition);
             pageQueryCondition.pageIndex = pageInfor.pageIndex;
             pageQueryCondition.pageSize = pageInfor.pageSize;
@@ -614,7 +614,7 @@ namespace HS.Message.Repository.repository.@base.core
             var sql = GetSqlWhereByModel(condition);
 
             // 调用通用分页查询接口
-            List<TModel> listModel = await DapperTool.GetPageListAsync<TCondition, TModel>(string.IsNullOrEmpty(condition.queryFields) ? GetAllField() : condition.queryFields,
+            List<TModel> listModel = await DapperTool.GetPageListAsync<TCondition, TModel>(string.IsNullOrEmpty(condition.QueryFields) ? GetAllField() : condition.QueryFields,
                  $"`{TableName}`", sql, pageInfor, condition);
             pageQueryCondition.pageIndex = pageInfor.pageIndex;
             pageQueryCondition.pageSize = pageInfor.pageSize;
@@ -633,7 +633,7 @@ namespace HS.Message.Repository.repository.@base.core
         public List<TModel> GetAllList(TCondition model, int limitNum = 0)
         {
             // 构建查询语句
-            string sql = $"SELECT {(model == null || string.IsNullOrEmpty(model.queryFields) ? GetAllField() : model.queryFields)} FROM `{TableName}` where 1=1 and {GetSqlWhereByModel(model)}  ORDER BY {(model == null || string.IsNullOrEmpty(model.orderby) ? " logical_id desc " : model.orderby)} {(limitNum > 0 ? " limit " + limitNum : "")};";
+            string sql = $"SELECT {(model == null || string.IsNullOrEmpty(model.QueryFields) ? GetAllField() : model.QueryFields)} FROM `{TableName}` where 1=1 and {GetSqlWhereByModel(model)}  ORDER BY {(model == null || string.IsNullOrEmpty(model.Orderby) ? " logical_id desc " : model.Orderby)} {(limitNum > 0 ? " limit " + limitNum : "")};";
             var dataList = DapperTool.Query<TCondition, TModel>(sql, model).ToList();
 
             ModelUtil.AutoFill(dataList, autoFillFieldsList);
@@ -649,7 +649,7 @@ namespace HS.Message.Repository.repository.@base.core
         public async Task<List<TModel>> GetAllListAsync(TCondition model, int limitNum = 0)
         {
             // 构建查询语句
-            string sql = $"SELECT {(model == null || string.IsNullOrEmpty(model.queryFields) ? GetAllField() : model.queryFields)} FROM `{TableName}` where 1=1 and {GetSqlWhereByModel(model)}  ORDER BY {(model == null || string.IsNullOrEmpty(model.orderby) ? " logical_id desc " : model.orderby)} {(limitNum > 0 ? " limit " + limitNum : "")};";
+            string sql = $"SELECT {(model == null || string.IsNullOrEmpty(model.QueryFields) ? GetAllField() : model.QueryFields)} FROM `{TableName}` where 1=1 and {GetSqlWhereByModel(model)}  ORDER BY {(model == null || string.IsNullOrEmpty(model.Orderby) ? " logical_id desc " : model.Orderby)} {(limitNum > 0 ? " limit " + limitNum : "")};";
             var dataList = (await DapperTool.QueryAsync<TCondition, TModel>(sql, model)).ToList();
 
             ModelUtil.AutoFill(dataList, autoFillFieldsList);

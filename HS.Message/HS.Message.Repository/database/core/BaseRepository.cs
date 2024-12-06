@@ -117,10 +117,10 @@ namespace HS.Message.Repository.database.core
 
         public StringBuilder GetfuzzySearchWhere(MBaseModel model, string table = "")
         {
-            if (!string.IsNullOrEmpty(model.fuzzySearchFields) && !string.IsNullOrEmpty(model.fuzzySearchKeyWord))
+            if (!string.IsNullOrEmpty(model.FuzzySearchFields) && !string.IsNullOrEmpty(model.FuzzySearchKeyWord))
             {
-                string[] array = model.fuzzySearchKeyWord.Split(' ');
-                string[] array2 = model.fuzzySearchFields.Split(',');
+                string[] array = model.FuzzySearchKeyWord.Split(' ');
+                string[] array2 = model.FuzzySearchFields.Split(',');
                 StringBuilder stringBuilder = new StringBuilder(" and (");
                 bool flag = true;
                 string[] array3 = array2;

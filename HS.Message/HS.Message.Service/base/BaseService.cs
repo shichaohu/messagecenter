@@ -97,7 +97,7 @@ namespace HS.Message.Service.@base
             // 处理结果
             BaseResponse mReturnResultBase = new() { Code = ResponseCode.InternalError };
 
-            string[] ignoreFields = new string[] { "id", "logical_id", "created_id", "created_name", "created_time" };
+            string[] ignoreFields = new string[] { "id", "logical_id", "created_id", "created_name", "CreatedTime" };
             var fieldsDic = GetAllFields(ignoreFields);
             if (fieldsDic?.Keys.Count == 0)
             {
@@ -361,7 +361,7 @@ namespace HS.Message.Service.@base
             }
 
             // 获取一下原始数据
-            TModel modelOld = await _baseRepository.GetModelByIdAsync(model.logical_id);
+            TModel modelOld = await _baseRepository.GetModelByIdAsync(model.LogicalId);
 
             if (modelOld == null)
             {
@@ -404,7 +404,7 @@ namespace HS.Message.Service.@base
             }
 
             // 获取一下原始数据
-            List<TModel> modelListOld = await _baseRepository.GetAllListByIdListAsync(modelList.Select(x => x.logical_id).ToList());
+            List<TModel> modelListOld = await _baseRepository.GetAllListByIdListAsync(modelList.Select(x => x.LogicalId).ToList());
             if (modelListOld == null && modelListOld.Count != modelList.Count)
             {
                 mReturnResultBase.Message = "所提交的数据集合与系统数据不匹配！";
@@ -418,7 +418,7 @@ namespace HS.Message.Service.@base
             // 依次对每一个数据做校验
             foreach (var model in modelList)
             {
-                TModel modelOld = modelListOld.Find(x => x.logical_id == model.logical_id);
+                TModel modelOld = modelListOld.Find(x => x.LogicalId == model.LogicalId);
 
                 if (modelOld == null)
                 {
@@ -678,7 +678,7 @@ namespace HS.Message.Service.@base
             { Code = ResponseCode.Success };
 
             //// 直接获取数据
-            returnResultBase.Data = await _baseRepository.GetAllListAsync(condition, limitNum: condition != null ? condition.limitNum : 0);
+            returnResultBase.Data = await _baseRepository.GetAllListAsync(condition, limitNum: condition != null ? condition.LimitNum : 0);
 
             return returnResultBase;
         }

@@ -12,7 +12,7 @@ namespace HS.Message.Repository.repository.@base.core
     public class BizTransientRepositoryAdapter<TModel, TCondition> where TModel : MBaseModel, new() where TCondition : MBaseModel, new()
     {
         protected string TableName { get; }
-        private IBizRepository<TModel, TCondition> _sqlRepository;
+        public IBizRepository<TModel, TCondition> _sqlRepository;
         protected BaseDapperTool<TModel> _dapperTool;
         protected DBType DbType { get; }
         protected string[] _globalIgnoreField;
@@ -51,7 +51,7 @@ namespace HS.Message.Repository.repository.@base.core
             _sqlRepository.GetUpdateSqlFunc = GetUpdateSql;
 
 
-            _globalIgnoreField = new string[] { "queryFields", "orderby", "isNotLike", "fuzzySearchKeyWord", "fuzzySearchFields", "isLanguageHandle", "languageHandleEcludeField", "limitNum" };
+            _globalIgnoreField = new string[] { "QueryFields", "Orderby", "IsNotLike", "FuzzySearchKeyWord", "FuzzySearchFields", "IsLanguageHandle", "LanguageHandleEcludeField", "LimitNum" };
         }
 
         /// <summary>
@@ -423,10 +423,10 @@ namespace HS.Message.Repository.repository.@base.core
         public virtual StringBuilder GetSqlWhereByModel(TCondition model, string table = "")
         {
             #region 根据model构建查询条件
-            var fieldsDic = GetAllFields();
+            var fieldsDic = GetAllFields(null, true);
             // 构建查查询条件sql
             StringBuilder sqlSB = new();
-            if (fieldsDic?.Keys.Count > 0)
+            if (fieldsDic?.Count > 0)
             {
                 sqlSB.Append(" 1=1 ");
             }
@@ -438,65 +438,64 @@ namespace HS.Message.Repository.repository.@base.core
             }
 
             // sql注入校验
-            SQLInjectionUtil.CheckSQLInjection(model.orderby);
+            SQLInjectionUtil.CheckSQLInjection(model.Orderby);
 
-            bool islike = model.isNotLike < 1;
+            bool islike = model.IsNotLike < 1;
             var ignoreLikeFields = SqlWhereIgnoreLikeFields();
 
             table ??= TableName;
             string tableAlias = string.IsNullOrEmpty(table) ? "" : $"`{table}`" + ".";
-            foreach (var field in fieldsDic)
+            foreach ((string propName, string dbFieldName, Type propType) in fieldsDic)
             {
                 Type modelType = model.GetType();
-                var value = modelType.GetProperty(field.Key).GetValue(model);
+                var value = modelType.GetProperty(propName).GetValue(model);
 
 
                 if (value != null && !string.IsNullOrWhiteSpace(value.ToString()))
                 {
-
-                    if (field.Value == typeof(string))
+                    if (propType == typeof(string))
                     {
-                        if (islike && (ignoreLikeFields == null || !ignoreLikeFields.Contains(field.Key)))
+                        if (islike && (ignoreLikeFields == null || !ignoreLikeFields.Contains(dbFieldName)))
                         {
-                            sqlSB.Append($"and {tableAlias}`{field.Key}` like CONCAT(CONCAT('%',@{field.Key}),'%') ");
+                            sqlSB.Append($"and {tableAlias}`{dbFieldName}` like CONCAT(CONCAT('%',@{propName}),'%') ");
                         }
                         else
                         {
-                            sqlSB.Append($"and {tableAlias}`{field.Key}`=@{field.Key} ");
+                            sqlSB.Append($"and {tableAlias}`{propName}`=@{propName} ");
                         }
                     }
-                    else if (field.Value == typeof(DateTime))
+                    else if (propType == typeof(DateTime))
                     {
                         if (DateTime.TryParse(value.ToString(), out DateTime val) && PublicTools.IsEffectiveDateTime(val))
                         {
                             // 时间查询
-                            if (field.Key.EndsWith("_start"))
+                            if (dbFieldName.EndsWith("_start"))
                             {
-                                sqlSB.Append($"and {tableAlias}`{field.Key}`>=@{field.Key} ");
+                                sqlSB.Append($"and {tableAlias}`{dbFieldName}`>=@{propName} ");
                             }
-                            else if (field.Key.EndsWith("_end"))
+                            else if (dbFieldName.EndsWith("_end"))
                             {
-                                sqlSB.Append($"and {tableAlias}`{field.Key}`<=@{field.Key} ");
+                                sqlSB.Append($"and {tableAlias}`{dbFieldName}`<=@{propName} ");
                             }
                             else
                             {
-                                sqlSB.Append($"and {tableAlias}`{field.Key}`=@{field.Key} ");
+                                sqlSB.Append($"and {tableAlias}`{dbFieldName}`=@{propName} ");
                             }
                         }
                     }
-                    else if (field.Value.IsValueType)
+                    else if (propType.IsValueType)
                     {
                         if (decimal.TryParse(value.ToString(), out decimal val) && val > 0)
                         {
                             //数值查询
                             //只有当数值大于0时才做条件处理
-                            sqlSB.Append($"and {tableAlias}`{field.Key}`=@{field.Key} ");
+                            sqlSB.Append($"and {tableAlias}`{dbFieldName}`=@{propName} ");
                         }
                     }
                 }
             }
             // 主键 排除查询条件
-            if (!string.IsNullOrEmpty(model.excludeId))
+            if (!string.IsNullOrEmpty(model.ExcludeId))
             {
                 sqlSB.Append($"and {tableAlias}`logical_id`<>@excludeId ");
             }
@@ -516,22 +515,29 @@ namespace HS.Message.Repository.repository.@base.core
         /// <summary>
         /// 获取表全部字段
         /// </summary>
-        /// <returns></returns>
-        public virtual Dictionary<string, Type> GetAllFields(string[] ignoreField = null)
+        /// <param name="ignoreField">忽略的字段</param>
+        /// <param name="isCondition">是否是条件模板</param>
+        /// <returns>(类字段，表字段，类字段类型)</returns>
+        public virtual List<(string, string, Type)> GetAllFields(string[] ignoreField = null, bool isCondition = false)
         {
             Type mType = typeof(TModel);
-            Dictionary<string, Type> fieldMap = new();
+            if (isCondition)
+            {
+                mType = typeof(TCondition);
+            }
+            List<(string, string, Type)> fieldMap = new();
             ignoreField = ignoreField ?? Array.Empty<string>();
             foreach (var propInfo in mType.GetProperties())
             {
                 var attr = propInfo.GetCustomAttribute<FieldAttribute>();
                 if (attr != null)
                 {
+                    string dbFieldName = StringUtil.PascalToSnakeCase(propInfo.Name);
                     if (propInfo.PropertyType.IsPublic
-                        && !_globalIgnoreField.Contains(propInfo.Name)
-                        && !ignoreField.Contains(propInfo.Name))
+                        && !_globalIgnoreField.Contains(dbFieldName)
+                        && !ignoreField.Contains(dbFieldName))
                     {
-                        fieldMap.TryAdd(propInfo.Name, propInfo.PropertyType);
+                        fieldMap.Add((propInfo.Name, dbFieldName, propInfo.PropertyType));
                     }
                 }
             }
@@ -547,11 +553,11 @@ namespace HS.Message.Repository.repository.@base.core
             Type mType = typeof(TModel);
             tableAlias = string.IsNullOrEmpty(tableAlias) ? "" : (tableAlias.Contains('.') ? tableAlias : tableAlias + ".");
             StringBuilder stringBuilder = new();
-            string[] ignoreField = new string[] { "id" };
-            Dictionary<string, Type> fields = GetAllFields(ignoreField);
-            foreach (var field in fields)
+            string[] ignoreField = new string[] { "id", "created_time_start", "created_time_end", "updated_time_start", "updated_time_end" };
+            var fields = GetAllFields(ignoreField);
+            foreach ((string propName, string dbFieldName, Type propType) in fields)
             {
-                stringBuilder.Append($",{tableAlias}`{field.Key}`");
+                stringBuilder.Append($",{tableAlias}`{dbFieldName}`");
 
             }
 
@@ -566,11 +572,11 @@ namespace HS.Message.Repository.repository.@base.core
         {
             Type mType = typeof(TModel);
             StringBuilder stringBuilder = new();
-            string[] ignoreField = new string[] { "id" };
-            Dictionary<string, Type> fields = GetAllFields(ignoreField);
-            foreach (var field in fields)
+            string[] ignoreField = new string[] { "id", "created_time_start", "created_time_end", "updated_time_start", "updated_time_end" };
+            var fields = GetAllFields(ignoreField);
+            foreach ((string propName, string dbFieldName, Type propType) in fields)
             {
-                stringBuilder.Append($",@{field.Key}");
+                stringBuilder.Append($",@{propName}");
 
             }
 
@@ -586,9 +592,9 @@ namespace HS.Message.Repository.repository.@base.core
         {
             // 构建插入语句
             string sql = $@"insert into `{TableName}` ({GetAllFieldForSql()}) values({GetAllFieldForParams()})";
-            if (sql.Contains("@created_time"))
+            if (sql.Contains("@CreatedTime"))
             {
-                sql = sql.Replace("@created_time", $"'{PublicTools.GetSysDateTimeNowStringYMDHMS()}'");
+                sql = sql.Replace("@CreatedTime", $"'{PublicTools.GetSysDateTimeNowStringYMDHMS()}'");
             }
             return sql;
         }
@@ -601,11 +607,11 @@ namespace HS.Message.Repository.repository.@base.core
         {
             Type mType = typeof(TModel);
             StringBuilder stringBuilder = new();
-            string[] ignoreField = new string[] { "id", "logical_id", "created_id", "created_name" };
-            Dictionary<string, Type> fields = GetAllFields(ignoreField);
-            foreach (var field in fields)
+            string[] ignoreField = new string[] { "id", "logical_id", "created_id", "created_name", "created_time_start", "created_time_end", "updated_time_start", "updated_time_end" };
+            var fields = GetAllFields(ignoreField);
+            foreach ((string propName, string dbFieldName, Type propType) in fields)
             {
-                stringBuilder.Append($",`{field.Key}`=@{field.Key}");
+                stringBuilder.Append($",`{dbFieldName}`=@{propName}");
 
             }
             string sql = $"update `{TableName}` set {stringBuilder.ToString().TrimStart(',')}  where logical_id=@logical_id";

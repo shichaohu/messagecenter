@@ -14,346 +14,123 @@ namespace HS.Message.Model
 
 
     /// <summary>
-    // MessageReceiver数据模型
+    /// 消息接收人
     /// </summary>
     public partial class MMessageReceiver: MBaseModel
     {
-        
-        /// <summary>
-        // 乐观锁
-        /// </summary>
-        private int? _REVISION;
-        
-        
-        /// <summary>
-        // 消息id
-        /// </summary>
-        private string _message_id;
-        
-        /// <summary>
-        // 接收人用户id
-        /// </summary>
-        private string _receiver_userid;
-        
-        /// <summary>
-        // 接收人姓名
-        /// </summary>
-        private string _receiver_name;
-        
-        /// <summary>
-        // 邮件
-        /// </summary>
-        private string _email;
-        
-        /// <summary>
-        // 抄送邮件
-        /// </summary>
-        private string _cc_email;
-        
-        /// <summary>
-        // 电话
-        /// </summary>
-        private string _phone;
-        
-        /// <summary>
-        // 企业微信
-        /// </summary>
-        private string _enterprise_wechat;
-        
-        /// <summary>
-        // 钉钉
-        /// </summary>
-        private string _dingtalk;
-        
-        /// <summary>
-        // 其他消息接收渠道;消息的其他接收渠道，json字符串
-        /// </summary>
-        private string _other_receive_channel;
-        
-        /// <summary>
-        // 创建人ID
-        /// </summary>
-        private string _created_by_id;
-        
-        /// <summary>
-        // 创建人姓名
-        /// </summary>
-        private string _created_by_name;
-        
-        /// <summary>
-        // 创建时间
-        /// </summary>
-        private System.DateTime _created_time;
-        
-        /// <summary>
-        // 更新人ID
-        /// </summary>
-        private string _updated_by_id;
-        
-        /// <summary>
-        // 更新人姓名
-        /// </summary>
-        private string _updated_by_name;
-        
-        /// <summary>
-        // 更新时间
-        /// </summary>
-        private System.DateTime _updated_time;
-        
-        /// <summary>
-        /// 乐观锁
-        /// </summary>
-        [FieldAttribute("乐观锁")]
-        public int? REVISION
-        {
-            get
-            {
-                return this._REVISION;
-            }
-            set
-            {
-                this._REVISION = value;
-            }
-        }
-        
         /// <summary>
         /// 消息id
         /// </summary>
-        [FieldAttribute("消息id")]
-        public string message_id
-        {
-            get
-            {
-                return this._message_id;
-            }
-            set
-            {
-                this._message_id = value;
-            }
-        }
-        
+        [Field("消息id")]
+        public string MessageId { get; set; }
+
         /// <summary>
         /// 接收人用户id
         /// </summary>
-        [FieldAttribute("接收人用户id")]
-        public string receiver_userid
-        {
-            get
-            {
-                return this._receiver_userid;
-            }
-            set
-            {
-                this._receiver_userid = value;
-            }
-        }
-        
+        [Field("接收人用户id")]
+        public string ReceiverUserid { get; set; }
+
         /// <summary>
         /// 接收人姓名
         /// </summary>
-        [FieldAttribute("接收人姓名")]
-        public string receiver_name
-        {
-            get
-            {
-                return this._receiver_name;
-            }
-            set
-            {
-                this._receiver_name = value;
-            }
-        }
-        
+        [Field("接收人姓名")]
+        public string ReceiverName { get; set; }
+
         /// <summary>
         /// 邮件
         /// </summary>
-        [FieldAttribute("邮件")]
-        public string email
-        {
-            get
-            {
-                return this._email;
-            }
-            set
-            {
-                this._email = value;
-            }
-        }
-        
+        [Field("邮件")]
+        public string Email { get; set; }
+
         /// <summary>
         /// 抄送邮件
         /// </summary>
-        [FieldAttribute("抄送邮件")]
-        public string cc_email
-        {
-            get
-            {
-                return this._cc_email;
-            }
-            set
-            {
-                this._cc_email = value;
-            }
-        }
-        
+        [Field("抄送邮件")]
+        public string CcEmail { get; set; }
+
+        /// <summary>
+        /// 邮件发送状态;1：待发送，2：已发送，3：发送失败
+        /// </summary>
+        [Field("邮件发送状态")]
+        public int? EmailSendState { get; set; }
+
+        /// <summary>
+        /// 邮件最近发送时间
+        /// </summary>
+        [Field("邮件最近发送时间")]
+        public DateTime EmailLastSendtime { get; set; }
+
         /// <summary>
         /// 电话
         /// </summary>
-        [FieldAttribute("电话")]
-        public string phone
-        {
-            get
-            {
-                return this._phone;
-            }
-            set
-            {
-                this._phone = value;
-            }
-        }
-        
+        [Field("电话")]
+        public string Phone { get; set; }
+
+        /// <summary>
+        /// 短息发送状态;1：待发送，2：已发送，3：发送失败
+        /// </summary>
+        [Field("短息发送状态")]
+        public int? SmsSendState { get; set; }
+
+        /// <summary>
+        /// 短息最近发送时间
+        /// </summary>
+        [Field("短息最近发送时间")]
+        public DateTime SmsLastSendtime { get; set; }
+
         /// <summary>
         /// 企业微信
         /// </summary>
-        [FieldAttribute("企业微信")]
-        public string enterprise_wechat
-        {
-            get
-            {
-                return this._enterprise_wechat;
-            }
-            set
-            {
-                this._enterprise_wechat = value;
-            }
-        }
-        
+        [Field("企业微信")]
+        public string EnterpriseWechat { get; set; }
+
+        /// <summary>
+        /// 微信发送状态;1：待发送，2：已发送，3：发送失败
+        /// </summary>
+        [Field("微信发送状态")]
+        public int? WechatSendState { get; set; }
+
+        /// <summary>
+        /// 微信最近发送时间
+        /// </summary>
+        [Field("微信最近发送时间")]
+        public DateTime WechatLastSendtime { get; set; }
+
         /// <summary>
         /// 钉钉
         /// </summary>
-        [FieldAttribute("钉钉")]
-        public string dingtalk
-        {
-            get
-            {
-                return this._dingtalk;
-            }
-            set
-            {
-                this._dingtalk = value;
-            }
-        }
-        
+        [Field("钉钉")]
+        public string Dingtalk { get; set; }
+
+        /// <summary>
+        /// 钉钉发送状态;1：待发送，2：已发送，3：发送失败
+        /// </summary>
+        [Field("钉钉发送状态")]
+        public int? DingtalkSendState { get; set; }
+
+        /// <summary>
+        /// 钉钉最近发送时间
+        /// </summary>
+        [Field("钉钉最近发送时间")]
+        public DateTime DingtalkLastSendtime { get; set; }
+
         /// <summary>
         /// 其他消息接收渠道;消息的其他接收渠道，json字符串
         /// </summary>
-        [FieldAttribute("其他消息接收渠道;消息的其他接收渠道，json字符串")]
-        public string other_receive_channel
-        {
-            get
-            {
-                return this._other_receive_channel;
-            }
-            set
-            {
-                this._other_receive_channel = value;
-            }
-        }
-        
+        [Field("其他消息接收渠道")]
+        public string OtherReceiveChannel { get; set; }
+
         /// <summary>
-        /// 创建人ID
+        /// 其他渠道发送状态;1：待发送，2：已发送，3：发送失败
         /// </summary>
-        [FieldAttribute("创建人ID")]
-        public string created_by_id
-        {
-            get
-            {
-                return this._created_by_id;
-            }
-            set
-            {
-                this._created_by_id = value;
-            }
-        }
-        
+        [Field("其他渠道发送状态")]
+        public int? OtherChannelSendState { get; set; }
+
         /// <summary>
-        /// 创建人姓名
+        /// 其他渠道最近发送时间
         /// </summary>
-        [FieldAttribute("创建人姓名")]
-        public string created_by_name
-        {
-            get
-            {
-                return this._created_by_name;
-            }
-            set
-            {
-                this._created_by_name = value;
-            }
-        }
-        
-        /// <summary>
-        /// 创建时间
-        /// </summary>
-        [FieldAttribute("创建时间")]
-        public System.DateTime created_time
-        {
-            get
-            {
-                return this._created_time;
-            }
-            set
-            {
-                this._created_time = value;
-            }
-        }
-        
-        /// <summary>
-        /// 更新人ID
-        /// </summary>
-        [FieldAttribute("更新人ID")]
-        public string updated_by_id
-        {
-            get
-            {
-                return this._updated_by_id;
-            }
-            set
-            {
-                this._updated_by_id = value;
-            }
-        }
-        
-        /// <summary>
-        /// 更新人姓名
-        /// </summary>
-        [FieldAttribute("更新人姓名")]
-        public string updated_by_name
-        {
-            get
-            {
-                return this._updated_by_name;
-            }
-            set
-            {
-                this._updated_by_name = value;
-            }
-        }
-        
-        /// <summary>
-        /// 更新时间
-        /// </summary>
-        [FieldAttribute("更新时间")]
-        public System.DateTime updated_time
-        {
-            get
-            {
-                return this._updated_time;
-            }
-            set
-            {
-                this._updated_time = value;
-            }
-        }
+        [Field("其他渠道最近发送时间")]
+        public DateTime OtherChannelLastSendtime { get; set; }
+
     }
 }
