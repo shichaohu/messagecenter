@@ -65,6 +65,24 @@ namespace HS.Message.Model
         public int SendState { get; set; }
 
         /// <summary>
+        /// 发送结果状态
+        public string SendStateString {
+
+            get
+            {
+                switch (SendState)
+                {
+                    case 1:
+                        return "发送成功";
+                    case 2:
+                        return "发送失败";
+                    default:
+                        return "待发送";
+                }
+            }
+        }
+
+        /// <summary>
         /// 发送结果
         /// </summary>
         [Field("发送结果")]

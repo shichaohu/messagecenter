@@ -109,6 +109,28 @@ namespace HS.Message.Model
         public int SendState { get; set; }
 
         /// <summary>
+        /// 发送状态
+        /// </summary>
+        public string SendStateString
+        {
+
+            get
+            {
+                switch (SendState)
+                {
+                    case 1:
+                        return "待发送";
+                    case 2:
+                        return "已发送";
+                    case 3:
+                        return "发送失败";
+                    default:
+                        return "待发送";
+                }
+            }
+        }
+
+        /// <summary>
         /// 邮件Smtp服务器
         /// </summary>
         [Field("邮件Smtp服务器")]

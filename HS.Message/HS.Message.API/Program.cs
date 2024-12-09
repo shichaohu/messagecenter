@@ -28,7 +28,7 @@ builder.Services.AddControllers(option =>
     .AddNewtonsoftJson(options =>
     {
         options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-        options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+        //options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
         options.SerializerSettings.Converters.Add(new IsoDateTimeConverter() { DateTimeFormat = "yyyy-MM-dd HH:mm:ss" });
     })
     .AddJsonOptions(options =>

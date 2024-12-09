@@ -13,7 +13,6 @@ namespace HS.Message.Model
         /// </summary>
         public MBaseModel()
         {
-            Revision = DateTime.Now.Second;
         }
         /// <summary>
         /// 乐观锁

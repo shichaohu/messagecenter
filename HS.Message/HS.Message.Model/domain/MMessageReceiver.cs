@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using HS.Message.Share.Attributes;
+using System.Xml;
 
 namespace HS.Message.Model
 {
@@ -55,6 +56,28 @@ namespace HS.Message.Model
         public int? EmailSendState { get; set; }
 
         /// <summary>
+        /// 邮件发送状态
+        /// </summary>
+        public string EmailSendStateString
+        {
+
+            get
+            {
+                switch (EmailSendState)
+                {
+                    case 1:
+                        return "待发送";
+                    case 2:
+                        return "已发送";
+                    case 3:
+                        return "发送失败";
+                    default:
+                        return "";
+                }
+            }
+        }
+
+        /// <summary>
         /// 邮件最近发送时间
         /// </summary>
         [Field("邮件最近发送时间")]
@@ -71,6 +94,28 @@ namespace HS.Message.Model
         /// </summary>
         [Field("短息发送状态")]
         public int? SmsSendState { get; set; }
+
+        /// <summary>
+        /// 短息发送状态
+        /// </summary>
+        public string SmsSendStateString
+        {
+
+            get
+            {
+                switch (SmsSendState)
+                {
+                    case 1:
+                        return "待发送";
+                    case 2:
+                        return "已发送";
+                    case 3:
+                        return "发送失败";
+                    default:
+                        return "";
+                }
+            }
+        }
 
         /// <summary>
         /// 短息最近发送时间
@@ -91,6 +136,28 @@ namespace HS.Message.Model
         public int? WechatSendState { get; set; }
 
         /// <summary>
+        /// 微信发送状态
+        /// </summary>
+        public string WechatSendStateString
+        {
+
+            get
+            {
+                switch (WechatSendState)
+                {
+                    case 1:
+                        return "待发送";
+                    case 2:
+                        return "已发送";
+                    case 3:
+                        return "发送失败";
+                    default:
+                        return "";
+                }
+            }
+        }
+
+        /// <summary>
         /// 微信最近发送时间
         /// </summary>
         [Field("微信最近发送时间")]
@@ -107,6 +174,28 @@ namespace HS.Message.Model
         /// </summary>
         [Field("钉钉发送状态")]
         public int? DingtalkSendState { get; set; }
+
+        /// <summary>
+        /// 钉钉发送状态
+        /// </summary>
+        public string DingtalkSendStateString
+        {
+
+            get
+            {
+                switch (DingtalkSendState)
+                {
+                    case 1:
+                        return "待发送";
+                    case 2:
+                        return "已发送";
+                    case 3:
+                        return "发送失败";
+                    default:
+                        return "";
+                }
+            }
+        }
 
         /// <summary>
         /// 钉钉最近发送时间

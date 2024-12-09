@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using HS.Message.Share.Attributes;
+using System.Xml;
 
 namespace HS.Message.Model
 {
@@ -53,6 +54,25 @@ namespace HS.Message.Model
         /// </summary>
         [Field("状态")]
         public int State { get; set; }
+
+        /// <summary>
+        /// 状态
+        public string StateString
+        {
+
+            get
+            {
+                switch (State)
+                {
+                    case 1:
+                        return "启用";
+                    case 2:
+                        return "禁用";
+                    default:
+                        return "启用";
+                }
+            }
+        }
 
     }
 }

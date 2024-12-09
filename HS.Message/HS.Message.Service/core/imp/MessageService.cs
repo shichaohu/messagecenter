@@ -2,6 +2,7 @@ using HS.Message.Model;
 using HS.Message.Model.Enums;
 using HS.Message.Model.Requests;
 using HS.Message.Repository.repository.core;
+using HS.Message.Repository.repository.core.imp;
 using HS.Message.Service.@base;
 using HS.Message.Service.core;
 using HS.Message.Share.BaseModel;
@@ -20,7 +21,7 @@ namespace HS.Message.Service.core.imp
     /// <summary>
     /// 消息服务
     /// </summary>
-    public class MessageService : IMessageService
+    public class MessageService : BaseService<MMessage, MMessageCondition>,IMessageService
     {
         private readonly ILogger<MessageService> _logger;
         private readonly IMessageRepository<MMessage, MMessageCondition> _messageRepository;
@@ -73,8 +74,9 @@ namespace HS.Message.Service.core.imp
             IInjectedObjects injectedObjects,
             IDistributedCache cache,
             RabbitmqTopicProducer rabbitmqTopicProducer,
-            IConfiguration configuration
-            )
+        IConfiguration configuration
+            ) 
+            : base(messageRepository, injectedObjects, "Message")
         {
             _logger = logger;
             _messageRepository = messageRepository;

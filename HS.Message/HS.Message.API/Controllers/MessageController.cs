@@ -2,6 +2,7 @@
 using HS.Message.Controllers.Base;
 using HS.Message.Model.Requests;
 using HS.Message.Service.core;
+using HS.Message.Service.core.imp;
 using HS.Message.Share.BaseModel;
 
 namespace HS.Message.Controllers
@@ -12,7 +13,7 @@ namespace HS.Message.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [ApiGroup(ApiGroupNames.Message)]
-    public class MessageController : ControllerBase
+    public class MessageController : CommonController<MMessage, MMessageCondition>
     {
         private readonly IMessageService _messageService;
 
@@ -20,7 +21,7 @@ namespace HS.Message.Controllers
         /// 通过构造函数依赖注入
         /// </summary>
         /// <param name="messageService"></param>
-        public MessageController(IMessageService messageService)
+        public MessageController(IMessageService messageService) : base(messageService)
         {
             this._messageService = messageService;
         }

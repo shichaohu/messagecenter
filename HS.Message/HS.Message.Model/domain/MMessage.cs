@@ -64,9 +64,44 @@ namespace HS.Message.Model
         public string SendChannel { get; set; }
 
         /// <summary>
+        /// 发送渠道
+        /// </summary>
+        public string SendChannelString
+        {
+            get
+            {
+                return SendChannel?.Replace("1", "邮件").Replace("2", "短息");
+            }
+        }
+
+        /// <summary>
         /// 发送状态;1：待发送，2：发送中，3：全部成功，4.部分成功
         /// </summary>
         [FieldAttribute("发送状态")]
         public int SendState { get; set; }
+
+        /// <summary>
+        /// 发送状态
+        /// </summary>
+        public string SendStateString
+        {
+            get
+            {
+                switch (SendState)
+                {
+                    case 1:
+                        return "待发送";
+                    case 2:
+                        return "发送中";
+                    case 3:
+                        return "全部成功";
+                    case 4:
+                        return "部分成功";
+                    default:
+                        return "待发送";
+                }
+            }
+        }
+
     }
 }

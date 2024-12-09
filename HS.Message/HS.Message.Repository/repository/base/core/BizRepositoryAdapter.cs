@@ -476,11 +476,11 @@ namespace HS.Message.Repository.repository.@base.core
                             // 时间查询
                             if (dbFieldName.EndsWith("_start"))
                             {
-                                sqlSB.Append($"and {tableAlias}`{dbFieldName}`>=@{propName} ");
+                                sqlSB.Append($"and {tableAlias}`{dbFieldName[..dbFieldName.LastIndexOf("_start")]}`>=@{propName} ");
                             }
                             else if (dbFieldName.EndsWith("_end"))
                             {
-                                sqlSB.Append($"and {tableAlias}`{dbFieldName}`<=@{propName} ");
+                                sqlSB.Append($"and {tableAlias}`{dbFieldName[..dbFieldName.LastIndexOf("_end")]}`<=@{propName} ");
                             }
                             else
                             {
@@ -562,7 +562,7 @@ namespace HS.Message.Repository.repository.@base.core
             var fields = GetAllFields(ignoreField);
             foreach ((string propName, string dbFieldName, Type propType) in fields)
             {
-                stringBuilder.Append($",{tableAlias}`{dbFieldName}`");
+                stringBuilder.Append($",{tableAlias}`{dbFieldName}` {propName} ");
 
             }
 

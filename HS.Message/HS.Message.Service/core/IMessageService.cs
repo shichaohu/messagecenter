@@ -9,7 +9,7 @@ namespace HS.Message.Service.core
     /// <summary>
     /// 消息服务
     /// </summary>
-    public interface IMessageService :IDependency
+    public interface IMessageService : IBaseService<MMessage, MMessageCondition>, IDependency
     {
         /// <summary>
         /// 发送消息
