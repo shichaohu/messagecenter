@@ -97,10 +97,10 @@ sms_send_state=@sms_send_state,sms_last_sendtime=@sms_last_sendtime,
 wechat_send_state=@wechat_send_state,wechat_last_sendtime=@wechat_last_sendtime,
 dingtalk_send_state=@dingtalk_send_state,dingtalk_last_sendtime=@dingtalk_last_sendtime,
 other_channel_send_state=@other_channel_send_state,other_channel_last_sendtime=@other_channel_last_sendtime
-WHERE logical_id=@logical_id";
+WHERE logical_id=@logicalId";
             var param = new
             {
-                logical_id = message.LogicalId,
+                logicalId = message.LogicalId,
                 email_send_state = message.EmailSendState,
                 email_last_sendtime = message.EmailLastSendtime,
                 sms_send_state = message.SmsSendState,

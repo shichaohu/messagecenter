@@ -107,12 +107,12 @@ namespace HS.Message.Service.core.imp
             _logger.LogInformation($"{logPrefix}开始处理消息:{JsonConvert.SerializeObject(request)}");
             var result = new BaseResponse()
             {
-                Code = ResponseCode.ParameterError
+                Ret = ResponseCode.ParameterError
             };
             if (request == null)
             {
-                result.Code = ResponseCode.ParameterError;
-                result.Message = $"消息不能为空！";
+                result.Ret = ResponseCode.ParameterError;
+                result.Msg = $"消息不能为空！";
                 return result;
             }
             List<MMessage> messageList = new();
@@ -123,28 +123,28 @@ namespace HS.Message.Service.core.imp
             {
                 if (!(item.Receiver?.Count > 0) || item.Sender == null)
                 {
-                    result.Code = ResponseCode.ParameterError;
-                    result.Message = $"消息发送人和接收人不能为空！";
+                    result.Ret = ResponseCode.ParameterError;
+                    result.Msg = $"消息发送人和接收人不能为空！";
                     return result;
                 }
                 if (string.IsNullOrEmpty(item.Title))
                 {
-                    result.Message = $"消息标题不能为空！";
+                    result.Msg = $"消息标题不能为空！";
                     return result;
                 }
                 if (string.IsNullOrEmpty(item.Content))
                 {
-                    result.Message = $"消息内容不能为空！";
+                    result.Msg = $"消息内容不能为空！";
                     return result;
                 }
                 if (string.IsNullOrEmpty(item.BusinessTypeKey) || string.IsNullOrEmpty(item.BusinessTypeValue))
                 {
-                    result.Message = $"消息类型不能为空！";
+                    result.Msg = $"消息类型不能为空！";
                     return result;
                 }
                 if (string.IsNullOrEmpty(item.Sendchannel))
                 {
-                    result.Message = $"消息发送渠道不能为空！";
+                    result.Msg = $"消息发送渠道不能为空！";
                     return result;
                 }
 
@@ -266,8 +266,8 @@ namespace HS.Message.Service.core.imp
                 var mqresponse = _rabbitmqTopicProducer.BatchProducer(queueMessageList);
                 if (!mqresponse.Successed)
                 {
-                    result.Code = ResponseCode.InternalError;
-                    result.Message = mqresponse.Message;
+                    result.Ret = ResponseCode.InternalError;
+                    result.Msg = mqresponse.Message;
                     return result;
                 }
             }
@@ -285,8 +285,8 @@ namespace HS.Message.Service.core.imp
                 var mqresponse = _rabbitmqTopicProducer.BatchProducer(queueMessageList);
                 if (!mqresponse.Successed)
                 {
-                    result.Code = ResponseCode.InternalError;
-                    result.Message = mqresponse.Message;
+                    result.Ret = ResponseCode.InternalError;
+                    result.Msg = mqresponse.Message;
                     return result;
                 }
             }
@@ -296,22 +296,22 @@ namespace HS.Message.Service.core.imp
             {
                 insertCount = await _messageRepository.BactchAddAsync(messageList);
                 var res2 = await _messageReceiverService.BactchAddAsync(messageReceiveList);
-                if (res2?.Code != ResponseCode.Success)
+                if (res2?.Ret != ResponseCode.Success)
                 {
-                    errorMessage.Add(res2?.Message);
+                    errorMessage.Add(res2?.Msg);
                 }
 
                 scope.Complete();
             }
             if (insertCount == 0)
             {
-                result.Code = ResponseCode.InternalError;
-                result.Message = "消息写入数据库时，事物提交失败！";
+                result.Ret = ResponseCode.InternalError;
+                result.Msg = "消息写入数据库时，事物提交失败！";
                 return result;
             }
 
-            result.Code = ResponseCode.Success;
-            result.Message = "操作成功，消息已经写入发送队列！";
+            result.Ret = ResponseCode.Success;
+            result.Msg = "操作成功，消息已经写入发送队列！";
 
             return result;
 

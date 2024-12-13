@@ -94,29 +94,29 @@ namespace HS.Message.Repository.repository.@base.core
         }
 
         /// <summary>
-        /// 根据logical_id删除数据
+        /// 根据logicalId删除数据
         /// </summary>
-        /// <param name="logical_id">logical_id</param>
+        /// <param name="logicalId">logicalId</param>
         /// <returns>影响的行数</returns>
-        public int DeleteById(string logical_id)
+        public int DeleteById(string logicalId)
         {
-            return _sqlRepository.DeleteById(logical_id);
+            return _sqlRepository.DeleteById(logicalId);
         }
 
         /// <summary>
-        /// 根据logical_id删除数据
+        /// 根据logicalId删除数据
         /// </summary>
-        /// <param name="logical_id">logical_id</param>
+        /// <param name="logicalId">logicalId</param>
         /// <returns>影响的行数</returns>
-        public async Task<int> DeleteByIdAsync(string logical_id)
+        public async Task<int> DeleteByIdAsync(string logicalId)
         {
-            return await _sqlRepository.DeleteByIdAsync(logical_id);
+            return await _sqlRepository.DeleteByIdAsync(logicalId);
         }
 
         /// <summary>
-        /// 根据logical_id集合批量删除数据
+        /// 根据logicalId集合批量删除数据
         /// </summary>
-        /// <param name="idList">logical_id集合</param>
+        /// <param name="idList">logicalId集合</param>
         /// <returns>处理结果</returns>
         public int BactchDeleteByIdList(List<string> idList)
         {
@@ -124,9 +124,9 @@ namespace HS.Message.Repository.repository.@base.core
         }
 
         /// <summary>
-        /// 根据logical_id集合批量删除数据
+        /// 根据logicalId集合批量删除数据
         /// </summary>
-        /// <param name="idList">logical_id集合</param>
+        /// <param name="idList">logicalId集合</param>
         /// <returns>处理结果</returns>
         public async Task<int> BactchDeleteByIdListAsync(List<string> idList)
         {
@@ -134,29 +134,29 @@ namespace HS.Message.Repository.repository.@base.core
         }
 
         /// <summary>
-        /// 根据logical_id删除数据
+        /// 根据logicalId删除数据
         /// </summary>
-        /// <param name="logical_id">logical_id</param>
+        /// <param name="logicalId">logicalId</param>
         /// <returns>影响的行数</returns>
-        public int LogicDeleteById(string logical_id)
+        public int LogicDeleteById(string logicalId)
         {
-            return _sqlRepository.LogicDeleteById(logical_id);
+            return _sqlRepository.LogicDeleteById(logicalId);
         }
 
         /// <summary>
-        /// 根据logical_id删除数据
+        /// 根据logicalId删除数据
         /// </summary>
-        /// <param name="logical_id">logical_id</param>
+        /// <param name="logicalId">logicalId</param>
         /// <returns>影响的行数</returns>
-        public async Task<int> LogicDeleteByIdAsync(string logical_id)
+        public async Task<int> LogicDeleteByIdAsync(string logicalId)
         {
-            return await _sqlRepository.LogicDeleteByIdAsync(logical_id);
+            return await _sqlRepository.LogicDeleteByIdAsync(logicalId);
         }
 
         /// <summary>
-        /// 根据logical_id集合批量删除数据
+        /// 根据logicalId集合批量删除数据
         /// </summary>
-        /// <param name="idList">logical_id集合</param>
+        /// <param name="idList">logicalId集合</param>
         /// <returns>处理结果</returns>
         public int BactchLogicDeleteByIdList(List<string> idList)
         {
@@ -164,9 +164,9 @@ namespace HS.Message.Repository.repository.@base.core
         }
 
         /// <summary>
-        /// 根据logical_id集合批量删除数据
+        /// 根据logicalId集合批量删除数据
         /// </summary>
-        /// <param name="idList">logical_id集合</param>
+        /// <param name="idList">logicalId集合</param>
         /// <returns>处理结果</returns>
         public async Task<int> BactchLogicDeleteByIdListAsync(List<string> idList)
         {
@@ -174,7 +174,7 @@ namespace HS.Message.Repository.repository.@base.core
         }
 
         /// <summary>
-        /// 根据logical_id更新数据实体
+        /// 根据logicalId更新数据实体
         /// </summary>
         /// <param name="model">实体模型</param>
         /// <returns>更新结果</returns>
@@ -184,7 +184,7 @@ namespace HS.Message.Repository.repository.@base.core
         }
 
         /// <summary>
-        /// 根据logical_id更新数据实体
+        /// 根据logicalId更新数据实体
         /// </summary>
         /// <param name="model">实体模型</param>
         /// <returns>更新结果</returns>
@@ -194,7 +194,7 @@ namespace HS.Message.Repository.repository.@base.core
         }
 
         /// <summary>
-        /// 根据logical_id更新数据实体(批量更新)
+        /// 根据logicalId更新数据实体(批量更新)
         /// </summary>
         /// <param name="modelList">实体模型集合</param>
         /// <returns>更新结果</returns>
@@ -204,7 +204,7 @@ namespace HS.Message.Repository.repository.@base.core
         }
 
         /// <summary>
-        /// 根据logical_id更新数据实体(批量更新)
+        /// 根据logicalId更新数据实体(批量更新)
         /// </summary>
         /// <param name="modelList">实体模型集合</param>
         /// <returns>更新结果</returns>
@@ -216,7 +216,7 @@ namespace HS.Message.Repository.repository.@base.core
         /// <summary>
         /// 批量更新指定字段的值(根据主键集合)
         /// </summary>
-        /// <param name="idList">logical_id集合</param>
+        /// <param name="idList">logicalId集合</param>
         /// <param name="updateFieldsValue">跟新字段键值对</param>
         /// <returns>所有数据集合</returns>
         public int BactchUpdateSpecifyFieldsById(MBactchUpdateSpecifyFields<string> bactchUpdateSpecifyFields)
@@ -227,7 +227,7 @@ namespace HS.Message.Repository.repository.@base.core
         /// <summary>
         /// 批量更新指定字段的值(根据主键集合)
         /// </summary>
-        /// <param name="idList">logical_id集合</param>
+        /// <param name="idList">logicalId集合</param>
         /// <param name="updateFieldsValue">跟新字段键值对</param>
         /// <returns>所有数据集合</returns>
         public async Task<int> BactchUpdateSpecifyFieldsByIdAsync(MBactchUpdateSpecifyFields<string> bactchUpdateSpecifyFields)
@@ -256,47 +256,47 @@ namespace HS.Message.Repository.repository.@base.core
         }
 
         /// <summary>
-        /// 根据logical_id获取一个模型数据
+        /// 根据logicalId获取一个模型数据
         /// </summary>
-        /// <param name="logical_id">logical_id</param>
+        /// <param name="logicalId">logicalId</param>
         /// <param name="queryFields">需要查询的字段，空代表获取全部，默认为空</param>
         /// <returns>模型数据</returns>
-		public TModel GetModelById(string logical_id, string queryFields = "")
+		public TModel GetModelById(string logicalId, string queryFields = "")
         {
-            return _sqlRepository.GetModelById(logical_id, queryFields);
+            return _sqlRepository.GetModelById(logicalId, queryFields);
         }
 
         /// <summary>
-        /// 根据logical_id获取一个模型数据
+        /// 根据logicalId获取一个模型数据
         /// </summary>
-        /// <param name="logical_id">logical_id</param>
+        /// <param name="logicalId">logicalId</param>
         /// <param name="queryFields">需要查询的字段，空代表获取全部，默认为空</param>
         /// <returns>模型数据</returns>
-		public async Task<TModel> GetModelByIdAsync(string logical_id, string queryFields = "")
+		public async Task<TModel> GetModelByIdAsync(string logicalId, string queryFields = "")
         {
-            return await _sqlRepository.GetModelByIdAsync(logical_id, queryFields);
+            return await _sqlRepository.GetModelByIdAsync(logicalId, queryFields);
         }
 
         /// <summary>
-        /// 根据logical_id获取一个模型数据
+        /// 根据logicalId获取一个模型数据
         /// </summary>
-        /// <param name="logical_id">logical_id</param>
+        /// <param name="logicalId">logicalId</param>
         /// <param name="queryFields">需要查询的字段，空代表获取全部，默认为空</param>
         /// <returns>模型数据</returns>
-		public T GetModelById<T>(string logical_id, string queryFields = "")
+		public T GetModelById<T>(string logicalId, string queryFields = "")
         {
-            return _sqlRepository.GetModelById<T>(logical_id, queryFields);
+            return _sqlRepository.GetModelById<T>(logicalId, queryFields);
         }
 
         /// <summary>
-        /// 根据logical_id获取一个模型数据
+        /// 根据logicalId获取一个模型数据
         /// </summary>
-        /// <param name="logical_id">logical_id</param>
+        /// <param name="logicalId">logicalId</param>
         /// <param name="queryFields">需要查询的字段，空代表获取全部，默认为空</param>
         /// <returns>模型数据</returns>
-		public async Task<T> GetModelByIdAsync<T>(string logical_id, string queryFields = "")
+		public async Task<T> GetModelByIdAsync<T>(string logicalId, string queryFields = "")
         {
-            return await _sqlRepository.GetModelByIdAsync<T>(logical_id, queryFields);
+            return await _sqlRepository.GetModelByIdAsync<T>(logicalId, queryFields);
         }
 
         /// <summary>
@@ -322,7 +322,7 @@ namespace HS.Message.Repository.repository.@base.core
         /// <summary>
         /// 获取所有数据集合(根据主键集合)
         /// </summary>
-        /// <param name="idList">logical_id集合</param>
+        /// <param name="idList">logicalId集合</param>
         /// <param name="queryFields">需要查询的字段，空代表获取全部，默认为空</param>
         /// <returns>所有数据集合</returns>
         public List<TModel> GetAllListByIdList(List<string> idList, string queryFields = "")
@@ -333,7 +333,7 @@ namespace HS.Message.Repository.repository.@base.core
         /// <summary>
         /// 获取所有数据集合(根据主键集合)
         /// </summary>
-        /// <param name="idList">logical_id集合</param>
+        /// <param name="idList">logicalId集合</param>
         /// <param name="queryFields">需要查询的字段，空代表获取全部，默认为空</param>
         /// <returns>所有数据集合</returns>
         public async Task<List<TModel>> GetAllListByIdListAsync(List<string> idList, string queryFields = "")
@@ -344,7 +344,7 @@ namespace HS.Message.Repository.repository.@base.core
         /// <summary>
         /// 获取所有数据集合(根据主键集合)
         /// </summary>
-        /// <param name="idList">logical_id集合</param>
+        /// <param name="idList">logicalId集合</param>
         /// <param name="queryFields">需要查询的字段，空代表获取全部，默认为空</param>
         /// <returns>所有数据集合</returns>
         public List<T> GetAllListByIdList<T>(List<string> idList, string queryFields = "")
@@ -355,7 +355,7 @@ namespace HS.Message.Repository.repository.@base.core
         /// <summary>
         /// 获取所有数据集合(根据主键集合)
         /// </summary>
-        /// <param name="idList">logical_id集合</param>
+        /// <param name="idList">logicalId集合</param>
         /// <param name="queryFields">需要查询的字段，空代表获取全部，默认为空</param>
         /// <returns>所有数据集合</returns>
         public async Task<List<T>> GetAllListByIdListAsync<T>(List<string> idList, string queryFields = "")
@@ -502,7 +502,7 @@ namespace HS.Message.Repository.repository.@base.core
             // 主键 排除查询条件
             if (!string.IsNullOrEmpty(model.ExcludeId))
             {
-                sqlSB.Append($"and {tableAlias}`logical_id`<>@excludeId ");
+                sqlSB.Append($"and {tableAlias}`logicalId`<>@excludeId ");
             }
 
             // 获取模糊查询条件
@@ -553,7 +553,7 @@ namespace HS.Message.Repository.repository.@base.core
         /// 获取表全部字段(不包含id)
         /// </summary>
         /// <returns></returns>
-        public virtual string GetAllFieldForSql(string tableAlias = "")
+        public virtual string GetAllFieldForSql(string tableAlias = "", bool needColumnAlias = true)
         {
             Type mType = typeof(TModel);
             tableAlias = string.IsNullOrEmpty(tableAlias) ? "" : (tableAlias.Contains('.') ? tableAlias : tableAlias + ".");
@@ -562,7 +562,7 @@ namespace HS.Message.Repository.repository.@base.core
             var fields = GetAllFields(ignoreField);
             foreach ((string propName, string dbFieldName, Type propType) in fields)
             {
-                stringBuilder.Append($",{tableAlias}`{dbFieldName}` {propName} ");
+                stringBuilder.Append($",{tableAlias}`{dbFieldName}` {(needColumnAlias ? propName : "")} ");
 
             }
 
@@ -596,7 +596,7 @@ namespace HS.Message.Repository.repository.@base.core
         public virtual string GetInsertSql()
         {
             // 构建插入语句
-            string sql = $@"insert into `{TableName}` ({GetAllFieldForSql()}) values({GetAllFieldForParams()})";
+            string sql = $@"insert into `{TableName}` ({GetAllFieldForSql("", false)}) values({GetAllFieldForParams()})";
             if (sql.Contains("@CreatedTime"))
             {
                 sql = sql.Replace("@CreatedTime", $"'{PublicTools.GetSysDateTimeNowStringYMDHMS()}'");
@@ -619,7 +619,7 @@ namespace HS.Message.Repository.repository.@base.core
                 stringBuilder.Append($",`{dbFieldName}`=@{propName}");
 
             }
-            string sql = $"update `{TableName}` set {stringBuilder.ToString().TrimStart(',')}  where logical_id=@logical_id";
+            string sql = $"update `{TableName}` set {stringBuilder.ToString().TrimStart(',')}  where logical_id=@logicalId";
             if (sql.Contains("@updated_name"))
             {
                 sql = sql.Replace("@updated_name", $"'{PublicTools.GetSysDateTimeNowStringYMDHMS()}'");

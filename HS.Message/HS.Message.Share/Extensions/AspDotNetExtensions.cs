@@ -105,8 +105,8 @@ public static class AspDotNetExtensions
                 //…Ë÷√∑µªÿƒ⁄»›
                 var result = new BaseResponse
                 {
-                    Code = ResponseCode.ParameterError,
-                    Message = str
+                    Ret = ResponseCode.ParameterError,
+                    Msg = str
                 };
                 var res = new BadRequestObjectResult(result)
                 {

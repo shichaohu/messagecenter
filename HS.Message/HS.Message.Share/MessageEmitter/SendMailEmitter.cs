@@ -35,7 +35,7 @@ namespace HS.Message.Share.MessageEmitter
         {
             var result = new BaseResponse()
             {
-                Code = ResponseCode.Success
+                Ret = ResponseCode.Success
             };
 
             try
@@ -89,26 +89,26 @@ namespace HS.Message.Share.MessageEmitter
 
                             //发送邮件
                             await smtpclient.SendMailAsync(mailMessage);
-                            result.Code = ResponseCode.Success;
-                            result.Message = "发送成功！";
+                            result.Ret = ResponseCode.Success;
+                            result.Msg = "发送成功！";
                         }
                         catch (Exception ex)
                         {
-                            result.Code = ResponseCode.ParameterError;
-                            result.Message = ex.Message;
+                            result.Ret = ResponseCode.ParameterError;
+                            result.Msg = ex.Message;
                             _logger.LogError($"邮件发送异常:{ex.Message},SendInfo:{sendInfo}");
                         }
 
                     }
                 }
 
-                result.Code = ResponseCode.Success;
-                result.Message = "发送成功！";
+                result.Ret = ResponseCode.Success;
+                result.Msg = "发送成功！";
             }
             catch (Exception ex)
             {
-                result.Code = ResponseCode.ParameterError;
-                result.Message = ex.Message;
+                result.Ret = ResponseCode.ParameterError;
+                result.Msg = ex.Message;
 
                 _logger.LogError($"邮件发送异常:{ex.Message},SendInfo:{sendInfo}");
             }
@@ -126,7 +126,7 @@ namespace HS.Message.Share.MessageEmitter
         {
             var result = new BaseResponse()
             {
-                Code = ResponseCode.Success
+                Ret = ResponseCode.Success
             };
 
             try
@@ -177,25 +177,25 @@ namespace HS.Message.Share.MessageEmitter
 
                         //发送邮件
                         await smtpclient.SendMailAsync(mailMessage);
-                        result.Code = ResponseCode.Success;
-                        result.Message = "发送成功！";
+                        result.Ret = ResponseCode.Success;
+                        result.Msg = "发送成功！";
                     }
                     catch (Exception ex)
                     {
-                        result.Code = ResponseCode.ParameterError;
-                        result.Message = ex.Message;
+                        result.Ret = ResponseCode.ParameterError;
+                        result.Msg = ex.Message;
                         _logger.LogError($"邮件发送异常:{ex.Message},SendInfo:{sendInfo}");
                     }
 
                 }
 
-                result.Code = ResponseCode.Success;
-                result.Message = "发送成功！";
+                result.Ret = ResponseCode.Success;
+                result.Msg = "发送成功！";
             }
             catch (Exception ex)
             {
-                result.Code = ResponseCode.ParameterError;
-                result.Message = ex.Message;
+                result.Ret = ResponseCode.ParameterError;
+                result.Msg = ex.Message;
 
                 _logger.LogError($"邮件发送异常:{ex.Message},SendInfo:{sendInfo}");
             }
@@ -211,7 +211,7 @@ namespace HS.Message.Share.MessageEmitter
         public async Task<BaseResponse> SendMailByMailKit(MailMParameter sendInfo)
         {
             // 处理结果
-            BaseResponse result = new() { Code = ResponseCode.Success };
+            BaseResponse result = new() { Ret = ResponseCode.Success };
 
 
             var message = new MimeMessage();
@@ -253,31 +253,31 @@ namespace HS.Message.Share.MessageEmitter
                             await client.SendAsync(message);//发送邮件
                             client.Disconnect(true);
 
-                            result.Code = ResponseCode.Success;
-                            result.Message = "发送成功！";
+                            result.Ret = ResponseCode.Success;
+                            result.Msg = "发送成功！";
                         }
                         catch (SmtpCommandException ex)
                         {
-                            result.Code = ResponseCode.ParameterError;
-                            result.Message = ex.Message;
+                            result.Ret = ResponseCode.ParameterError;
+                            result.Msg = ex.Message;
                             _logger.LogError($"邮件发送异常:{ex.Message},SendData:{sendInfo}");
                         }
                         catch (Exception ex)
                         {
-                            result.Code = ResponseCode.ParameterError;
-                            result.Message = ex.Message;
+                            result.Ret = ResponseCode.ParameterError;
+                            result.Msg = ex.Message;
                             _logger.LogError($"邮件发送异常:{ex.Message},SendData:{sendInfo}");
                         }
 
                     }
 
-                    result.Code = ResponseCode.Success;
-                    result.Message = "发送成功！";
+                    result.Ret = ResponseCode.Success;
+                    result.Msg = "发送成功！";
                 }
                 catch (Exception ex)
                 {
-                    result.Code = ResponseCode.ParameterError;
-                    result.Message = ex.Message;
+                    result.Ret = ResponseCode.ParameterError;
+                    result.Msg = ex.Message;
 
                     _logger.LogError($"邮件发送异常:{ex.Message},SendData:{sendInfo}");
                 }
@@ -295,12 +295,12 @@ namespace HS.Message.Share.MessageEmitter
         public async Task<BaseResponse<string>> SendMailByMailKitMassed(MailMParameter sendInfo)
         {
             // 处理结果
-            BaseResponse<string> result = new() { Code = ResponseCode.Success };
+            BaseResponse<string> result = new() { Ret = ResponseCode.Success };
 
             if (sendInfo == null || sendInfo.ReceiverEmails == null || sendInfo.ReceiverEmails.Length == 0)
             {
-                result.Code = ResponseCode.ParameterError;
-                result.Message = "邮件信息为空或者邮件的接收人为空";
+                result.Ret = ResponseCode.ParameterError;
+                result.Msg = "邮件信息为空或者邮件的接收人为空";
                 return result;
             }
 
@@ -344,32 +344,32 @@ namespace HS.Message.Share.MessageEmitter
                         var sendResponse = await client.SendAsync(message);//发送邮件
                         client.Disconnect(true);
 
-                        result.Code = ResponseCode.Success;
-                        result.Message = "发送成功！";
+                        result.Ret = ResponseCode.Success;
+                        result.Msg = "发送成功！";
                         result.Data = sendResponse;
                     }
                     catch (SmtpCommandException ex)
                     {
-                        result.Code = ResponseCode.ParameterError;
-                        result.Message = ex.Message;
+                        result.Ret = ResponseCode.ParameterError;
+                        result.Msg = ex.Message;
                         _logger.LogError($"邮件发送异常:{ex.Message},SendData:{sendInfo}");
                     }
                     catch (Exception ex)
                     {
-                        result.Code = ResponseCode.ParameterError;
-                        result.Message = ex.Message;
+                        result.Ret = ResponseCode.ParameterError;
+                        result.Msg = ex.Message;
                         _logger.LogError($"邮件发送异常:{ex.Message},SendData:{sendInfo}");
                     }
 
                 }
 
-                result.Code = ResponseCode.Success;
-                result.Message = "发送成功！";
+                result.Ret = ResponseCode.Success;
+                result.Msg = "发送成功！";
             }
             catch (Exception ex)
             {
-                result.Code = ResponseCode.ParameterError;
-                result.Message = ex.Message;
+                result.Ret = ResponseCode.ParameterError;
+                result.Msg = ex.Message;
 
                 _logger.LogError($"邮件发送异常:{ex.Message},SendData:{sendInfo}");
             }

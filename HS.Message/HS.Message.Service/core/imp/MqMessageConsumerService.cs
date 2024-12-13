@@ -48,7 +48,7 @@ namespace HS.Message.Service.core.imp
                 default:
                     var result = new BaseResponse<ConsumerResponse>
                     {
-                        Code = ResponseCode.Success,
+                        Ret = ResponseCode.Success,
                         Data = new ConsumerResponse
                         {
                             Successed = true,
@@ -64,7 +64,7 @@ namespace HS.Message.Service.core.imp
             string logPrefix = $"{operatorTag}【{message.MessageType}:{message.MessageId}】";
             var result = new BaseResponse<ConsumerResponse>
             {
-                Code = ResponseCode.Success,
+                Ret = ResponseCode.Success,
                 Data = new ConsumerResponse
                 {
                     Successed = true,
@@ -111,13 +111,13 @@ namespace HS.Message.Service.core.imp
                         ReceiverEmail = mailMessage.ReceiverEmail,
                         ReceiverCcEmail = mailMessage.ReceiverCcEmail,
                         SendTime = DateTime.Now,
-                        SendState = sendResponse.Code == ResponseCode.Success ? 1 : 2,
+                        SendState = sendResponse.Ret == ResponseCode.Success ? 1 : 2,
                         SendResult = JsonConvert.SerializeObject(sendResponse),
                         CreatedById = "message center",
                         CreatedByName = "message center",
                         CreatedTime = DateTime.Now,
                     };
-                    mailMessage.SendState = sendResponse.Code == ResponseCode.Success ? 2 : 3;
+                    mailMessage.SendState = sendResponse.Ret == ResponseCode.Success ? 2 : 3;
                     mailMessage.LastSendTime = DateTime.Now;
                     mailMessage.UpdatedTime = DateTime.Now;
                     mailMessage.UpdatedById = "message center";
@@ -154,7 +154,7 @@ namespace HS.Message.Service.core.imp
                         {
                             LogicalId = mailMessage.ReceiverId,
                             EmailLastSendtime = DateTime.Now,
-                            EmailSendState = sendResponse.Code == ResponseCode.Success ? 2 : 3
+                            EmailSendState = sendResponse.Ret == ResponseCode.Success ? 2 : 3
                         });
                         stepTwo = stepTwo && res3 > 0;
                         //更新消息结束表邮件发送状态
@@ -175,29 +175,29 @@ namespace HS.Message.Service.core.imp
                     }
                     else
                     {
-                        result.Code = ResponseCode.DataError;
+                        result.Ret = ResponseCode.DataError;
                         result.Data.Successed = false;
 
                         string errorMsg = $"add MailSendLogs failure,id: {JsonConvert.SerializeObject(message)}";
-                        result.Message = errorMsg;
+                        result.Msg = errorMsg;
                         _logger.LogInformation($"{logPrefix}{errorMsg}");
                     }
                 }
                 else
                 {
-                    result.Code = ResponseCode.DataError;
+                    result.Ret = ResponseCode.DataError;
                     result.Data.Successed = false;
                     string errorMsg = $"消息内容构造失败或者没有邮件接收邮箱，id: {JsonConvert.SerializeObject(message)}";
-                    result.Message = errorMsg;
+                    result.Msg = errorMsg;
                     _logger.LogInformation($"{logPrefix}{errorMsg}");
                 }
             }
             catch (Exception ex)
             {
-                result.Code = ResponseCode.InternalError;
+                result.Ret = ResponseCode.InternalError;
                 result.Data.Successed = false;
                 string errorMsg = $"消费Email队列的数据出错,message: {ex}";
-                result.Message = errorMsg;
+                result.Msg = errorMsg;
                 _logger.LogInformation($"{logPrefix}{errorMsg}");
             }
 
@@ -208,7 +208,7 @@ namespace HS.Message.Service.core.imp
             string logPrefix = $"{operatorTag}【{message.MessageType}:{message.MessageId}】";
             var result = new BaseResponse<ConsumerResponse>
             {
-                Code = ResponseCode.Success,
+                Ret = ResponseCode.Success,
                 Data = new ConsumerResponse
                 {
                     Successed = true,
@@ -287,31 +287,31 @@ namespace HS.Message.Service.core.imp
                     }
                     else
                     {
-                        result.Code = ResponseCode.DataError;
+                        result.Ret = ResponseCode.DataError;
                         result.Data.Successed = false;
 
                         string errorMsg = $"add SmsMessageDetails failure,id: {JsonConvert.SerializeObject(message)}";
-                        result.Message = errorMsg;
+                        result.Msg = errorMsg;
                         _logger.LogInformation($"{logPrefix}{errorMsg}");
                     }
                 }
                 else
                 {
-                    result.Code = ResponseCode.DataError;
+                    result.Ret = ResponseCode.DataError;
                     result.Data.Successed = false;
 
                     string errorMsg = $"消息内容构造失败或者没有短息接收号码，id: {JsonConvert.SerializeObject(message)}";
-                    result.Message = errorMsg;
+                    result.Msg = errorMsg;
                     _logger.LogInformation($"{logPrefix}{errorMsg}");
                 }
             }
             catch (Exception ex)
             {
-                result.Code = ResponseCode.InternalError;
+                result.Ret = ResponseCode.InternalError;
                 result.Data.Successed = false;
 
                 string errorMsg = $"消费SMS队列的数据出错,message: {ex}";
-                result.Message = errorMsg;
+                result.Msg = errorMsg;
                 _logger.LogInformation($"{logPrefix}{errorMsg}");
             }
             return result;

@@ -12,11 +12,11 @@ namespace HS.Message.Share.BaseModel
         /// <summary>
         /// 返回状态的编码
         /// </summary>
-        public ResponseCode Code { get; set; }
+        public ResponseCode Ret { get; set; }
         /// <summary>
         /// 详细数据
         /// </summary>
-        public string Message { get; set; }
+        public string Msg { get; set; }
     }
     public class BaseResponse<T> : BaseResponse
     {
@@ -32,8 +32,8 @@ namespace HS.Message.Share.BaseModel
         public BaseResponse<T> SuccessResponse<T>(T data, string message = "成功")
         {
             BaseResponse<T> responseDto = new BaseResponse<T>();
-            responseDto.Code = ResponseCode.Success;
-            responseDto.Message = message;
+            responseDto.Ret = ResponseCode.Success;
+            responseDto.Msg = message;
             responseDto.Data = data;
             return responseDto;
         }
@@ -47,8 +47,8 @@ namespace HS.Message.Share.BaseModel
         public BaseResponse<T> FailResponse(string message, ResponseCode code = ResponseCode.ParameterError)
         {
             BaseResponse<T> responseDto = new BaseResponse<T>();
-            responseDto.Code = code;
-            responseDto.Message = message;
+            responseDto.Ret = code;
+            responseDto.Msg = message;
             return responseDto;
         }
 
@@ -67,10 +67,6 @@ namespace HS.Message.Share.BaseModel
     public enum ResponseCode
     {
         /// <summary>
-        /// 成功
-        /// </summary>
-        Success = 200,
-        /// <summary>
         /// 内部错误
         /// </summary>
         InternalError = 500,
@@ -85,7 +81,11 @@ namespace HS.Message.Share.BaseModel
         /// <summary>
         /// 数据错误
         /// </summary>
-        DataError = 503
+        DataError = 503,
+        /// <summary>
+        /// 成功
+        /// </summary>
+        Success = 10000
     }
 
 }

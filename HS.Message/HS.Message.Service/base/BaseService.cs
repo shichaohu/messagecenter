@@ -22,7 +22,7 @@ namespace HS.Message.Service.@base
         protected readonly IInjectedObjects _injectedObjects;
 
         /// <summary>
-        /// logical_id仓储操作类
+        /// logicalId仓储操作类
         /// </summary>
         protected IRepository<TModel, TCondition> _baseRepository { get; }
 
@@ -52,14 +52,14 @@ namespace HS.Message.Service.@base
         {
             // 操作结果
             BaseResponse returnResultBase = CheckInfo(model, modelOld);
-            if (returnResultBase.Code != ResponseCode.Success)
+            if (returnResultBase.Ret != ResponseCode.Success)
             {
                 return returnResultBase;
             }
 
             // 自定义数据校验
 
-            returnResultBase.Code = ResponseCode.Success;
+            returnResultBase.Ret = ResponseCode.Success;
             return returnResultBase;
         }
 
@@ -70,7 +70,7 @@ namespace HS.Message.Service.@base
         /// <returns>检查结果</returns>
         public virtual BaseResponse CheckInfo(TModel model, TModel modelOld)
         {
-            BaseResponse result = new() { Code = ResponseCode.Success };
+            BaseResponse result = new() { Ret = ResponseCode.Success };
 
             return result;
 
@@ -95,13 +95,13 @@ namespace HS.Message.Service.@base
         protected virtual BaseResponse TransformatJobjToMode(Dictionary<string, object> modelJobj, ref TModel model, ref TModel modelOld)
         {
             // 处理结果
-            BaseResponse mReturnResultBase = new() { Code = ResponseCode.InternalError };
+            BaseResponse mReturnResultBase = new() { Ret = ResponseCode.InternalError };
 
             string[] ignoreFields = new string[] { "id", "logical_id", "created_id", "created_name", "CreatedTime" };
             var fieldsDic = GetAllFields(ignoreFields);
             if (fieldsDic?.Keys.Count == 0)
             {
-                mReturnResultBase.Message = $"there is no field in model:{typeof(TModel).Name}";
+                mReturnResultBase.Msg = $"there is no field in model:{typeof(TModel).Name}";
                 return mReturnResultBase;
             }
 
@@ -116,7 +116,7 @@ namespace HS.Message.Service.@base
                 string thisKey = string.Empty;
 
                 // 操作字典是否传递了主键值
-                thisKey = inputKeyList.Find(x => x.Equals("logical_id", StringComparison.CurrentCultureIgnoreCase));
+                thisKey = inputKeyList.Find(x => x.Equals("logicalId", StringComparison.CurrentCultureIgnoreCase));
                 if (!string.IsNullOrEmpty(thisKey))
                 {
 
@@ -124,7 +124,7 @@ namespace HS.Message.Service.@base
                     model = _baseRepository.GetModelById(modelJobj[thisKey].ToString());
                     if (model == null)
                     {
-                        mReturnResultBase.Message = "系统找不到操作的数据！";
+                        mReturnResultBase.Msg = "系统找不到操作的数据！";
                         return mReturnResultBase;
                     }
 
@@ -133,7 +133,7 @@ namespace HS.Message.Service.@base
                 }
                 else
                 {
-                    mReturnResultBase.Message = "请选择需要操作的数据！";
+                    mReturnResultBase.Msg = "请选择需要操作的数据！";
                     return mReturnResultBase;
                 }
 
@@ -179,11 +179,11 @@ namespace HS.Message.Service.@base
             }
             else
             {
-                mReturnResultBase.Message = "基本信息不能为空！";
+                mReturnResultBase.Msg = "基本信息不能为空！";
                 return mReturnResultBase;
             }
 
-            mReturnResultBase.Code = ResponseCode.Success;
+            mReturnResultBase.Ret = ResponseCode.Success;
 
             return mReturnResultBase;
         }
@@ -222,17 +222,17 @@ namespace HS.Message.Service.@base
         {
             // 操作结果
             BaseResponse returnResultBase = new()
-            { Code = ResponseCode.Success };
+            { Ret = ResponseCode.Success };
             // 第一步：数据校验
             returnResultBase = CheckInfoBase(model);
-            if (returnResultBase.Code != ResponseCode.Success)
+            if (returnResultBase.Ret != ResponseCode.Success)
             {
                 return returnResultBase;
             }
 
             //  第二步：数据落地
-            returnResultBase.Code = await _baseRepository.AddOneAsync(model) > 0 ? ResponseCode.Success : ResponseCode.InternalError;
-            returnResultBase.Message = returnResultBase.Code == ResponseCode.Success ? "添加成功！" : "添加失败！";
+            returnResultBase.Ret = await _baseRepository.AddOneAsync(model) > 0 ? ResponseCode.Success : ResponseCode.InternalError;
+            returnResultBase.Msg = returnResultBase.Ret == ResponseCode.Success ? "添加成功！" : "添加失败！";
 
             return returnResultBase;
         }
@@ -246,15 +246,15 @@ namespace HS.Message.Service.@base
         {
             // 操作结果
             BaseResponse returnResultBase = new()
-            { Code = ResponseCode.Success };
+            { Ret = ResponseCode.Success };
 
             // 第一步：数据校验
             if (modelList == null || modelList.Count < 1)
             {
                 returnResultBase = new BaseResponse()
                 {
-                    Code = ResponseCode.ParameterError,
-                    Message = "基本信息不能为空！"
+                    Ret = ResponseCode.ParameterError,
+                    Msg = "基本信息不能为空！"
                 };
 
                 return returnResultBase;
@@ -263,86 +263,86 @@ namespace HS.Message.Service.@base
             foreach (var model in modelList)
             {
                 returnResultBase = CheckInfoBase(model);
-                if (returnResultBase.Code != ResponseCode.Success)
+                if (returnResultBase.Ret != ResponseCode.Success)
                 {
                     return returnResultBase;
                 }
             }
 
             //  第二步：数据落地
-            returnResultBase.Code = await _baseRepository.BactchAddAsync(modelList) > 0 ? ResponseCode.Success : ResponseCode.InternalError;
-            returnResultBase.Message = returnResultBase.Code == ResponseCode.Success ? "添加成功！" : "添加失败！";
+            returnResultBase.Ret = await _baseRepository.BactchAddAsync(modelList) > 0 ? ResponseCode.Success : ResponseCode.InternalError;
+            returnResultBase.Msg = returnResultBase.Ret == ResponseCode.Success ? "添加成功！" : "添加失败！";
 
             return returnResultBase;
         }
 
         /// <summary>
-        /// 根据logical_id删除数据
+        /// 根据logicalId删除数据
         /// </summary>
-        /// <param name="logical_id">logical_id</param>
+        /// <param name="logicalId">logicalId</param>
         /// <returns>影响的行数</returns>
-        public async Task<BaseResponse> DeleteByIdAsync(string logical_id)
+        public async Task<BaseResponse> DeleteByIdAsync(string logicalId)
         {
             // 操作结果
             BaseResponse returnResultBase = new()
-            { Code = ResponseCode.Success };
+            { Ret = ResponseCode.Success };
 
             // 第一步：数据校验
-            if (string.IsNullOrEmpty(logical_id))
+            if (string.IsNullOrEmpty(logicalId))
             {
-                returnResultBase.Message = "请选择要删除的数据记录！";
-                returnResultBase.Code = ResponseCode.ParameterError;
+                returnResultBase.Msg = "请选择要删除的数据记录！";
+                returnResultBase.Ret = ResponseCode.ParameterError;
 
                 return returnResultBase;
             }
 
             // 获取原始数据模型
-            TModel model = await _baseRepository.GetModelByIdAsync(logical_id);
+            TModel model = await _baseRepository.GetModelByIdAsync(logicalId);
 
             if (model == null)
             {
-                returnResultBase.Message = "数据记录不存在！";
-                returnResultBase.Code = ResponseCode.ParameterError;
+                returnResultBase.Msg = "数据记录不存在！";
+                returnResultBase.Ret = ResponseCode.ParameterError;
 
                 return returnResultBase;
             }
 
             //  第二步：数据落地
-            returnResultBase.Code = await _baseRepository.DeleteByIdAsync(logical_id) > 0 ? ResponseCode.Success : ResponseCode.InternalError;
-            returnResultBase.Message = returnResultBase.Code == ResponseCode.Success ? "删除成功！" : "删除失败！";
+            returnResultBase.Ret = await _baseRepository.DeleteByIdAsync(logicalId) > 0 ? ResponseCode.Success : ResponseCode.InternalError;
+            returnResultBase.Msg = returnResultBase.Ret == ResponseCode.Success ? "删除成功！" : "删除失败！";
 
             return returnResultBase;
         }
 
         /// <summary>
-        /// 根据logical_id集合批量删除数据
+        /// 根据logicalId集合批量删除数据
         /// </summary>
-        /// <param name="idList">logical_id集合</param>
+        /// <param name="idList">logicalId集合</param>
         /// <returns>处理结果</returns>
         public async Task<BaseResponse> BactchDeleteByIdListAsync(List<string> idList)
         {
             // 操作结果
             BaseResponse returnResultBase = new()
-            { Code = ResponseCode.Success };
+            { Ret = ResponseCode.Success };
 
             // 第一步：数据校验
             if (idList == null || idList.Count <= 0)
             {
-                returnResultBase.Message = "请选择要删除的数据记录！";
-                returnResultBase.Code = ResponseCode.ParameterError;
+                returnResultBase.Msg = "请选择要删除的数据记录！";
+                returnResultBase.Ret = ResponseCode.ParameterError;
 
                 return returnResultBase;
             }
 
             //  第二步：数据落地
-            returnResultBase.Code = await _baseRepository.BactchDeleteByIdListAsync(idList) > 0 ? ResponseCode.Success : ResponseCode.InternalError;
-            returnResultBase.Message = returnResultBase.Code == ResponseCode.Success ? "删除成功！" : "删除失败！";
+            returnResultBase.Ret = await _baseRepository.BactchDeleteByIdListAsync(idList) > 0 ? ResponseCode.Success : ResponseCode.InternalError;
+            returnResultBase.Msg = returnResultBase.Ret == ResponseCode.Success ? "删除成功！" : "删除失败！";
 
             return returnResultBase;
         }
 
         /// <summary>
-        /// 根据logical_id更新数据实体
+        /// 根据logicalId更新数据实体
         /// </summary>
         /// <param name="model">实体模型</param>
         /// <returns>更新结果</returns>
@@ -350,13 +350,13 @@ namespace HS.Message.Service.@base
         {
             // 操作结果
             BaseResponse mReturnResultBase = new()
-            { Code = ResponseCode.Success };
+            { Ret = ResponseCode.Success };
 
             //// 第一步：数据校验
             if (model == null)
             {
-                mReturnResultBase.Message = "Test基本信息不能为空！";
-                mReturnResultBase.Code = ResponseCode.ParameterError;
+                mReturnResultBase.Msg = "Test基本信息不能为空！";
+                mReturnResultBase.Ret = ResponseCode.ParameterError;
                 return mReturnResultBase;
             }
 
@@ -365,27 +365,27 @@ namespace HS.Message.Service.@base
 
             if (modelOld == null)
             {
-                mReturnResultBase.Message = "数据记录不存在！";
-                mReturnResultBase.Code = ResponseCode.ParameterError;
+                mReturnResultBase.Msg = "数据记录不存在！";
+                mReturnResultBase.Ret = ResponseCode.ParameterError;
 
                 return mReturnResultBase;
             }
 
             mReturnResultBase = CheckInfoBase(model, modelOld);
-            if (mReturnResultBase.Code != ResponseCode.Success)
+            if (mReturnResultBase.Ret != ResponseCode.Success)
             {
                 return mReturnResultBase;
             }
 
             //// 第二步，执行更新
-            mReturnResultBase.Code = await _baseRepository.UpdateByIdAsync(model) > 0 ? ResponseCode.Success : ResponseCode.InternalError;
-            mReturnResultBase.Message = mReturnResultBase.Code == ResponseCode.Success ? "更新成功！" : "更新失败！";
+            mReturnResultBase.Ret = await _baseRepository.UpdateByIdAsync(model) > 0 ? ResponseCode.Success : ResponseCode.InternalError;
+            mReturnResultBase.Msg = mReturnResultBase.Ret == ResponseCode.Success ? "更新成功！" : "更新失败！";
 
             return mReturnResultBase;
         }
 
         /// <summary>
-        /// 根据logical_id更新数据实体(批量更新)
+        /// 根据logicalId更新数据实体(批量更新)
         /// </summary>
         /// <param name="modelList">实体模型集合</param>
         /// <returns>更新结果</returns>
@@ -393,13 +393,13 @@ namespace HS.Message.Service.@base
         {
             // 操作结果
             BaseResponse mReturnResultBase = new()
-            { Code = ResponseCode.Success };
+            { Ret = ResponseCode.Success };
 
             //// 第一步：数据校验
             if (modelList == null || modelList.Count < 1)
             {
-                mReturnResultBase.Message = "Auth基本信息不能为空！";
-                mReturnResultBase.Code = ResponseCode.ParameterError;
+                mReturnResultBase.Msg = "Auth基本信息不能为空！";
+                mReturnResultBase.Ret = ResponseCode.ParameterError;
                 return mReturnResultBase;
             }
 
@@ -407,8 +407,8 @@ namespace HS.Message.Service.@base
             List<TModel> modelListOld = await _baseRepository.GetAllListByIdListAsync(modelList.Select(x => x.LogicalId).ToList());
             if (modelListOld == null && modelListOld.Count != modelList.Count)
             {
-                mReturnResultBase.Message = "所提交的数据集合与系统数据不匹配！";
-                mReturnResultBase.Code = ResponseCode.ParameterError;
+                mReturnResultBase.Msg = "所提交的数据集合与系统数据不匹配！";
+                mReturnResultBase.Ret = ResponseCode.ParameterError;
                 return mReturnResultBase;
             }
 
@@ -422,14 +422,14 @@ namespace HS.Message.Service.@base
 
                 if (modelOld == null)
                 {
-                    mReturnResultBase.Message = "数据记录不存在！";
-                    mReturnResultBase.Code = ResponseCode.ParameterError;
+                    mReturnResultBase.Msg = "数据记录不存在！";
+                    mReturnResultBase.Ret = ResponseCode.ParameterError;
 
                     return mReturnResultBase;
                 }
 
                 mReturnResultBase = CheckInfoBase(model, modelOld);
-                if (mReturnResultBase.Code != ResponseCode.Success)
+                if (mReturnResultBase.Ret != ResponseCode.Success)
                 {
                     return mReturnResultBase;
                 }
@@ -444,8 +444,8 @@ namespace HS.Message.Service.@base
             }
 
             //// 第二步，执行更新
-            mReturnResultBase.Code = await _baseRepository.BactchUpdateByIdAsync(modelList) > 0 ? ResponseCode.Success : ResponseCode.InternalError;
-            mReturnResultBase.Message = mReturnResultBase.Code == ResponseCode.Success ? "更新成功！" : "更新失败！";
+            mReturnResultBase.Ret = await _baseRepository.BactchUpdateByIdAsync(modelList) > 0 ? ResponseCode.Success : ResponseCode.InternalError;
+            mReturnResultBase.Msg = mReturnResultBase.Ret == ResponseCode.Success ? "更新成功！" : "更新失败！";
 
             return mReturnResultBase;
         }
@@ -466,22 +466,22 @@ namespace HS.Message.Service.@base
             BaseResponse mReturnResultBase = TransformatJobjToMode(modelJobj, ref model, ref modelOld);
 
             // 第二步：如果数据转换成功，那么做一个数据校验处理
-            if (mReturnResultBase != null && mReturnResultBase.Code == ResponseCode.Success)
+            if (mReturnResultBase != null && mReturnResultBase.Ret == ResponseCode.Success)
             {
                 mReturnResultBase = CheckInfoBase(model, modelOld);
             }
 
             // 第三步：如果校验成功，那么做数据更新处理，失败直接返回
-            if (mReturnResultBase != null && mReturnResultBase.Code == ResponseCode.Success)
+            if (mReturnResultBase != null && mReturnResultBase.Ret == ResponseCode.Success)
             {
 
-                mReturnResultBase.Code = await _baseRepository.UpdateByIdAsync(model) > 0 ? ResponseCode.Success : ResponseCode.InternalError;
-                mReturnResultBase.Message = mReturnResultBase.Code == ResponseCode.Success ? "更新成功！" : "更新失败！";
+                mReturnResultBase.Ret = await _baseRepository.UpdateByIdAsync(model) > 0 ? ResponseCode.Success : ResponseCode.InternalError;
+                mReturnResultBase.Msg = mReturnResultBase.Ret == ResponseCode.Success ? "更新成功！" : "更新失败！";
 
             }
             else
             {
-                return mReturnResultBase ?? new BaseResponse() { Code = ResponseCode.InternalError, Message = "操作失败！" };
+                return mReturnResultBase ?? new BaseResponse() { Ret = ResponseCode.InternalError, Msg = "操作失败！" };
             }
 
             return mReturnResultBase;
@@ -495,7 +495,7 @@ namespace HS.Message.Service.@base
         public async Task<BaseResponse> BactchUpdateDynamicAsync(List<Dictionary<string, object>> modelJobjList)
         {
             BaseResponse mReturnResultBase = new BaseResponse()
-            { Code = ResponseCode.Success };
+            { Ret = ResponseCode.Success };
 
             // 数据模型
             List<TModel> modelList = new List<TModel>();
@@ -513,12 +513,12 @@ namespace HS.Message.Service.@base
                 mReturnResultBase = TransformatJobjToMode(item, ref modelOne, ref modelOld);
 
                 // 如果数据转换成功，那么做一个数据校验处理
-                if (mReturnResultBase != null && mReturnResultBase.Code == ResponseCode.Success)
+                if (mReturnResultBase != null && mReturnResultBase.Ret == ResponseCode.Success)
                 {
                     mReturnResultBase = CheckInfoBase(modelOne, modelOld);
                 }
 
-                if (mReturnResultBase.Code != ResponseCode.Success)
+                if (mReturnResultBase.Ret != ResponseCode.Success)
                 {
                     return mReturnResultBase;
                 }
@@ -532,8 +532,8 @@ namespace HS.Message.Service.@base
                 modelListOld.Add(modelOld);
             }
 
-            mReturnResultBase.Code = await _baseRepository.BactchUpdateByIdAsync(modelList) > 0 ? ResponseCode.Success : ResponseCode.InternalError;
-            mReturnResultBase.Message = mReturnResultBase.Code == ResponseCode.Success ? "更新成功！" : "更新失败！";
+            mReturnResultBase.Ret = await _baseRepository.BactchUpdateByIdAsync(modelList) > 0 ? ResponseCode.Success : ResponseCode.InternalError;
+            mReturnResultBase.Msg = mReturnResultBase.Ret == ResponseCode.Success ? "更新成功！" : "更新失败！";
 
 
             return mReturnResultBase;
@@ -542,52 +542,52 @@ namespace HS.Message.Service.@base
         /// <summary>
         /// 批量更新指定字段的值(根据主键集合)
         /// </summary>
-        /// <param name="bactchUpdateSpecifyFields">logical_id集合</param>
+        /// <param name="bactchUpdateSpecifyFields">logicalId集合</param>
         /// <returns>所有数据集合</returns>
         public async Task<BaseResponse> BactchUpdateSpecifyFieldsByIdAsync(MBactchUpdateSpecifyFields<string> bactchUpdateSpecifyFields)
         {
             // 操作结果
             BaseResponse mReturnResultBase = new BaseResponse()
-            { Code = ResponseCode.Success };
+            { Ret = ResponseCode.Success };
 
             //// 第一步：数据校验
             if (bactchUpdateSpecifyFields == null || bactchUpdateSpecifyFields.idList == null || bactchUpdateSpecifyFields.idList.Count < 1 ||
                 bactchUpdateSpecifyFields.updateFieldsValue == null || bactchUpdateSpecifyFields.updateFieldsValue.Count < 1)
             {
-                mReturnResultBase.Message = "基本信息不能为空！";
-                mReturnResultBase.Code = ResponseCode.ParameterError;
+                mReturnResultBase.Msg = "基本信息不能为空！";
+                mReturnResultBase.Ret = ResponseCode.ParameterError;
                 return mReturnResultBase;
             }
 
             //// 第二步，执行更新
-            mReturnResultBase.Code = await _baseRepository.BactchUpdateSpecifyFieldsByIdAsync(bactchUpdateSpecifyFields) > 0 ? ResponseCode.Success : ResponseCode.InternalError;
-            mReturnResultBase.Message = mReturnResultBase.Code == ResponseCode.Success ? "更新成功！" : "更新失败！";
+            mReturnResultBase.Ret = await _baseRepository.BactchUpdateSpecifyFieldsByIdAsync(bactchUpdateSpecifyFields) > 0 ? ResponseCode.Success : ResponseCode.InternalError;
+            mReturnResultBase.Msg = mReturnResultBase.Ret == ResponseCode.Success ? "更新成功！" : "更新失败！";
 
 
             return mReturnResultBase;
         }
 
         /// <summary>
-        /// 根据logical_id获取一个模型数据
+        /// 根据logicalId获取一个模型数据
         /// </summary>
-        /// <param name="logical_id">logical_id</param>
+        /// <param name="logicalId">logicalId</param>
         /// <param name="queryFields">需要查询的字段，空代表获取全部，默认为空</param>
         /// <returns>模型数据</returns>
-        public async Task<BaseResponse<TModel>> GetModelByIdAsync(string logical_id, string queryFields = "")
+        public async Task<BaseResponse<TModel>> GetModelByIdAsync(string logicalId, string queryFields = "")
         {
             // 操作结果
             BaseResponse<TModel> mReturnResultBase = new BaseResponse<TModel>()
-            { Code = ResponseCode.Success };
+            { Ret = ResponseCode.Success };
 
-            if (string.IsNullOrEmpty(logical_id))
+            if (string.IsNullOrEmpty(logicalId))
             {
-                mReturnResultBase.Message = "需要获取的数据logical_id不能为空！";
-                mReturnResultBase.Code = ResponseCode.ParameterError;
+                mReturnResultBase.Msg = "需要获取的数据logicalId不能为空！";
+                mReturnResultBase.Ret = ResponseCode.ParameterError;
                 return mReturnResultBase;
             }
 
             // 第二步：直接获取数据
-            mReturnResultBase.Data = await _baseRepository.GetModelByIdAsync(logical_id, queryFields);
+            mReturnResultBase.Data = await _baseRepository.GetModelByIdAsync(logicalId, queryFields);
 
             return mReturnResultBase;
         }
@@ -601,12 +601,12 @@ namespace HS.Message.Service.@base
         {
             // 操作结果
             BaseResponse<TModel> mReturnResultBase = new BaseResponse<TModel>()
-            { Code = ResponseCode.Success };
+            { Ret = ResponseCode.Success };
 
             if (condition == null)
             {
-                mReturnResultBase.Message = "需要获取的信息不能为空！";
-                mReturnResultBase.Code = ResponseCode.ParameterError;
+                mReturnResultBase.Msg = "需要获取的信息不能为空！";
+                mReturnResultBase.Ret = ResponseCode.ParameterError;
                 return mReturnResultBase;
             }
 
@@ -619,19 +619,19 @@ namespace HS.Message.Service.@base
         /// <summary>
         /// 获取所有数据集合(根据主键集合)
         /// </summary>
-        /// <param name="idList">logical_id集合</param>
+        /// <param name="idList">logicalId集合</param>
         /// <param name="queryFields">需要查询的字段，空代表获取全部，默认为空</param>
         /// <returns>所有数据集合</returns>
         public async Task<BaseResponse<List<TModel>>> GetAllListByIdListAsync(List<string> idList, string queryFields = "")
         {
             // 操作结果
             BaseResponse<List<TModel>> mReturnResultBase = new BaseResponse<List<TModel>>()
-            { Code = ResponseCode.Success };
+            { Ret = ResponseCode.Success };
 
             if (idList == null || idList.Count < 1)
             {
-                mReturnResultBase.Message = "需要获取的信息不能为空！";
-                mReturnResultBase.Code = ResponseCode.ParameterError;
+                mReturnResultBase.Msg = "需要获取的信息不能为空！";
+                mReturnResultBase.Ret = ResponseCode.ParameterError;
                 return mReturnResultBase;
             }
 
@@ -651,7 +651,7 @@ namespace HS.Message.Service.@base
         {
             //// 操作结果
             MPageQueryResponse<TModel> returnResultBase = new MPageQueryResponse<TModel>()
-            { Code = ResponseCode.Success };
+            { Ret = ResponseCode.Success };
 
             //// 直接获取数据
             returnResultBase.Data = await _baseRepository.GetPageListAsync(pageQueryCondition);
@@ -675,7 +675,7 @@ namespace HS.Message.Service.@base
         {
             //// 操作结果
             MPageQueryResponse<TModel> returnResultBase = new MPageQueryResponse<TModel>()
-            { Code = ResponseCode.Success };
+            { Ret = ResponseCode.Success };
 
             //// 直接获取数据
             returnResultBase.Data = await _baseRepository.GetAllListAsync(condition, limitNum: condition != null ? condition.LimitNum : 0);

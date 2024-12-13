@@ -35,84 +35,84 @@ namespace HS.Message.Repository.repository.@base.core
         Task<int> BactchAddAsync(List<TModel> modelList);
 
         /// <summary>
-        /// 根据logical_id删除数据
+        /// 根据logicalId删除数据
         /// </summary>
-        /// <param name="logical_id">logical_id</param>
+        /// <param name="logicalId">logicalId</param>
         /// <returns>影响的行数</returns>
-        int DeleteById(string logical_id);
+        int DeleteById(string logicalId);
 
         /// <summary>
-        /// 根据logical_id删除数据
+        /// 根据logicalId删除数据
         /// </summary>
-        /// <param name="logical_id">logical_id</param>
+        /// <param name="logicalId">logicalId</param>
         /// <returns>影响的行数</returns>
-        Task<int> DeleteByIdAsync(string logical_id);
+        Task<int> DeleteByIdAsync(string logicalId);
 
         /// <summary>
-        /// 根据logical_id集合批量删除数据
+        /// 根据logicalId集合批量删除数据
         /// </summary>
-        /// <param name="idList">logical_id集合</param>
+        /// <param name="idList">logicalId集合</param>
         /// <returns>处理结果</returns>
         int BactchDeleteByIdList(List<string> idList);
 
         /// <summary>
-        /// 根据logical_id集合批量删除数据
+        /// 根据logicalId集合批量删除数据
         /// </summary>
-        /// <param name="idList">logical_id集合</param>
+        /// <param name="idList">logicalId集合</param>
         /// <returns>处理结果</returns>
         Task<int> BactchDeleteByIdListAsync(List<string> idList);
 
         /// <summary>
-        /// 根据logical_id删除数据
+        /// 根据logicalId删除数据
         /// </summary>
-        /// <param name="logical_id">logical_id</param>
+        /// <param name="logicalId">logicalId</param>
         /// <returns>影响的行数</returns>
-        int LogicDeleteById(string logical_id);
+        int LogicDeleteById(string logicalId);
 
         /// <summary>
-        /// 根据logical_id删除数据
+        /// 根据logicalId删除数据
         /// </summary>
-        /// <param name="logical_id">logical_id</param>
+        /// <param name="logicalId">logicalId</param>
         /// <returns>影响的行数</returns>
-        Task<int> LogicDeleteByIdAsync(string logical_id);
+        Task<int> LogicDeleteByIdAsync(string logicalId);
 
         /// <summary>
-        /// 根据logical_id集合批量删除数据
+        /// 根据logicalId集合批量删除数据
         /// </summary>
-        /// <param name="idList">logical_id集合</param>
+        /// <param name="idList">logicalId集合</param>
         /// <returns>处理结果</returns>
         int BactchLogicDeleteByIdList(List<string> idList);
 
         /// <summary>
-        /// 根据logical_id集合批量删除数据
+        /// 根据logicalId集合批量删除数据
         /// </summary>
-        /// <param name="idList">logical_id集合</param>
+        /// <param name="idList">logicalId集合</param>
         /// <returns>处理结果</returns>
         Task<int> BactchLogicDeleteByIdListAsync(List<string> idList);
 
         /// <summary>
-        /// 根据logical_id更新数据实体
+        /// 根据logicalId更新数据实体
         /// </summary>
         /// <param name="model">实体模型</param>
         /// <returns>更新结果</returns>
         int UpdateById(TModel model);
 
         /// <summary>
-        /// 根据logical_id更新数据实体
+        /// 根据logicalId更新数据实体
         /// </summary>
         /// <param name="model">实体模型</param>
         /// <returns>更新结果</returns>
         Task<int> UpdateByIdAsync(TModel model);
 
         /// <summary>
-        /// 根据logical_id更新数据实体(批量更新)
+        /// 根据logicalId更新数据实体(批量更新)
         /// </summary>
         /// <param name="modelList">实体模型集合</param>
         /// <returns>更新结果</returns>
         int BactchUpdateById(List<TModel> modelList);
 
         /// <summary>
-        /// 根据logical_id更新数据实体(批量更新)
+        /// 根据logicalId更新数据实体(批量更新)
         /// </summary>
         /// <param name="modelList">实体模型集合</param>
         /// <returns>更新结果</returns>
@@ -121,7 +121,7 @@ namespace HS.Message.Repository.repository.@base.core
         /// <summary>
         /// 批量更新指定字段的值(根据主键集合)
         /// </summary>
-        /// <param name="idList">logical_id集合</param>
+        /// <param name="idList">logicalId集合</param>
         /// <param name="updateFieldsValue">跟新字段键值对</param>
         /// <returns>所有数据集合</returns>
         int BactchUpdateSpecifyFieldsById(MBactchUpdateSpecifyFields<string> bactchUpdateSpecifyFields);
@@ -129,7 +129,7 @@ namespace HS.Message.Repository.repository.@base.core
         /// <summary>
         /// 批量更新指定字段的值(根据主键集合)
         /// </summary>
-        /// <param name="idList">logical_id集合</param>
+        /// <param name="idList">logicalId集合</param>
         /// <param name="updateFieldsValue">跟新字段键值对</param>
         /// <returns>所有数据集合</returns>
         Task<int >BactchUpdateSpecifyFieldsByIdAsync(MBactchUpdateSpecifyFields<string> bactchUpdateSpecifyFields);
@@ -149,20 +149,20 @@ namespace HS.Message.Repository.repository.@base.core
         Task<long >GetTotalCountAsync(TCondition condition);
 
         /// <summary>
-        /// 根据logical_id获取一个模型数据
+        /// 根据logicalId获取一个模型数据
         /// </summary>
-        /// <param name="logical_id">logical_id</param>
+        /// <param name="logicalId">logicalId</param>
         /// <param name="queryFields">需要查询的字段，空代表获取全部，默认为空</param>
         /// <returns>模型数据</returns>
-        TModel GetModelById(string logical_id, string queryFields = "");
+        TModel GetModelById(string logicalId, string queryFields = "");
 
         /// <summary>
-        /// 根据logical_id获取一个模型数据
+        /// 根据logicalId获取一个模型数据
         /// </summary>
-        /// <param name="logical_id">logical_id</param>
+        /// <param name="logicalId">logicalId</param>
         /// <param name="queryFields">需要查询的字段，空代表获取全部，默认为空</param>
         /// <returns>模型数据</returns>
-        Task<TModel >GetModelByIdAsync(string logical_id, string queryFields = "");
+        Task<TModel >GetModelByIdAsync(string logicalId, string queryFields = "");
 
         /// <summary>
         /// 根据条件获取一个模型数据
@@ -181,7 +181,7 @@ namespace HS.Message.Repository.repository.@base.core
         /// <summary>
         /// 获取所有数据集合(根据主键集合)
         /// </summary>
-        /// <param name="idList">logical_id集合</param>
+        /// <param name="idList">logicalId集合</param>
         /// <param name="queryFields">需要查询的字段，空代表获取全部，默认为空</param>
         /// <returns>所有数据集合</returns>
         List<TModel> GetAllListByIdList(List<string> idList, string queryFields = "");
@@ -189,7 +189,7 @@ namespace HS.Message.Repository.repository.@base.core
         /// <summary>
         /// 获取所有数据集合(根据主键集合)
         /// </summary>
-        /// <param name="idList">logical_id集合</param>
+        /// <param name="idList">logicalId集合</param>
         /// <param name="queryFields">需要查询的字段，空代表获取全部，默认为空</param>
         /// <returns>所有数据集合</returns>
         Task<List<TModel>> GetAllListByIdListAsync(List<string> idList, string queryFields = "");

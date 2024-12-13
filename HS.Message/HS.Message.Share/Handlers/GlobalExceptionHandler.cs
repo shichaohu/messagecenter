@@ -22,16 +22,16 @@ namespace HS.Message.Share.Handlers
         {
             var response = new BaseResponse<dynamic>
             {
-                Code = ResponseCode.InternalError,
+                Ret = ResponseCode.InternalError,
             };
             if (context.Exception.GetType() == typeof(UserOperationException))
             {
-                response.Message = context.Exception.Message;
+                response.Msg = context.Exception.Message;
                 context.Result = new InternalServerErrorObjectResult(response);//返回异常数据
             }
             else
             {
-                response.Message = context.Exception.Message;
+                response.Msg = context.Exception.Message;
                 context.Result = new InternalServerErrorObjectResult(response);
             }
 

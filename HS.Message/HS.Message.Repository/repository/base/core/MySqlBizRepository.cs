@@ -115,30 +115,30 @@ namespace HS.Message.Repository.repository.@base.core
         }
 
         /// <summary>
-        /// 根据logical_id删除数据
+        /// 根据logicalId删除数据
         /// </summary>
-        /// <param name="logical_id">logical_id</param>
+        /// <param name="logicalId">logicalId</param>
         /// <returns>影响的行数</returns>
-        public int DeleteById(string logical_id)
+        public int DeleteById(string logicalId)
         {
             // 执行删除操作
-            return DapperTool.ExecuteNonQuery($" delete from  `{TableName}` where logical_id=@logical_id", new TModel() { LogicalId = logical_id });
+            return DapperTool.ExecuteNonQuery($" delete from  `{TableName}` where logical_id=@logicalId", new TModel() { LogicalId = logicalId });
         }
         /// <summary>
-        /// 根据logical_id删除数据
+        /// 根据logicalId删除数据
         /// </summary>
-        /// <param name="logical_id">logical_id</param>
+        /// <param name="logicalId">logicalId</param>
         /// <returns>影响的行数</returns>
-        public async Task<int> DeleteByIdAsync(string logical_id)
+        public async Task<int> DeleteByIdAsync(string logicalId)
         {
             // 执行删除操作
-            return await DapperTool.ExecuteNonQueryAsync($" delete from  `{TableName}` where logical_id=@logical_id", new TModel() { LogicalId = logical_id });
+            return await DapperTool.ExecuteNonQueryAsync($" delete from  `{TableName}` where logical_id=@logicalId", new TModel() { LogicalId = logicalId });
         }
 
         /// <summary>
-        /// 根据logical_id集合批量删除数据
+        /// 根据logicalId集合批量删除数据
         /// </summary>
-        /// <param name="idList">logical_id集合</param>
+        /// <param name="idList">logicalId集合</param>
         /// <returns>处理结果</returns>
         public int BactchDeleteByIdList(List<string> idList)
         {
@@ -150,9 +150,9 @@ namespace HS.Message.Repository.repository.@base.core
             return DapperTool.ExecuteNonQuery($" delete from  `{TableName}` where logical_id in ('" + sqlWehre + "')");
         }
         /// <summary>
-        /// 根据logical_id集合批量删除数据
+        /// 根据logicalId集合批量删除数据
         /// </summary>
-        /// <param name="idList">logical_id集合</param>
+        /// <param name="idList">logicalId集合</param>
         /// <returns>处理结果</returns>
         public async Task<int> BactchDeleteByIdListAsync(List<string> idList)
         {
@@ -165,30 +165,30 @@ namespace HS.Message.Repository.repository.@base.core
         }
 
         /// <summary>
-        /// 根据logical_id删除数据
+        /// 根据logicalId删除数据
         /// </summary>
-        /// <param name="logical_id">logical_id</param>
+        /// <param name="logicalId">logicalId</param>
         /// <returns>影响的行数</returns>
-        public int LogicDeleteById(string logical_id)
+        public int LogicDeleteById(string logicalId)
         {
             // 执行删除操作
-            return DapperTool.ExecuteNonQuery($" update `{TableName}` set ``=1 where logical_id=@logical_id", new TModel() { LogicalId = logical_id });
+            return DapperTool.ExecuteNonQuery($" update `{TableName}` set ``=1 where logical_id=@logicalId", new TModel() { LogicalId = logicalId });
         }
         /// <summary>
-        /// 根据logical_id删除数据
+        /// 根据logicalId删除数据
         /// </summary>
-        /// <param name="logical_id">logical_id</param>
+        /// <param name="logicalId">logicalId</param>
         /// <returns>影响的行数</returns>
-        public async Task<int> LogicDeleteByIdAsync(string logical_id)
+        public async Task<int> LogicDeleteByIdAsync(string logicalId)
         {
             // 执行删除操作
-            return await DapperTool.ExecuteNonQueryAsync($" update `{TableName}` set ``=1 where logical_id=@logical_id", new TModel() { LogicalId = logical_id });
+            return await DapperTool.ExecuteNonQueryAsync($" update `{TableName}` set ``=1 where logical_id=@logicalId", new TModel() { LogicalId = logicalId });
         }
 
         /// <summary>
-        /// 根据logical_id集合批量删除数据
+        /// 根据logicalId集合批量删除数据
         /// </summary>
-        /// <param name="idList">logical_id集合</param>
+        /// <param name="idList">logicalId集合</param>
         /// <returns>处理结果</returns>
         public int BactchLogicDeleteByIdList(List<string> idList)
         {
@@ -200,9 +200,9 @@ namespace HS.Message.Repository.repository.@base.core
             return DapperTool.ExecuteNonQuery($" update `{TableName}` set `is_delete`=1  where logical_id in ('{sqlWehre}')");
         }
         /// <summary>
-        /// 根据logical_id集合批量删除数据
+        /// 根据logicalId集合批量删除数据
         /// </summary>
-        /// <param name="idList">logical_id集合</param>
+        /// <param name="idList">logicalId集合</param>
         /// <returns>处理结果</returns>
         public async Task<int> BactchLogicDeleteByIdListAsync(List<string> idList)
         {
@@ -215,7 +215,7 @@ namespace HS.Message.Repository.repository.@base.core
         }
 
         /// <summary>
-        /// 根据logical_id更新数据实体
+        /// 根据logicalId更新数据实体
         /// </summary>
         /// <param name="model">实体模型</param>
         /// <returns>更新结果</returns>
@@ -224,7 +224,7 @@ namespace HS.Message.Repository.repository.@base.core
             return DapperTool.ExecuteNonQuery(GetUpdateSql(), model);
         }
         /// <summary>
-        /// 根据logical_id更新数据实体
+        /// 根据logicalId更新数据实体
         /// </summary>
         /// <param name="model">实体模型</param>
         /// <returns>更新结果</returns>
@@ -234,7 +234,7 @@ namespace HS.Message.Repository.repository.@base.core
         }
 
         /// <summary>
-        /// 根据logical_id更新数据实体(批量更新)
+        /// 根据logicalId更新数据实体(批量更新)
         /// </summary>
         /// <param name="modelList">实体模型集合</param>
         /// <returns>更新结果</returns>
@@ -277,7 +277,7 @@ namespace HS.Message.Repository.repository.@base.core
             return result;
         }
         /// <summary>
-        /// 根据logical_id更新数据实体(批量更新)
+        /// 根据logicalId更新数据实体(批量更新)
         /// </summary>
         /// <param name="modelList">实体模型集合</param>
         /// <returns>更新结果</returns>
@@ -323,7 +323,7 @@ namespace HS.Message.Repository.repository.@base.core
         /// <summary>
         /// 批量更新指定字段的值(根据主键集合)
         /// </summary>
-        /// <param name="idList">logical_id集合</param>
+        /// <param name="idList">logicalId集合</param>
         /// <param name="updateFieldsValue">跟新字段键值对</param>
         /// <returns>所有数据集合</returns>
         public int BactchUpdateSpecifyFieldsById(MBactchUpdateSpecifyFields<string> bactchUpdateSpecifyFields)
@@ -346,7 +346,7 @@ namespace HS.Message.Repository.repository.@base.core
         /// <summary>
         /// 批量更新指定字段的值(根据主键集合)
         /// </summary>
-        /// <param name="idList">logical_id集合</param>
+        /// <param name="idList">logicalId集合</param>
         /// <param name="updateFieldsValue">跟新字段键值对</param>
         /// <returns>所有数据集合</returns>
         public async Task<int> BactchUpdateSpecifyFieldsByIdAsync(MBactchUpdateSpecifyFields<string> bactchUpdateSpecifyFields)
@@ -387,57 +387,57 @@ namespace HS.Message.Repository.repository.@base.core
         }
 
         /// <summary>
-        /// 根据logical_id获取一个模型数据
+        /// 根据logicalId获取一个模型数据
         /// </summary>
-        /// <param name="logical_id">logical_id</param>
+        /// <param name="logicalId">logicalId</param>
         /// <param name="queryFields">需要查询的字段，空代表获取全部，默认为空</param>
         /// <returns>模型数据</returns>
-		public TModel GetModelById(string logical_id, string queryFields = "")
+		public TModel GetModelById(string logicalId, string queryFields = "")
         {
 
-            return GetModelById<TModel>(logical_id, queryFields);
+            return GetModelById<TModel>(logicalId, queryFields);
         }
         /// <summary>
-        /// 根据logical_id获取一个模型数据
+        /// 根据logicalId获取一个模型数据
         /// </summary>
-        /// <param name="logical_id">logical_id</param>
+        /// <param name="logicalId">logicalId</param>
         /// <param name="queryFields">需要查询的字段，空代表获取全部，默认为空</param>
         /// <returns>模型数据</returns>
-		public async Task<TModel> GetModelByIdAsync(string logical_id, string queryFields = "")
+		public async Task<TModel> GetModelByIdAsync(string logicalId, string queryFields = "")
         {
 
-            return await GetModelByIdAsync<TModel>(logical_id, queryFields);
+            return await GetModelByIdAsync<TModel>(logicalId, queryFields);
         }
 
         /// <summary>
-        /// 根据logical_id获取一个模型数据
+        /// 根据logicalId获取一个模型数据
         /// </summary>
-        /// <param name="logical_id">logical_id</param>
+        /// <param name="logicalId">logicalId</param>
         /// <param name="queryFields">需要查询的字段，空代表获取全部，默认为空</param>
         /// <returns>模型数据</returns>
-		public T GetModelById<T>(string logical_id, string queryFields = "")
+		public T GetModelById<T>(string logicalId, string queryFields = "")
         {
-            T model = DapperTool.GetModel<TModel, T>(string.IsNullOrEmpty(queryFields) ? GetAllField() : queryFields,
+            T model = DapperTool.GetModel<TModel, T>(string.IsNullOrEmpty(queryFields) ? GetAllSelectField() : queryFields,
                 $"`{TableName}`",
-                $" 1=1  and logical_id=@logical_id ",
-                new TModel() { LogicalId = logical_id }
+                $" 1=1  and logical_id=@logicalId ",
+                new TModel() { LogicalId = logicalId }
                 );
             ModelUtil.AutoFill(model, autoFillFieldsList);
             return model;
         }
 
         /// <summary>
-        /// 根据logical_id获取一个模型数据
+        /// 根据logicalId获取一个模型数据
         /// </summary>
-        /// <param name="logical_id">logical_id</param>
+        /// <param name="logicalId">logicalId</param>
         /// <param name="queryFields">需要查询的字段，空代表获取全部，默认为空</param>
         /// <returns>模型数据</returns>
-        public async Task<T> GetModelByIdAsync<T>(string logical_id, string queryFields = "")
+        public async Task<T> GetModelByIdAsync<T>(string logicalId, string queryFields = "")
         {
-            T model = await DapperTool.GetModelAsync<TModel, T>(string.IsNullOrEmpty(queryFields) ? GetAllField() : queryFields,
+            T model = await DapperTool.GetModelAsync<TModel, T>(string.IsNullOrEmpty(queryFields) ? GetAllSelectField() : queryFields,
                 $"`{TableName}`",
-                $" 1=1  and logical_id=@logical_id ",
-                new TModel() { LogicalId = logical_id }
+                $" 1=1  and logical_id=@logicalId ",
+                new TModel() { LogicalId = logicalId }
                 );
             ModelUtil.AutoFill(model, autoFillFieldsList);
             return model;
@@ -452,7 +452,7 @@ namespace HS.Message.Repository.repository.@base.core
         {
             var sql = GetSqlWhereByModel(condition);
 
-            TModel model = DapperTool.GetModel<TModel>(condition == null || string.IsNullOrEmpty(condition.QueryFields) ? GetAllField() : condition.QueryFields,
+            TModel model = DapperTool.GetModel<TModel>(condition == null || string.IsNullOrEmpty(condition.QueryFields) ? GetAllSelectField() : condition.QueryFields,
                     $"`{TableName}`",
                     sql,
                     condition as TModel
@@ -470,7 +470,7 @@ namespace HS.Message.Repository.repository.@base.core
         {
             var sql = GetSqlWhereByModel(condition);
 
-            TModel model = await DapperTool.GetModelAsync<TModel>(condition == null || string.IsNullOrEmpty(condition.QueryFields) ? GetAllField() : condition.QueryFields,
+            TModel model = await DapperTool.GetModelAsync<TModel>(condition == null || string.IsNullOrEmpty(condition.QueryFields) ? GetAllSelectField() : condition.QueryFields,
                     $"`{TableName}`",
                     sql,
                     condition as TModel
@@ -483,7 +483,7 @@ namespace HS.Message.Repository.repository.@base.core
         /// <summary>
         /// 获取所有数据集合(根据主键集合)
         /// </summary>
-        /// <param name="idList">logical_id集合</param>
+        /// <param name="idList">logicalId集合</param>
         /// <param name="queryFields">需要查询的字段，空代表获取全部，默认为空</param>
         /// <returns>所有数据集合</returns>
         public List<TModel> GetAllListByIdList(List<string> idList, string queryFields = "")
@@ -493,7 +493,7 @@ namespace HS.Message.Repository.repository.@base.core
             sqlWehre.CheckSQLInjection();
 
             // 构建查询语句
-            string sql = $"SELECT {(string.IsNullOrEmpty(queryFields) ? GetAllField() : queryFields)} FROM `{TableName}` where logical_id in ('" + sqlWehre + "') ;";
+            string sql = $"SELECT {(string.IsNullOrEmpty(queryFields) ? GetAllSelectField() : queryFields)} FROM `{TableName}` where logical_id in ('" + sqlWehre + "') ;";
             var dataList = DapperTool.Query<TModel>(sql).ToList();
             ModelUtil.AutoFill(dataList, autoFillFieldsList);
             return dataList;
@@ -501,7 +501,7 @@ namespace HS.Message.Repository.repository.@base.core
         /// <summary>
         /// 获取所有数据集合(根据主键集合)
         /// </summary>
-        /// <param name="idList">logical_id集合</param>
+        /// <param name="idList">logicalId集合</param>
         /// <param name="queryFields">需要查询的字段，空代表获取全部，默认为空</param>
         /// <returns>所有数据集合</returns>
         public async Task<List<TModel>> GetAllListByIdListAsync(List<string> idList, string queryFields = "")
@@ -511,7 +511,7 @@ namespace HS.Message.Repository.repository.@base.core
             sqlWehre.CheckSQLInjection();
 
             // 构建查询语句
-            string sql = $"SELECT {(string.IsNullOrEmpty(queryFields) ? GetAllField() : queryFields)} FROM `{TableName}` where logical_id in ('" + sqlWehre + "') ;";
+            string sql = $"SELECT {(string.IsNullOrEmpty(queryFields) ? GetAllSelectField() : queryFields)} FROM `{TableName}` where logical_id in ('" + sqlWehre + "') ;";
             var dataList = (await DapperTool.QueryAsync<TModel>(sql)).ToList();
             ModelUtil.AutoFill(dataList, autoFillFieldsList);
             return dataList;
@@ -520,7 +520,7 @@ namespace HS.Message.Repository.repository.@base.core
         /// <summary>
         /// 获取所有数据集合(根据主键集合)
         /// </summary>
-        /// <param name="idList">logical_id集合</param>
+        /// <param name="idList">logicalId集合</param>
         /// <param name="queryFields">需要查询的字段，空代表获取全部，默认为空</param>
         /// <returns>所有数据集合</returns>
         public List<T> GetAllListByIdList<T>(List<string> idList, string queryFields = "")
@@ -530,7 +530,7 @@ namespace HS.Message.Repository.repository.@base.core
             sqlWehre.CheckSQLInjection();
 
             // 构建查询语句
-            string sql = $"SELECT {(string.IsNullOrEmpty(queryFields) ? GetAllField() : queryFields)} FROM `{TableName}` where logical_id in ('" + sqlWehre + "') ;";
+            string sql = $"SELECT {(string.IsNullOrEmpty(queryFields) ? GetAllSelectField() : queryFields)} FROM `{TableName}` where logical_id in ('" + sqlWehre + "') ;";
             var dataList = DapperTool.Query<T>(sql).ToList();
             ModelUtil.AutoFill(dataList, autoFillFieldsList);
             return dataList;
@@ -538,7 +538,7 @@ namespace HS.Message.Repository.repository.@base.core
         /// <summary>
         /// 获取所有数据集合(根据主键集合)
         /// </summary>
-        /// <param name="idList">logical_id集合</param>
+        /// <param name="idList">logicalId集合</param>
         /// <param name="queryFields">需要查询的字段，空代表获取全部，默认为空</param>
         /// <returns>所有数据集合</returns>
         public async Task<List<T>> GetAllListByIdListAsync<T>(List<string> idList, string queryFields = "")
@@ -548,7 +548,7 @@ namespace HS.Message.Repository.repository.@base.core
             sqlWehre.CheckSQLInjection();
 
             // 构建查询语句
-            string sql = $"SELECT {(string.IsNullOrEmpty(queryFields) ? GetAllField() : queryFields)} FROM `{TableName}` where logical_id in ('" + sqlWehre + "') ;";
+            string sql = $"SELECT {(string.IsNullOrEmpty(queryFields) ? GetAllSelectField() : queryFields)} FROM `{TableName}` where logical_id in ('" + sqlWehre + "') ;";
             var dataList = (await DapperTool.QueryAsync<T>(sql)).ToList();
             ModelUtil.AutoFill(dataList, autoFillFieldsList);
             return dataList;
@@ -580,7 +580,7 @@ namespace HS.Message.Repository.repository.@base.core
             var sql = GetSqlWhereByModel(condition);
 
             // 调用通用分页查询接口
-            List<TModel> listModel = DapperTool.GetPageList<TCondition, TModel>(string.IsNullOrEmpty(condition.QueryFields) ? GetAllField() : condition.QueryFields,
+            List<TModel> listModel = DapperTool.GetPageList<TCondition, TModel>(string.IsNullOrEmpty(condition.QueryFields) ? GetAllSelectField() : condition.QueryFields,
                  $"`{TableName}`", sql, pageInfor, condition);
             pageQueryCondition.pageIndex = pageInfor.pageIndex;
             pageQueryCondition.pageSize = pageInfor.pageSize;
@@ -614,7 +614,7 @@ namespace HS.Message.Repository.repository.@base.core
             var sql = GetSqlWhereByModel(condition);
 
             // 调用通用分页查询接口
-            List<TModel> listModel = await DapperTool.GetPageListAsync<TCondition, TModel>(string.IsNullOrEmpty(condition.QueryFields) ? GetAllField() : condition.QueryFields,
+            List<TModel> listModel = await DapperTool.GetPageListAsync<TCondition, TModel>(string.IsNullOrEmpty(condition.QueryFields) ? GetAllSelectField() : condition.QueryFields,
                  $"`{TableName}`", sql, pageInfor, condition);
             pageQueryCondition.pageIndex = pageInfor.pageIndex;
             pageQueryCondition.pageSize = pageInfor.pageSize;
@@ -633,7 +633,7 @@ namespace HS.Message.Repository.repository.@base.core
         public List<TModel> GetAllList(TCondition model, int limitNum = 0)
         {
             // 构建查询语句
-            string sql = $"SELECT {(model == null || string.IsNullOrEmpty(model.QueryFields) ? GetAllField() : model.QueryFields)} FROM `{TableName}` where 1=1 and {GetSqlWhereByModel(model)}  ORDER BY {(model == null || string.IsNullOrEmpty(model.Orderby) ? " logical_id desc " : model.Orderby)} {(limitNum > 0 ? " limit " + limitNum : "")};";
+            string sql = $"SELECT {(model == null || string.IsNullOrEmpty(model.QueryFields) ? GetAllSelectField() : model.QueryFields)} FROM `{TableName}` where 1=1 and {GetSqlWhereByModel(model)}  ORDER BY {(model == null || string.IsNullOrEmpty(model.Orderby) ? " logical_id desc " : model.Orderby)} {(limitNum > 0 ? " limit " + limitNum : "")};";
             var dataList = DapperTool.Query<TCondition, TModel>(sql, model).ToList();
 
             ModelUtil.AutoFill(dataList, autoFillFieldsList);
@@ -649,7 +649,7 @@ namespace HS.Message.Repository.repository.@base.core
         public async Task<List<TModel>> GetAllListAsync(TCondition model, int limitNum = 0)
         {
             // 构建查询语句
-            string sql = $"SELECT {(model == null || string.IsNullOrEmpty(model.QueryFields) ? GetAllField() : model.QueryFields)} FROM `{TableName}` where 1=1 and {GetSqlWhereByModel(model)}  ORDER BY {(model == null || string.IsNullOrEmpty(model.Orderby) ? " logical_id desc " : model.Orderby)} {(limitNum > 0 ? " limit " + limitNum : "")};";
+            string sql = $"SELECT {(model == null || string.IsNullOrEmpty(model.QueryFields) ? GetAllSelectField() : model.QueryFields)} FROM `{TableName}` where 1=1 and {GetSqlWhereByModel(model)}  ORDER BY {(model == null || string.IsNullOrEmpty(model.Orderby) ? " logical_id desc " : model.Orderby)} {(limitNum > 0 ? " limit " + limitNum : "")};";
             var dataList = (await DapperTool.QueryAsync<TCondition, TModel>(sql, model)).ToList();
 
             ModelUtil.AutoFill(dataList, autoFillFieldsList);
@@ -680,17 +680,17 @@ namespace HS.Message.Repository.repository.@base.core
         /// 获取表全部字段
         /// </summary>
         /// <returns></returns>
-        public string GetAllField(string tableAlias = "")
+        public string GetAllSelectField(string tableAlias = "")
         {
             tableAlias = string.IsNullOrEmpty(tableAlias) ? "" : tableAlias + ".";
-            return $"{tableAlias}`id`,{GetAllFieldFunc(tableAlias)}";
+            return $"{tableAlias}`id`,{GetAllFieldFunc(tableAlias, true)}";
         }
 
         /// <summary>
         /// 获取表全部字段(不包含id)
         /// </summary>
         /// <returns></returns>
-        public Func<string, string> GetAllFieldFunc { get; set; }
+        public Func<string,bool, string> GetAllFieldFunc { get; set; }
 
         /// <summary>
         /// 获取表\的插入语句 

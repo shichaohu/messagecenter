@@ -32,7 +32,7 @@ namespace HS.Message.Share.MessageEmitter
         /// <param name="request.OutId">外部流水号</param>
         public async Task<BaseResponse<SendSmsResponse>> MsmSend(SendSmsRequest request)
         {
-            BaseResponse<SendSmsResponse> result = new() { Code = ResponseCode.InternalError, Message = "操作失败！" };
+            BaseResponse<SendSmsResponse> result = new() { Ret = ResponseCode.InternalError, Msg = "操作失败！" };
 
             try
             {
@@ -58,16 +58,16 @@ namespace HS.Message.Share.MessageEmitter
                 // 发送提交成功
                 if (response.Body.Code.ToUpper() == "OK")
                 {
-                    result.Code = ResponseCode.Success;
-                    result.Message = "发送成功！";
+                    result.Ret = ResponseCode.Success;
+                    result.Msg = "发送成功！";
                 }
 
                 result.Data = response;
             }
             catch (Exception ex)
             {
-                result.Code = ResponseCode.InternalError;
-                result.Message = ex.Message;
+                result.Ret = ResponseCode.InternalError;
+                result.Msg = ex.Message;
 
                 _logger.LogError($"阿里云短信发送异常:{ex.Message},SendInfo:{request}");
             }
@@ -83,7 +83,7 @@ namespace HS.Message.Share.MessageEmitter
         /// <returns></returns>
         public async Task<BaseResponse<QuerySendDetailsResponse>> QuerySendDetails(QuerySendDetailsRequest request)
         {
-            BaseResponse<QuerySendDetailsResponse> result = new() { Code = ResponseCode.InternalError, Message = "操作失败！" };
+            BaseResponse<QuerySendDetailsResponse> result = new() { Ret = ResponseCode.InternalError, Msg = "操作失败！" };
 
             var client = CreateClient(_smsParameter.AliyunSmsAccessKeyId, _smsParameter.AliyunSmsAccessKeySecret);
 
@@ -100,13 +100,13 @@ namespace HS.Message.Share.MessageEmitter
             // 发送提交成功
             if (response?.Body?.Code?.ToUpper() == "OK")
             {
-                result.Code = ResponseCode.Success;
-                result.Message = "查询成功！";
+                result.Ret = ResponseCode.Success;
+                result.Msg = "查询成功！";
             }
             else
             {
-                result.Code = ResponseCode.InternalError;
-                result.Message = response?.Body?.Message;
+                result.Ret = ResponseCode.InternalError;
+                result.Msg = response?.Body?.Message;
             }
 
             result.Data = response;

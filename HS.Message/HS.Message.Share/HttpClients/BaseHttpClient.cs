@@ -34,20 +34,20 @@ namespace HS.Message.Share.HttpClients
             if (httpResponseMessage.IsSuccessStatusCode)
             {
                 string responseStr = await httpResponseMessage.Content.ReadAsStringAsync();
-                result.Code = ResponseCode.Success;
+                result.Ret = ResponseCode.Success;
                 if (typeof(T) != typeof(string))
                 {
                     result.Data = JsonConvert.DeserializeObject<T>(responseStr);
                 }
                 else
                 {
-                    result.Message = responseStr;
+                    result.Msg = responseStr;
                 }
             }
             else
             {
-                result.Code = ResponseCode.InternalError;
-                result.Message = await httpResponseMessage.Content.ReadAsStringAsync();
+                result.Ret = ResponseCode.InternalError;
+                result.Msg = await httpResponseMessage.Content.ReadAsStringAsync();
             }
             return result;
 

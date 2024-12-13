@@ -266,7 +266,7 @@ namespace HS.Rabbitmq.Core
                         else
                         {
                             var res = await ConsumerRun(message);
-                            if (res.Code == ResponseCode.Success && res.Data.Successed)
+                            if (res.Ret == ResponseCode.Success && res.Data.Successed)
                             {
                                 _logger.LogInformation($"{logPrefix}message consumption success...");
                             }
@@ -313,7 +313,7 @@ namespace HS.Rabbitmq.Core
             {
                 var response = await ConsumerCallBack(message);
 
-                if (response.Code != ResponseCode.Success)
+                if (response.Ret != ResponseCode.Success)
                 {
                     response.Data.DelaySeconds = CalculateDelaySeconds(message.NumberOfConsumed);
                 }
@@ -323,8 +323,8 @@ namespace HS.Rabbitmq.Core
             {
                 return new BaseResponse<ConsumerResponse>
                 {
-                    Code = ResponseCode.InternalError,
-                    Message = $"execute consumerfunc error : {ex.Message}",
+                    Ret = ResponseCode.InternalError,
+                    Msg = $"execute consumerfunc error : {ex.Message}",
                     Data = new ConsumerResponse
                     {
                         Successed = false,
