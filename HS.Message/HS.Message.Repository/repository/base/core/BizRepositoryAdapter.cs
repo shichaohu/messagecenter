@@ -61,6 +61,12 @@ namespace HS.Message.Repository.repository.@base.core
         /// <returns>处理结果</returns>
         public int AddOne(TModel model)
         {
+            if (string.IsNullOrWhiteSpace(model.CreatedById))
+            {
+                model.CreatedById = _injectedObjects.HttpContextInfo.GetUserId().ToString();
+                model.CreatedByName = _injectedObjects.HttpContextInfo.GetUserName().ToString();
+                model.CreatedTime = DateTime.Now;
+            }
             return _sqlRepository.AddOne(model);
         }
         /// <summary>
@@ -70,6 +76,12 @@ namespace HS.Message.Repository.repository.@base.core
         /// <returns>处理结果</returns>
         public async Task<int> AddOneAsync(TModel model)
         {
+            if (string.IsNullOrWhiteSpace(model.CreatedById))
+            {
+                model.CreatedById = _injectedObjects.HttpContextInfo.GetUserId().ToString();
+                model.CreatedByName = _injectedObjects.HttpContextInfo.GetUserName().ToString();
+                model.CreatedTime = DateTime.Now;
+            }
             return await _sqlRepository.AddOneAsync(model);
         }
 
@@ -80,6 +92,16 @@ namespace HS.Message.Repository.repository.@base.core
         /// <returns>影响的行数</returns>
         public int BactchAdd(List<TModel> modelList)
         {
+            foreach (var model in modelList)
+            {
+                if (string.IsNullOrWhiteSpace(model.CreatedById))
+                {
+                    model.CreatedById = _injectedObjects.HttpContextInfo.GetUserId().ToString();
+                    model.CreatedByName = _injectedObjects.HttpContextInfo.GetUserName().ToString();
+                    model.CreatedTime = DateTime.Now;
+                }
+
+            }
             return _sqlRepository.BactchAdd(modelList);
         }
 
@@ -90,6 +112,16 @@ namespace HS.Message.Repository.repository.@base.core
         /// <returns>影响的行数</returns>
         public async Task<int> BactchAddAsync(List<TModel> modelList)
         {
+            foreach (var model in modelList)
+            {
+                if (string.IsNullOrWhiteSpace(model.CreatedById))
+                {
+                    model.CreatedById = _injectedObjects.HttpContextInfo.GetUserId().ToString();
+                    model.CreatedByName = _injectedObjects.HttpContextInfo.GetUserName().ToString();
+                    model.CreatedTime = DateTime.Now;
+                }
+
+            }
             return await _sqlRepository.BactchAddAsync(modelList);
         }
 

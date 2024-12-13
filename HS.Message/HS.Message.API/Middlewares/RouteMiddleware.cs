@@ -26,7 +26,7 @@ namespace HS.Message.Middlewares
         {
             if (context.Request.Path.HasValue)
             {
-                string requestPath = "/api/bus/";
+                string requestPath = "/api/message/";
                 if (context.Request.Path.HasValue && context.Request.Path.Value.StartsWith(requestPath, StringComparison.CurrentCultureIgnoreCase))
                 {
                     context.Request.Path = context.Request.Path.Value.Replace("/bus/", "/");

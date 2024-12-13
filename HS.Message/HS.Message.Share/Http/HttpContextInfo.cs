@@ -135,7 +135,7 @@ namespace HS.Message.Share.Http
         {
             if (Token == null)
             {
-                return "系统自动";
+                return "-";
             }
 
             return GetTokenValuByKey("username")?.ToString() + string.Empty;
