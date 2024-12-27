@@ -1,5 +1,5 @@
 # 添加基础镜像：docker会从网络下载这个镜像
-FROM dotnet:8.0
+FROM asp.net:8.0
 
 #容器中系统的工作空间
 WORKDIR /app
